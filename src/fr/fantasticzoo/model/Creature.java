@@ -101,5 +101,13 @@ public abstract class Creature {
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public int getMaxHealth() {
+        return MAX_HEALTH;
+    }
+
+    public int getMaxHunger() {
+        return MAX_HUNGER;
+    }
 }
 
