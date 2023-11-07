@@ -2,8 +2,7 @@ package fr.fantasticzoo.model;
 
 public abstract class Creature {
     public String name;
-    public String
-            sex;
+    public SexType sex;
     public int weight;
     public int height;
     public int age;
@@ -12,13 +11,12 @@ public abstract class Creature {
     public int health;
 
     public void eat(Food food) {
-        hunger = hunger + food.getFoodStats();
+        setHunger(hunger + food.getFoodStats());
         System.out.println(this.name +" ate a " + food.getFoodName());
-        System.out.println("Hunger level: " + hunger);
     }
 
     public void cry() {
-
+        
     }
 
 
@@ -33,5 +31,68 @@ public abstract class Creature {
     public void aging() {
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public SexType getSex() {
+        return sex;
+    }
+
+    public void setSex(SexType sex) {
+        this.sex = sex;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getHunger() {
+        return hunger;
+    }
+
+    public void setHunger(int hunger) {
+        this.hunger = hunger;
+    }
+
+    public boolean isAsleep() {
+        return isAsleep;
+    }
+
+    public void setAsleep(boolean asleep) {
+        isAsleep = asleep;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }
 
