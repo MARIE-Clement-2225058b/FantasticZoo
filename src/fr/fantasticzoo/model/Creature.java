@@ -24,6 +24,7 @@ public abstract class Creature {
     }
 
     public void cry() {
+        System.out.println();
 
     }
 
