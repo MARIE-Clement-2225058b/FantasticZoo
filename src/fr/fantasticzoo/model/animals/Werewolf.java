@@ -1,25 +1,26 @@
 package fr.fantasticzoo.model.animals;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.Food;
-import fr.fantasticzoo.model.SexType;
+import fr.fantasticzoo.model.*;
 
-public class Werewolf extends Creature {
+public class Werewolf extends Viviparous {
     public Werewolf(int maxHealth, int maxHunger) {
         super(maxHealth, maxHunger);
     }
 
     @Override
     public void cry() {
-        super.cry();
+        super.cry(CryType.GENERICCRY);
     }
 
-    /**
-     * @param food 
-     */
+    // Override the action methods and include a check for asleep state before performing the action
+
     @Override
     public void eat(Food food) {
-        super.eat(food);
+        if (!isAsleep()) {
+            super.eat(food);
+        } else {
+            System.out.println("The Werewolf is asleep and cannot eat.");
+        }
     }
 
     /**
@@ -27,7 +28,11 @@ public class Werewolf extends Creature {
      */
     @Override
     public void heal() {
-        super.heal();
+        if (!isAsleep()) {
+            super.heal();
+        } else {
+            System.out.println("The Werewolf is asleep and cannot heal.");
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 package fr.fantasticzoo.model.animals;
 
 import fr.fantasticzoo.model.Creature;
+import fr.fantasticzoo.model.CryType;
 import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
 
@@ -9,25 +10,29 @@ public class Squats extends Creature {
         super(maxHealth, maxHunger);
     }
 
-    @Override
+
     public void cry() {
-        super.cry();
+        super.cry(CryType.GENERICCRY);
     }
 
     /**
      * @param food
      */
-    @Override
     public void eat(Food food) {
-        super.eat(food);
+        if (!isAsleep()) {
+            super.eat(food);
+        } else {
+            System.out.println("The Werewolf is asleep and cannot eat.");
+        }
     }
 
-    /**
-     *
-     */
     @Override
     public void heal() {
-        super.heal();
+        if (!isAsleep()) {
+            super.heal();
+        } else {
+            System.out.println("The Werewolf is asleep and cannot heal.");
+        }
     }
 
     /**
