@@ -18,7 +18,7 @@ public abstract class Creature {
     public void setPregnancyState(int state) {
         PregnancyState = state;
         if (state==9){
-
+            this.giveBirth();
         }
     }
 
@@ -26,6 +26,8 @@ public abstract class Creature {
         MAX_HEALTH = maxHealth;
         MAX_HUNGER = maxHunger;
     }
+
+    public abstract void giveBirth();
 
 
     public void eat(Food food) {
