@@ -4,8 +4,8 @@ import fr.fantasticzoo.model.Creature;
 import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
 
-public class Werewolf extends Creature {
-    public Werewolf(int maxHealth, int maxHunger) {
+public class Nymphs extends Creature {
+    public Nymphs(int maxHealth, int maxHunger) {
         super(maxHealth, maxHunger);
     }
 
@@ -15,7 +15,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param food 
+     * @param food
      */
     @Override
     public void eat(Food food) {
@@ -23,7 +23,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * 
+     *
      */
     @Override
     public void heal() {
@@ -31,7 +31,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * 
+     *
      */
     @Override
     public void fallAsleep() {
@@ -39,7 +39,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * 
+     *
      */
     @Override
     public void aging() {
@@ -47,7 +47,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public String getName() {
@@ -55,7 +55,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param name 
+     * @param name
      */
     @Override
     public void setName(String name) {
@@ -63,7 +63,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public SexType getSex() {
@@ -71,7 +71,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param sex 
+     * @param sex
      */
     @Override
     public void setSex(SexType sex) {
@@ -79,7 +79,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public int getWeight() {
@@ -87,7 +87,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param weight 
+     * @param weight
      */
     @Override
     public void setWeight(int weight) {
@@ -95,7 +95,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public int getHeight() {
@@ -103,7 +103,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param height 
+     * @param height
      */
     @Override
     public void setHeight(int height) {
@@ -111,7 +111,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public int getAge() {
@@ -119,7 +119,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param age 
+     * @param age
      */
     @Override
     public void setAge(int age) {
@@ -127,7 +127,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public int getHunger() {
@@ -135,7 +135,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param hunger 
+     * @param hunger
      */
     @Override
     public void setHunger(int hunger) {
@@ -143,7 +143,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public boolean isAsleep() {
@@ -151,7 +151,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param asleep 
+     * @param asleep
      */
     @Override
     public void setAsleep(boolean asleep) {
@@ -167,7 +167,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @param health 
+     * @param health
      */
     @Override
     public void setHealth(int health) {
@@ -175,7 +175,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public int getMaxHealth() {
@@ -183,7 +183,7 @@ public class Werewolf extends Creature {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public int getMaxHunger() {
