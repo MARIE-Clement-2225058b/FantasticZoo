@@ -19,7 +19,8 @@ public abstract class Creature {
         MAX_HUNGER = maxHunger;
     }
 
-    public void eat(Food food) {
+
+    public void eat(Food food, boolean isAsleep) {
         setHunger(hunger + food.getFoodStats());
         System.out.println(this.name +" ate a " + food.getFoodName());
     }

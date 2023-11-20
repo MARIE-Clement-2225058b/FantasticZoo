@@ -19,15 +19,20 @@ public class Phenix extends Creature {
      */
     @Override
     public void eat(Food food) {
-        super.eat(food);
+        if (!isAsleep()) {
+            super.eat(food);
+        } else {
+            System.out.println("The Werewolf is asleep and cannot eat.");
+        }
     }
 
-    /**
-     *
-     */
     @Override
     public void heal() {
-        super.heal();
+        if (!isAsleep()) {
+            super.heal();
+        } else {
+            System.out.println("The Werewolf is asleep and cannot heal.");
+        }
     }
 
     /**
