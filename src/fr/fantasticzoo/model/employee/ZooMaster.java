@@ -1,36 +1,49 @@
-package fr.fantasticzoo.model.animals;
+package fr.fantasticzoo.model.employee;
 
 import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.CryType;
 import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
+import fr.fantasticzoo.model.enclosure.Enclosure;
 
-public class Megalodons extends Creature {
-    public Megalodons(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+public class ZooMaster extends Creature {
+    public ZooMaster() {
+        super(100, 100);
     }
 
-    public void cry() {
-        super.cry(CryType.GENERICCRY);
+    public void examinateEnclosure(Enclosure enclosure) {
+        System.out.println(enclosure.toString());
+    }
+
+    public void cleanEnclosure(Enclosure enclosure) {
+        enclosure.clean();
+    }
+
+    public void feedCreaturesInEnclosure(Enclosure enclosure) {
+        enclosure.feedAllCreatures();
+    }
+
+    public void moveAnimalFromEnclosure(Creature creature, Enclosure enclosure1, Enclosure enclosure2) {
+        if( enclosure1.transfertCreature(enclosure2, creature))
+            System.out.println(super.getName()
+                    + " a déplacé " + creature.getName()
+                    + " de l'enclos " + enclosure1.getName()
+                    + " à l'enclos " + enclosure2.getName());
     }
 
     /**
      * @param food
      */
+    @Override
     public void eat(Food food) {
-        if (!isAsleep()) {
-            super.eat(food);
-        } else {
-            System.out.println("The Werewolf is asleep and cannot eat.");
-        }
+        super.eat(food);
     }
+
+    /**
+     *
+     */
     @Override
     public void heal() {
-        if (!isAsleep()) {
-            super.heal();
-        } else {
-            System.out.println("The Werewolf is asleep and cannot heal.");
-        }
+        super.heal();
     }
 
     /**
