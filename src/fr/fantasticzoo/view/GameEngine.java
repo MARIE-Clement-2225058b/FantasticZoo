@@ -1,7 +1,7 @@
 package fr.fantasticzoo.view;
 
 import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.Werewolf;
+import fr.fantasticzoo.model.animals.Werewolf;
 
 import java.io.IOException;
 

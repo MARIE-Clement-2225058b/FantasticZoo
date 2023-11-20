@@ -4,15 +4,15 @@ public abstract class Creature {
 
     private final int MAX_HEALTH;
     private final int MAX_HUNGER;
-    public String name;
-    public SexType sex;
-    public CryType cry;
-    public int weight;
-    public int height;
-    public int age;
-    public int hunger;
-    public boolean isAsleep;
-    public int health;
+    private String name;
+    private SexType sex;
+    private CryType cry;
+    private int weight;
+    private int height;
+    private int age;
+    private int hunger;
+    private boolean isAsleep;
+    private int health;
 
     public Creature(int maxHealth, int maxHunger) {
         MAX_HEALTH = maxHealth;
@@ -22,6 +22,10 @@ public abstract class Creature {
     public void eat(Food food) {
         setHunger(hunger + food.getFoodStats());
         System.out.println(this.name +" ate a " + food.getFoodName());
+    }
+
+    public void feed() {
+        setHunger(MAX_HUNGER);
     }
 
     public void cry(CryType cry) {
