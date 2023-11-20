@@ -1,6 +1,7 @@
 package fr.fantasticzoo.model.animals;
 
 import fr.fantasticzoo.model.Creature;
+import fr.fantasticzoo.model.CryType;
 import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
 public class Dragons extends Creature {
@@ -10,7 +11,7 @@ public class Dragons extends Creature {
 
     @Override
     public void cry() {
-        super.cry();
+        super.cry(CryType.GENERICCRY);
     }
 
     /**

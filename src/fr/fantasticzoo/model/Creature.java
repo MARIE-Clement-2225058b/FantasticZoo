@@ -1,6 +1,6 @@
 package fr.fantasticzoo.model;
 
-public abstract class Creature {
+public abstract class Creature{
 
     private final int MAX_HEALTH;
     private final int MAX_HUNGER;
@@ -13,11 +13,21 @@ public abstract class Creature {
     public int hunger;
     public boolean isAsleep;
     public int health;
+    public int PregnancyState = 0;
+
+    public void setPregnancyState(int state) {
+        PregnancyState = state;
+        if (state==9){
+
+        }
+    }
 
     public Creature(int maxHealth, int maxHunger) {
         MAX_HEALTH = maxHealth;
         MAX_HUNGER = maxHunger;
     }
+
+    public abstract void cry();
 
     public void eat(Food food) {
         setHunger(hunger + food.getFoodStats());

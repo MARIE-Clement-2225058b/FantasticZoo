@@ -1,17 +1,15 @@
 package fr.fantasticzoo.model.animals;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.Food;
-import fr.fantasticzoo.model.SexType;
+import fr.fantasticzoo.model.*;
 
-public class Werewolf extends Creature {
+public class Werewolf extends Viviparous {
     public Werewolf(int maxHealth, int maxHunger) {
         super(maxHealth, maxHunger);
     }
 
     @Override
     public void cry() {
-        super.cry();
+        super.cry(CryType.GENERICCRY);
     }
 
     /**
