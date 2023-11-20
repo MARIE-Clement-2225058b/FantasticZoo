@@ -6,6 +6,7 @@ public abstract class Creature {
     private final int MAX_HUNGER;
     public String name;
     public SexType sex;
+    public CryType cry;
     public int weight;
     public int height;
     public int age;
@@ -23,20 +24,28 @@ public abstract class Creature {
         System.out.println(this.name +" ate a " + food.getFoodName());
     }
 
-    public void cry() {
-        System.out.println();
+    public void cry(CryType cry) {
+        System.out.println(cry);
 
     }
 
-    public void heal() {
+    public void die(){
+        System.out.println(this.name + "has died...");
+    }
+
+    public void heal(){
+        this.health = this.MAX_HEALTH;
     }
 
 
     public void fallAsleep() {
+        this.setAsleep(true);
+        System.out.println(this.name + " fell asleep.");
     }
 
 
     public void aging() {
+        this.age = this.age + 1;
     }
 
     public String getName() {
