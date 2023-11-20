@@ -12,13 +12,6 @@ public class Werewolf extends Viviparous {
         super.cry(CryType.GENERICCRY);
     }
 
-    /**
-     * @param food 
-     */
-    public Werewolf() {
-        super();
-    }
-
     // Override the action methods and include a check for asleep state before performing the action
 
     @Override
