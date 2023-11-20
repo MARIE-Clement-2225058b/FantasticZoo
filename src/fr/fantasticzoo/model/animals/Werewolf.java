@@ -15,9 +15,19 @@ public class Werewolf extends Viviparous {
     /**
      * @param food 
      */
+    public Werewolf() {
+        super();
+    }
+
+    // Override the action methods and include a check for asleep state before performing the action
+
     @Override
     public void eat(Food food) {
-        super.eat(food);
+        if (!isAsleep()) {
+            super.eat(food);
+        } else {
+            System.out.println("The Werewolf is asleep and cannot eat.");
+        }
     }
 
     /**
@@ -25,7 +35,11 @@ public class Werewolf extends Viviparous {
      */
     @Override
     public void heal() {
-        super.heal();
+        if (!isAsleep()) {
+            super.heal();
+        } else {
+            System.out.println("The Werewolf is asleep and cannot heal.");
+        }
     }
 
     /**
