@@ -10,7 +10,7 @@ public class Mermaids extends Creature {
         super(maxHealth, maxHunger);
     }
 
-    @Override
+
     public void cry() {
         super.cry(CryType.GENERICCRY);
     }
@@ -18,7 +18,6 @@ public class Mermaids extends Creature {
     /**
      * @param food
      */
-    @Override
     public void eat(Food food) {
         if (!isAsleep()) {
             super.eat(food);

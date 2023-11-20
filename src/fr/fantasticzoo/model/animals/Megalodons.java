@@ -10,7 +10,6 @@ public class Megalodons extends Creature {
         super(maxHealth, maxHunger);
     }
 
-    @Override
     public void cry() {
         super.cry(CryType.GENERICCRY);
     }
@@ -18,7 +17,6 @@ public class Megalodons extends Creature {
     /**
      * @param food
      */
-    @Override
     public void eat(Food food) {
         if (!isAsleep()) {
             super.eat(food);
@@ -26,7 +24,6 @@ public class Megalodons extends Creature {
             System.out.println("The Werewolf is asleep and cannot eat.");
         }
     }
-
     @Override
     public void heal() {
         if (!isAsleep()) {

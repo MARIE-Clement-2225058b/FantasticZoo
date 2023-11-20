@@ -8,7 +8,6 @@ public class Viviparous extends Creature{
     /**
      *
      */
-    @Override
     public void cry() {
 
     }
