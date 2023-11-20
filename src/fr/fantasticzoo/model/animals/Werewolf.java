@@ -1,6 +1,10 @@
-package fr.fantasticzoo.model;
+package fr.fantasticzoo.model.animals;
 
-public class Werewolf extends Creature{
+import fr.fantasticzoo.model.Creature;
+import fr.fantasticzoo.model.Food;
+import fr.fantasticzoo.model.SexType;
+
+public class Werewolf extends Creature {
     public Werewolf(int maxHealth, int maxHunger) {
         super(maxHealth, maxHunger);
     }
