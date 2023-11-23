@@ -4,42 +4,48 @@ public class Egg {
     public int gestationPeriod;
     public int hatchDate;
     public String name;
+    private Oviparous mother;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getHatchDate() {
         return hatchDate;
     }
 
     public void setHatchDate(int hatchDate) {
+
         this.hatchDate = hatchDate;
     }
 
-    public void setGestationPeriod(int gestationPeriod) {
-        this.gestationPeriod = gestationPeriod;
-        if (this.gestationPeriod == this.hatchDate){
-            hatch();
-        }
+    public Oviparous getMother() {
+        return mother;
     }
 
-    public int getGestationPeriod() {
-        return gestationPeriod;
-    }
-
-    public Egg(int daysRemaining) {
+    public Egg(int daysRemaining, Oviparous mother) {
         this.gestationPeriod = 0;
-        this.hatchDate = hatchDate;
+        this.name = "Egg";
+        this.hatchDate = daysRemaining;
+        this.mother = mother;
     }
 
-    public void hatch(){
+    public Creature hatch(){
         System.out.println(this.name + " is hatching!!!");
 
         try {
-            Class<?> clazz = super.getClass();
-            Object NewEgg = clazz.getDeclaredConstructor().newInstance();
-            System.out.println(this.name + "has hatched!");
+            Creature newChild = (Creature) this.mother.getType().getDeclaredConstructor().newInstance();
+            System.out.println(this.name + " has hatched!");
+            return newChild;
 
         } catch (Exception e) {
 
             e.printStackTrace();
+            return null;
         }
     }
 }

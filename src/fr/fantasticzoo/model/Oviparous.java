@@ -1,9 +1,14 @@
 package fr.fantasticzoo.model;
 
+import java.util.Random;
+
+import static java.lang.Math.random;
+
 public class Oviparous extends Creature{
-    public Oviparous(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+    public Oviparous(int maxHealth, int maxHunger, SexType sex, String name) {
+        super(maxHealth, maxHunger, sex, name);
     }
+
 
     /**
      *
@@ -13,24 +18,25 @@ public class Oviparous extends Creature{
         layEgg();
 
     }
-
+    public Class<?> getType() {
+        return (Class<?>) this.getClass();
+    }
     /**
-     *
+     * @return
      */
     @Override
-    public void cry() {
+    public short cry() {
 
+        return 0;
     }
 
-    public void layEgg() {
+    public Egg layEgg() {
         System.out.println(this.name + " is giving birth!!!");
 
-        try {
-            Egg egg = new Egg(2);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
+        // returns new egg with random gestation period between 10 and 30 days
+        Random rand = new Random();
+        int daysRemaining = rand.nextInt(20) + 10;
+        return new Egg(daysRemaining, this);
     }
+
 }

@@ -4,13 +4,10 @@ import fr.fantasticzoo.model.*;
 
 public class Werewolf extends Viviparous {
     public Werewolf() {
-        super(100, 100);
+        super(100, 100, SexType.MALE, "Werewolf");
     }
 
-    @Override
-    public void cry() {
-        super.cry(CryType.GENERICCRY);
-    }
+
 
     // Override the action methods and include a check for asleep state before performing the action
 

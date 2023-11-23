@@ -11,7 +11,7 @@ public class GameEngine {
     private AsciiArtView asciiArtView;
 
     public GameEngine() {
-        currentAnimal = new Werewolf(100,100);
+        currentAnimal = new Werewolf();
         asciiArtView = new AsciiArtView();
     }
 

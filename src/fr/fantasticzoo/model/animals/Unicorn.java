@@ -6,8 +6,9 @@ import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
 
 public class Unicorn extends Creature {
-    public Unicorn(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+    public Unicorn(int maxHealth, int maxHunger, SexType sex, String name) {
+
+        super(maxHealth, maxHunger, sex, name);
     }
 
     @Override
@@ -15,8 +16,9 @@ public class Unicorn extends Creature {
 
     }
 
-    public void cry() {
+    public short cry() {
         super.cry(CryType.GENERICCRY);
+        return 0;
     }
 
     /**

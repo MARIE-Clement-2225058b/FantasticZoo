@@ -1,8 +1,8 @@
 package fr.fantasticzoo.model;
 
 public class Viviparous extends Creature{
-    public Viviparous(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+    public Viviparous(int maxHealth, int maxHunger, SexType sex, String name) {
+        super(maxHealth, maxHunger, sex, name);
     }
 
     @Override
@@ -11,10 +11,11 @@ public class Viviparous extends Creature{
     }
 
     /**
-     *
+     * @return
      */
-    public void cry() {
+    public short cry() {
 
+        return 0;
     }
 
     public void deliver() {

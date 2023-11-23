@@ -1,23 +1,33 @@
 package fr.fantasticzoo.model.animals;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.CryType;
-import fr.fantasticzoo.model.Food;
-import fr.fantasticzoo.model.SexType;
+import fr.fantasticzoo.model.*;
 
-public class Mermaids extends Creature {
-    public Mermaids(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+public class Mermaids extends Oviparous {
+    public Mermaids(int maxHealth, int maxHunger, SexType sex, String name) {
+        super(maxHealth, maxHunger, sex, name);
     }
+
+    public Mermaids(){
+        super(100, 100, SexType.FEMALE, "Ariel");
+
+    }
+
+
 
     @Override
-    public void giveBirth() {
-
+    public Egg layEgg() {
+        return super.layEgg();
     }
 
+    /**
+     *
+     */
 
-    public void cry() {
+
+
+    public short cry() {
         super.cry(CryType.GENERICCRY);
+        return 0;
     }
 
     /**

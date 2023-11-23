@@ -15,6 +15,7 @@ public abstract class Creature {
     public int health;
     public int PregnancyState = 0;
 
+
     public void setPregnancyState(int state) {
         PregnancyState = state;
         if (state==9){
@@ -22,9 +23,11 @@ public abstract class Creature {
         }
     }
 
-    public Creature(int maxHealth, int maxHunger) {
+    public Creature(int maxHealth, int maxHunger, SexType sex, String name) {
         MAX_HEALTH = maxHealth;
         MAX_HUNGER = maxHunger;
+        this.name = name;
+        this.sex = sex;
     }
 
     public abstract void giveBirth();
@@ -35,8 +38,8 @@ public abstract class Creature {
         System.out.println(this.name +" ate a " + food.getFoodName());
     }
 
-    public void cry(CryType cry) {
-        System.out.println(cry);
+    public String cry(CryType cry) {
+        return cry.toString();
 
     }
 
@@ -131,7 +134,7 @@ public abstract class Creature {
         return MAX_HUNGER;
     }
 
-    public abstract void cry();
+    public abstract short cry();
 
     public void feed() {
     }

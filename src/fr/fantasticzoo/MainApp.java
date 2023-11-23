@@ -10,10 +10,5 @@ public class MainApp {
 
         GameEngine gameEngine = new GameEngine();
         gameEngine.startGame();
-        Werewolf jeff = new Werewolf(100,100);
-        jeff.cry();
-        jeff.setPregnancyState(1);
-        jeff.setPregnancyState(9);
-        jeff.deliver();
     }
 }
