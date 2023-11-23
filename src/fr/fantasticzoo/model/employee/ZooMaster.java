@@ -8,7 +8,7 @@ import fr.fantasticzoo.model.enclosure.Enclosure;
 
 public class ZooMaster extends Human {
     public ZooMaster() {
-
+        super();
     }
 
     public void examinateEnclosure(Enclosure enclosure) {

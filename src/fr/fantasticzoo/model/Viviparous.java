@@ -5,6 +5,11 @@ public class Viviparous extends Creature{
         super(maxHealth, maxHunger);
     }
 
+    @Override
+    public void giveBirth() {
+
+    }
+
     /**
      *
      */
