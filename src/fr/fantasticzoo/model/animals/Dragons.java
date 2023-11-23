@@ -9,6 +9,11 @@ public class Dragons extends Creature {
         super(maxHealth, maxHunger);
     }
 
+    @Override
+    public void giveBirth() {
+
+    }
+
 
     public void cry() {
         super.cry(CryType.GENERICCRY);
