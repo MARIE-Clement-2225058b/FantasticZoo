@@ -7,6 +7,10 @@ public class Werewolf extends Viviparous {
         super(100, 100);
     }
 
+    public Werewolf(int i, int i1) {
+        super(i, i1);
+    }
+
     @Override
     public void cry() {
         super.cry(CryType.GENERICCRY);

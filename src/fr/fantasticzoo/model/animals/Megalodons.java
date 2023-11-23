@@ -7,6 +7,7 @@ import fr.fantasticzoo.model.SexType;
 
 public class Megalodons extends Creature {
     public Megalodons(int maxHealth, int maxHunger) {
+
         super(maxHealth, maxHunger);
     }
 

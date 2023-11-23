@@ -41,7 +41,12 @@ public abstract class Creature {
     }
 
     public void die(){
-        System.out.println(this.name + "has died...");
+        if (this.health <= 0) {
+            System.out.println(this.name + " has died...");
+        }
+        if (this.hunger <= 0) {
+            System.out.println(this.name + " has died of hunger...");
+        }
     }
 
     public void heal(){
@@ -134,6 +139,7 @@ public abstract class Creature {
     public abstract void cry();
 
     public void feed() {
+
     }
 }
 
