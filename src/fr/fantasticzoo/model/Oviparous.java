@@ -1,8 +1,8 @@
 package fr.fantasticzoo.model;
 
 public class Oviparous extends Creature{
-    public Oviparous(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+    public Oviparous(int maxHealth, int maxHunger, String name, SexType sex) {
+        super(maxHealth, maxHunger, name, sex);
     }
 
     /**
@@ -23,7 +23,7 @@ public class Oviparous extends Creature{
     }
 
     public void layEgg() {
-        System.out.println(this.name + " is giving birth!!!");
+        System.out.println(this.getName() + " is giving birth!!!");
 
         try {
             Egg egg = new Egg(2);

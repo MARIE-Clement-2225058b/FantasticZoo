@@ -1,6 +1,7 @@
 package fr.fantasticzoo.view;
 
 import fr.fantasticzoo.model.Creature;
+import fr.fantasticzoo.model.SexType;
 import fr.fantasticzoo.model.animals.Werewolf;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ public class GameEngine {
     private AsciiArtView asciiArtView;
 
     public GameEngine() {
-        currentAnimal = new Werewolf(100,100);
+        currentAnimal = new Werewolf(100,100, "ted", SexType.MALE);
         asciiArtView = new AsciiArtView();
     }
 
