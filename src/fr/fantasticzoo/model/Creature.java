@@ -1,13 +1,15 @@
 package fr.fantasticzoo.model;
 
+import fr.fantasticzoo.model.enclosure.Enclosure;
+
 import java.util.Random;
 
 public abstract class Creature {
 
     private final int MAX_HEALTH;
     private final int MAX_HUNGER;
-    public String name;
-    public SexType sex;
+    private String NAME;
+    private SexType SEX;
     public CryType cry;
     public int weight;
     public int height;
@@ -30,9 +32,11 @@ public abstract class Creature {
         return this.PregnancyState;
     }
 
-    public Creature(int maxHealth, int maxHunger) {
+    public Creature(int maxHealth, int maxHunger, String name, SexType sex) {
         MAX_HEALTH = maxHealth;
         MAX_HUNGER = maxHunger;
+        NAME = name;
+        SEX = sex;
     }
 
     public abstract void giveBirth();
@@ -41,28 +45,41 @@ public abstract class Creature {
     public void eat(Food food) {
         if (!isAsleep()) {
             this.hunger = Math.min(this.hunger + food.getFoodStats(), this.MAX_HUNGER);
-            System.out.println(this.name +" ate a " + food.getFoodName());
+            System.out.println(this.NAME +" ate a " + food.getFoodName());
         } else {
-            System.out.println(this.name + " is asleep and cannot eat.");
+            System.out.println(this.NAME + " is asleep and cannot eat.");
         }
     }
 
     public void cry(CryType cry) {
-        System.out.println(cry);
+        if (this.isAsleep) {
+            System.out.println(this.NAME + " is asleep and cannot cry.");
+        }
+        else {
+            System.out.println(this.NAME + " cried " + cry);
+        }
+    }
+
+    public void setCry(CryType cry) {
+        this.cry = cry;
+    }
+
+    public CryType getCry() {
+        return this.cry;
     }
 
     public void die(){
         if (this.health <= 0) {
-            System.out.println(this.name + " has died...");
+            System.out.println(this.NAME + " has died...");
         }
         if (this.hunger <= 0) {
-            System.out.println(this.name + " has died of hunger...");
+            System.out.println(this.NAME + " has died of hunger...");
         }
         if (this.age >= 100) {
-            System.out.println(this.name + " has died of old age...");
+            System.out.println(this.NAME + " has died of old age...");
         }
         if (this.isSick = this.health <= 0) {
-            System.out.println(this.name + " has died of sickness...");
+            System.out.println(this.NAME + " has died of sickness...");
         }
     }
 
@@ -73,7 +90,7 @@ public abstract class Creature {
 
     public void fallAsleep() {
         this.setAsleep(true);
-        System.out.println(this.name + " fell asleep.");
+        System.out.println(this.NAME + " fell asleep.");
     }
 
 
@@ -82,19 +99,19 @@ public abstract class Creature {
     }
 
     public String getName() {
-        return name;
+        return NAME;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.NAME = name;
     }
 
     public SexType getSex() {
-        return sex;
+        return SEX;
     }
 
     public void setSex(SexType sex) {
-        this.sex = sex;
+        this.SEX = sex;
     }
 
     public int getWeight() {
@@ -168,8 +185,13 @@ public abstract class Creature {
         int randomNumber = 1 + random.nextInt((15 - 1) + 1);
         if(randomNumber == 1){
             this.isSick = true;
-            System.out.println(this.name + " is sick");
+            System.out.println(this.NAME + " is sick");
         }
+    }
+
+
+    protected Iterable<? extends Creature> getAnimals() {
+        return null;
     }
 }
 

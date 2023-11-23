@@ -2,25 +2,32 @@ package fr.fantasticzoo.model.animals;
 
 import fr.fantasticzoo.model.*;
 
+import java.util.Random;
+
 public class Werewolf extends Viviparous {
-    public Werewolf() {
-        super(100, 100);
-    }
 
-    public Werewolf(int i, int i1) {
-        super(i, i1);
+    public Werewolf(int maxHealth, int maxHunger, String name, SexType sex) {
+        super(maxHealth, maxHunger, name, sex);
     }
-
-    @Override
-    public void cry() {
-        super.cry(CryType.GENERICCRY);
-    }
-
-    // Override the action methods and include a check for asleep state before performing the action
 
     @Override
     public void giveBirth() {
 
+    }
+
+    @Override
+    public void cry() {
+        Random random = new Random();
+        int randomNumber = 1 + random.nextInt((10 - 1) + 1);
+        if (randomNumber == 1){
+            this.setCry(CryType.APPARTENANCE);
+            System.out.println(this.getName() + " cri de type " + this.getCry());
+            for (Creature creature : this.getAnimals()){
+                if (creature.getClass() == this.getClass()){
+                    creature.cry();
+                }
+            }
+        }
     }
 
 }

@@ -2,10 +2,11 @@ package fr.fantasticzoo.model.animals;
 
 import fr.fantasticzoo.model.Creature;
 import fr.fantasticzoo.model.CryType;
+import fr.fantasticzoo.model.SexType;
 
 public class Unicorn extends Creature {
-    public Unicorn(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+    public Unicorn(int maxHealth, int maxHunger, String name, SexType sex) {
+        super(maxHealth, maxHunger, name, sex);
     }
 
     @Override

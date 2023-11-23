@@ -6,8 +6,8 @@ import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
 
 public class Mermaids extends Creature {
-    public Mermaids(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+    public Mermaids(int maxHealth, int maxHunger, String name, SexType sex) {
+        super(maxHealth, maxHunger, name, sex);
     }
 
     @Override

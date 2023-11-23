@@ -6,9 +6,8 @@ import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
 
 public class Megalodons extends Creature {
-    public Megalodons(int maxHealth, int maxHunger) {
-
-        super(maxHealth, maxHunger);
+    public Megalodons(int maxHealth, int maxHunger, String name, SexType sex) {
+        super(maxHealth, maxHunger, name, sex);
     }
 
     @Override
