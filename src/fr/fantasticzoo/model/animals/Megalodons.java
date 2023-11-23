@@ -16,6 +16,11 @@ public class Megalodons extends Creature {
 
     }
 
+    @Override
+    public void die() {
+        super.die();
+    }
+
     public void cry() {
         super.cry(CryType.GENERICCRY);
     }

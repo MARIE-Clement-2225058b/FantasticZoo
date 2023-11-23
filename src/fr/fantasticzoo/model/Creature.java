@@ -1,5 +1,7 @@
 package fr.fantasticzoo.model;
 
+import java.util.Random;
+
 public abstract class Creature {
 
     private final int MAX_HEALTH;
@@ -15,12 +17,31 @@ public abstract class Creature {
     public int health;
     public int PregnancyState = 0;
 
+    public Boolean isSick = false;
+
     public void setPregnancyState(int state) {
         PregnancyState = state;
         if (state==9){
             this.giveBirth();
         }
     }
+
+    public int getPregnancyState() {
+        return this.PregnancyState;
+    }
+
+    public Boolean getSick() {
+        return this.isSick;
+    }
+
+    public void setSick(Boolean sick) {
+        Random random = new Random();
+        int randomNumber = 1 + random.nextInt((15 - 1) + 1);
+        if(randomNumber == 1){
+            this.isSick = true;
+            System.out.println(this.name + " is sick");
+        }
+     }
 
     public Creature(int maxHealth, int maxHunger) {
         MAX_HEALTH = maxHealth;
@@ -46,6 +67,12 @@ public abstract class Creature {
         }
         if (this.hunger <= 0) {
             System.out.println(this.name + " has died of hunger...");
+        }
+        if (this.age >= 100) {
+            System.out.println(this.name + " has died of old age...");
+        }
+        if (this.isSick = true && this.health <= 0) {
+            System.out.println(this.name + " has died of sickness...");
         }
     }
 
