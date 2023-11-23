@@ -30,19 +30,6 @@ public abstract class Creature {
         return this.PregnancyState;
     }
 
-    public Boolean getSick() {
-        return this.isSick;
-    }
-
-    public void setSick(Boolean sick) {
-        Random random = new Random();
-        int randomNumber = 1 + random.nextInt((15 - 1) + 1);
-        if(randomNumber == 1){
-            this.isSick = true;
-            System.out.println(this.name + " is sick");
-        }
-     }
-
     public Creature(int maxHealth, int maxHunger) {
         MAX_HEALTH = maxHealth;
         MAX_HUNGER = maxHunger;
@@ -52,13 +39,16 @@ public abstract class Creature {
 
 
     public void eat(Food food) {
-        setHunger(hunger + food.getFoodStats());
-        System.out.println(this.name +" ate a " + food.getFoodName());
+        if (!isAsleep()) {
+            this.hunger = Math.min(this.hunger + food.getFoodStats(), this.MAX_HUNGER);
+            System.out.println(this.name +" ate a " + food.getFoodName());
+        } else {
+            System.out.println(this.name + " is asleep and cannot eat.");
+        }
     }
 
     public void cry(CryType cry) {
         System.out.println(cry);
-
     }
 
     public void die(){
@@ -71,7 +61,7 @@ public abstract class Creature {
         if (this.age >= 100) {
             System.out.println(this.name + " has died of old age...");
         }
-        if (this.isSick = true && this.health <= 0) {
+        if (this.isSick = this.health <= 0) {
             System.out.println(this.name + " has died of sickness...");
         }
     }
@@ -167,6 +157,19 @@ public abstract class Creature {
 
     public void feed() {
 
+    }
+
+    public boolean getSick() {
+        return this.isSick;
+    }
+
+    public void setSick(Boolean sick) {
+        Random random = new Random();
+        int randomNumber = 1 + random.nextInt((15 - 1) + 1);
+        if(randomNumber == 1){
+            this.isSick = true;
+            System.out.println(this.name + " is sick");
+        }
     }
 }
 
