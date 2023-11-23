@@ -3,8 +3,8 @@ package fr.fantasticzoo.model.animals;
 import fr.fantasticzoo.model.*;
 
 public class Werewolf extends Viviparous {
-    public Werewolf(int maxHealth, int maxHunger) {
-        super(maxHealth, maxHunger);
+    public Werewolf() {
+        super(100, 100);
     }
 
     @Override
