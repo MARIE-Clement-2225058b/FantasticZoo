@@ -149,4 +149,11 @@ class WerewolfTest {
         jeff.setHunger(100);
         assertEquals(100, jeff.getHunger());
     }
+
+    @Test
+    void CanRun() {
+        jeff.setAsleep(false);
+        jeff.run();
+        assertEquals(jeff.name + " is running!", jeff.run());
+    }
 }

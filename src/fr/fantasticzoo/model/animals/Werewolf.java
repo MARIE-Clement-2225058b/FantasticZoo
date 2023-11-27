@@ -1,8 +1,9 @@
 package fr.fantasticzoo.model.animals;
 
+import fr.fantasticzoo.Running;
 import fr.fantasticzoo.model.*;
 
-public class Werewolf extends Viviparous {
+public class Werewolf extends Viviparous implements Running {
     public Werewolf() {
         super(100, 100, SexType.MALE, "Werewolf");
     }
@@ -190,5 +191,18 @@ public class Werewolf extends Viviparous {
     @Override
     public int getMaxHunger() {
         return super.getMaxHunger();
+    }
+
+    @Override
+    public String run() {
+        if (!isAsleep()) {
+            System.out.println(this.name + " is running!");
+            return this.name + " is running!";
+        } else {
+            System.out.println(this.name + " is asleep and cannot run.");
+            return this.name + " is asleep and cannot run.";
+        }
+
+
     }
 }
