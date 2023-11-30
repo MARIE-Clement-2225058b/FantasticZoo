@@ -10,7 +10,7 @@ public class Enclosure {
     private int maxAnimal;
     private int animalCount;
     private int cleanness;
-    private ArrayList<Creature> animals;
+    private ArrayList<Creature> animals = new ArrayList<Creature>();
 
     public String getName() {
         return name;

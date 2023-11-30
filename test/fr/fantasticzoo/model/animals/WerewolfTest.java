@@ -156,4 +156,12 @@ class WerewolfTest {
         jeff.run();
         assertEquals(jeff.name + " is running!", jeff.run());
     }
+
+    // Deliver method is not implemented yet
+    /*@Test
+    void CanDeliver() {
+        jeff.setAsleep(false);
+        jeff.deliver();
+        assertEquals(jeff.name + " is giving birth!!!", jeff.deliver());
+    }*/
 }

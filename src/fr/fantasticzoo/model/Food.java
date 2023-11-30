@@ -6,7 +6,9 @@ public enum Food {
     BANANA("Banana", 5),
     HUMAN("Human",30),
     SHEEP("Sheep",25),
-    MEAT("Piece of meat", 20);
+    MEAT("Piece of meat", 20),
+    MYSTERIOUS("Mysterious food", 50000),
+    WATERMELON("Watermelon", 15);
 
 
     private final String foodName;
