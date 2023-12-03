@@ -5,8 +5,41 @@ import fr.fantasticzoo.model.*;
 import java.util.Random;
 
 public class Werewolf extends Viviparous implements Running {
+
+    private int dominationFactor;
+
+    private int rank = 0;
+
     public Werewolf() {
         super(100, 100, SexType.MALE, "Werewolf");
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public void getRank() {
+        if  (this.rank == 0) {
+            System.out.println("The Werewolf is a normal Werewolf.");
+        }  if (this.rank == 1) {
+            System.out.println("The Werewolf is an Alpha.");
+        }  if (this.rank == 2) {
+            System.out.println("The Werewolf is a Beta.");
+        }  if (this.rank == 3) {
+            System.out.println("The Werewolf is a Gamma.");
+        }  if (this.rank == 4) {
+            System.out.println("The Werewolf is a Delta.");
+        } if (this.rank == 5) {
+            System.out.println("The Werewolf is an Omega.");
+        }
+    }
+
+    public void setdFactor(int dominationFactor) {
+        this.dominationFactor = dominationFactor;
+    }
+
+    public int getdFactor() {
+        return dominationFactor;
     }
 
     /**
