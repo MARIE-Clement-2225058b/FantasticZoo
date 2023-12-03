@@ -15,6 +15,26 @@ public abstract class Creature {
     public int health;
     public int PregnancyState = 0;
 
+    public int strength;
+
+    public boolean transformed = false;
+
+    public boolean getTransformed() {
+        return transformed;
+    }
+
+    public void setTransformed(boolean transformed) {
+        this.transformed = false;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
 
     public void setPregnancyState(int state) {
         PregnancyState = state;
@@ -96,6 +116,18 @@ public abstract class Creature {
 
     public int getAge() {
         return age;
+    }
+
+    public String getAgeType() {
+        if (age < 1) {
+            return "Baby";
+        }if (age < 5) {
+            return "Young";
+        }if (age < 15) {
+            return "Adult";
+        } else {
+            return "Old";
+        }
     }
 
     public void setAge(int age) {
