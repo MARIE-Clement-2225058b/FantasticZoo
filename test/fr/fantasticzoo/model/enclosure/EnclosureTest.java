@@ -57,9 +57,9 @@ class EnclosureTest {
         enclosure.transfertCreature(enclosure2, ariel);
 
         // Vérifier que le premier enclos a été vidé
-        assertEquals(0, enclosure.getAnimals().size());
+        assertEquals(0, enclosure.getAnimalCount());
 
         // Vérifier que le deuxième enclos a été rempli
-        assertEquals(1, enclosure2.getAnimals().size());
+        assertEquals(1, enclosure2.getAnimalCount());
     }
 }

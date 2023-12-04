@@ -155,6 +155,45 @@ class WerewolfTest {
         jeff.setAsleep(false);
         jeff.run();
         assertEquals(jeff.name + " is running!", jeff.run());
+
+        jeff.setAsleep(true);
+        jeff.run();
+        assertEquals(jeff.name + " is asleep and cannot run.", jeff.run());
+    }
+
+    @Test
+    public void canGetPregnant(){
+        jeff.setName("Jeff");
+
+        Werewolf jeffina = new Werewolf();
+        jeffina.setName("Jeffina");
+
+        jeffina.setSex(SexType.FEMALE);
+        jeffina.mate(jeff);
+        assertEquals(1, jeffina.getPregnancyState());
+
+        // Implémenter test pour vérifier que l'enfant est ajouté à la liste des animaux de l'enclos
+        jeffina.setPregnancyState(9);
+    }
+
+    @Test
+    void transformation() {
+        jeff.setTransformed(false);
+        jeff.transformed = true;
+        assertEquals(true, jeff.transformed);
+    }
+
+    @Test
+    void dieofoldage() {
+        // peut être penser à implémenter une MAX_AGE pour chaque animal
+        jeff.setAge(100);
+        jeff.checkAge();
+        assertEquals(0, jeff.getHealth());
+    }
+
+    @Test
+    void hierarchy() {
+        
     }
 
     // Deliver method is not implemented yet

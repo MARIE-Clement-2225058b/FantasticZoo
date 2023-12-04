@@ -7,6 +7,7 @@ public class Viviparous extends Creature{
 
     @Override
     public void giveBirth() {
+        deliver();
 
     }
 

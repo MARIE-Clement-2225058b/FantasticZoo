@@ -19,12 +19,13 @@ public abstract class Creature {
 
     public boolean transformed = false;
 
+    // Transformed est propre au loup-garou, il ne peut pas être utilisé par les autres créatures normalement
     public boolean getTransformed() {
         return transformed;
     }
 
     public void setTransformed(boolean transformed) {
-        this.transformed = false;
+        this.transformed = transformed;
     }
 
     public void setStrength(int strength) {
@@ -43,6 +44,10 @@ public abstract class Creature {
         }
     }
 
+    public int getPregnancyState() {
+        return PregnancyState;
+    }
+
     public Creature(int maxHealth, int maxHunger, SexType sex, String name) {
         MAX_HEALTH = maxHealth;
         MAX_HUNGER = maxHunger;
@@ -50,7 +55,31 @@ public abstract class Creature {
         this.sex = sex;
     }
 
+
+    // Quand un bébé naît faudra penser à l'ajouter à l'enclos
     public abstract void giveBirth();
+
+    /**
+     * @param mate
+     * La fonction mate permet de faire se reproduire deux Werewolf.
+     * Normalement elle prend comme param un Werewolf mais pour l'instant on va faire avec un Creature.
+     */
+    public void mate(Creature mate){
+        if (!isAsleep()) {
+            if (mate.sex != this.sex) {
+                System.out.println(this.name + " is mating with " + mate.getName() + ".");
+                if (mate.sex == SexType.FEMALE) {
+                    mate.setPregnancyState(1);
+                    System.out.println(mate.getName() + " is pregnant.");
+                } else {
+                    this.setPregnancyState(1);
+                    System.out.println(this.name + " is pregnant.");
+                }
+            }
+        } else {
+            System.out.println(this.name + " is asleep and cannot mate.");
+        }
+    };
 
 
     public void eat(Food food) {
@@ -63,8 +92,9 @@ public abstract class Creature {
 
     }
 
-    public void die(){
-        System.out.println(this.name + "has died...");
+    public void die(String reason){
+        this.health = 0;
+        System.out.println(this.name + " has died of " + reason + ".");
     }
 
     public void heal(){
@@ -80,6 +110,12 @@ public abstract class Creature {
 
     public void aging() {
         this.age = this.age + 1;
+    }
+
+    public void checkAge(){
+        if (this.age > 99){
+            this.die("old age");
+        }
     }
 
     public String getName() {

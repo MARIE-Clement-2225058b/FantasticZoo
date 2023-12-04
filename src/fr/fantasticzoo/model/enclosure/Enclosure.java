@@ -8,7 +8,6 @@ public class Enclosure {
     private String name;
     private int area;
     private int maxAnimal;
-    private int animalCount;
     private int cleanness;
     private ArrayList<Creature> animals = new ArrayList<Creature>();
 
@@ -37,11 +36,7 @@ public class Enclosure {
     }
 
     public int getAnimalCount() {
-        return animalCount;
-    }
-
-    public void setAnimalCount(int animalCount) {
-        this.animalCount = animalCount;
+        return animals.size();
     }
 
     public int getCleanness() {
@@ -66,7 +61,7 @@ public class Enclosure {
                 "name='" + name + '\'' +
                 ", area=" + area +
                 ", maxAnimal=" + maxAnimal +
-                ", animalCount=" + animalCount +
+                ", animalCount=" + animals.size() +
                 ", cleanness=" + cleanness +
                 ", animals=" + animals +
                 '}';

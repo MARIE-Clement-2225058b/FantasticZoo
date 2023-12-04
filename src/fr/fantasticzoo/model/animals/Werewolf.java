@@ -52,7 +52,7 @@ public class Werewolf extends Viviparous implements Running {
         if (!isAsleep()) {
             if (randomNumber == 1) {
                 this.transformed = true;
-                System.out.println("The Werewolf has transformed.");
+                System.out.println(this.name + " has transformed.");
             }
         }
     }
@@ -67,6 +67,17 @@ public class Werewolf extends Viviparous implements Running {
     public int getStrength() {
             return super.getStrength();
     }
+
+
+
+
+
+    @Override
+    public void mate(Creature mate) {
+        super.mate(mate);
+
+    }
+
 
     /**
      *
@@ -83,7 +94,7 @@ public class Werewolf extends Viviparous implements Running {
         if (!isAsleep()) {
             super.eat(food);
         } else {
-            System.out.println("The Werewolf is asleep and cannot eat.");
+            System.out.println(this.name + " is asleep and cannot eat.");
         }
     }
 
@@ -95,7 +106,7 @@ public class Werewolf extends Viviparous implements Running {
         if (!isAsleep()) {
             super.heal();
         } else {
-            System.out.println("The Werewolf is asleep and cannot heal.");
+            System.out.println(this.name + " is asleep and cannot heal.");
         }
     }
 
