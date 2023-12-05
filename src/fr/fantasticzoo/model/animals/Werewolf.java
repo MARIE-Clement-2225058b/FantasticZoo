@@ -1,7 +1,11 @@
 package fr.fantasticzoo.model.animals;
-
 import fr.fantasticzoo.Running;
 import fr.fantasticzoo.model.*;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Werewolf extends Viviparous implements Running {
@@ -9,6 +13,8 @@ public class Werewolf extends Viviparous implements Running {
     private int dominationFactor;
 
     private int rank = 0;
+
+    public boolean transformed = false;
 
     public Werewolf() {
         super(100, 100, SexType.MALE, "Werewolf");
@@ -19,18 +25,14 @@ public class Werewolf extends Viviparous implements Running {
     }
 
     public void getRank() {
-        if  (this.rank == 0) {
-            System.out.println("The Werewolf is a normal Werewolf.");
-        }  if (this.rank == 1) {
-            System.out.println("The Werewolf is an Alpha.");
-        }  if (this.rank == 2) {
-            System.out.println("The Werewolf is a Beta.");
-        }  if (this.rank == 3) {
-            System.out.println("The Werewolf is a Gamma.");
-        }  if (this.rank == 4) {
-            System.out.println("The Werewolf is a Delta.");
-        } if (this.rank == 5) {
-            System.out.println("The Werewolf is an Omega.");
+        List<String> greekAlphabet = Arrays.asList(
+                "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda",
+                "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega"
+        );
+        if (rank < greekAlphabet.size()) {
+            System.out.println(this.name + " is ranked " + greekAlphabet.get(rank) + ".");
+        } else {
+            System.out.println(this.name + " is ranked " + rank + ".");
         }
     }
 
@@ -45,7 +47,7 @@ public class Werewolf extends Viviparous implements Running {
     /**
      *
      */
-    @Override
+
     public void setTransformed(boolean transformed) {
         Random random = new Random();
         int randomNumber = random.nextInt(1000) + 1;
@@ -58,7 +60,7 @@ public class Werewolf extends Viviparous implements Running {
     }
 
     public boolean getTransformed() {
-        return super.getTransformed();
+        return this.transformed;
     }
 
     /**
@@ -67,9 +69,6 @@ public class Werewolf extends Viviparous implements Running {
     public int getStrength() {
             return super.getStrength();
     }
-
-
-
 
 
     @Override

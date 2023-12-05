@@ -17,16 +17,6 @@ public abstract class Creature {
 
     public int strength;
 
-    public boolean transformed = false;
-
-    // Transformed est propre au loup-garou, il ne peut pas être utilisé par les autres créatures normalement
-    public boolean getTransformed() {
-        return transformed;
-    }
-
-    public void setTransformed(boolean transformed) {
-        this.transformed = transformed;
-    }
 
     public void setStrength(int strength) {
         this.strength = strength;
