@@ -176,7 +176,6 @@ public abstract class Creature {
         }
     }
 
-
     public String getName() {
         return name;
     }
@@ -231,6 +230,7 @@ public abstract class Creature {
 
     public void setAge(int age) {
         this.age = age;
+        checkAge();
     }
 
     public int getHunger() {
