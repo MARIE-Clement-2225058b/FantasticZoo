@@ -1,6 +1,5 @@
 package fr.fantasticzoo;
 
-import fr.fantasticzoo.model.animals.Werewolf;
 import fr.fantasticzoo.view.GameEngine;
 
 public class MainApp {
