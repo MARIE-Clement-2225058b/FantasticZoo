@@ -11,7 +11,7 @@ public class Oviparous extends Creature{
 
 
     /**
-     *
+     * Cette méthode est héritée de la classe Creature et permet de pondre un oeuf pour les ovipares.
      */
     @Override
     public void giveBirth() {
@@ -30,6 +30,10 @@ public class Oviparous extends Creature{
         return 0;
     }
 
+    /**
+     * Cette fonction permet aux ovipares de pondre un oeuf
+     * @return Egg
+     */
     public Egg layEgg() {
         System.out.println(this.name + " is giving birth!!!");
 

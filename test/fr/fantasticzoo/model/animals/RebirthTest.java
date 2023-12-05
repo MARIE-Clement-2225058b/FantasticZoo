@@ -15,6 +15,8 @@ public class RebirthTest {
         phenix.setAge(100);
         dragolosse.setAge(100);
         nymphus.setAge(100);
+
+        // Normalement les animaux meurent à 100 ans mais pas ces trois types là donc leur santé devrait être à 100
         assertEquals(100, phenix.getHealth());
         assertEquals(100, dragolosse.getHealth());
         assertEquals(100, nymphus.getHealth());
