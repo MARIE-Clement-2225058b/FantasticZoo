@@ -25,6 +25,8 @@ public class Viviparous extends Creature{
         try {
             Class<?> clazz = this.getClass();
             Object newChild = clazz.getDeclaredConstructor().newInstance();
+            // add child to enclosure
+            this.enclosure.getAnimals().add((Creature) newChild);
 
         } catch (Exception e) {
 

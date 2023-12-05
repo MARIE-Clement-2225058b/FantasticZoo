@@ -24,22 +24,15 @@ public class Dragons extends Creature {
 
     /**
      * @param food
+     * Pour nourrir le dragon
      */
     public void eat(Food food) {
-        if (!isAsleep()) {
-            super.eat(food);
-        } else {
-            System.out.println("The Werewolf is asleep and cannot eat.");
-        }
+        super.eat(food);
     }
 
     @Override
     public void heal() {
-        if (!isAsleep()) {
-            super.heal();
-        } else {
-            System.out.println("The Werewolf is asleep and cannot heal.");
-        }
+        super.heal();
     }
 
     /**

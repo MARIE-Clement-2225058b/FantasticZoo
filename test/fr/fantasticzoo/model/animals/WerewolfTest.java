@@ -1,10 +1,15 @@
 package fr.fantasticzoo.model.animals;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import fr.fantasticzoo.model.Creature;
 import fr.fantasticzoo.model.CryType;
 import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
+import fr.fantasticzoo.model.enclosure.Enclosure;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 class WerewolfTest {
 
@@ -15,6 +20,7 @@ class WerewolfTest {
         jeff.cry(CryType.APPARTENANCE);
         assertEquals("APPARTENANCE", jeff.cry(CryType.APPARTENANCE));
     }
+
     @Test
     void isWherewolf(){
         assertEquals(jeff.getClass(), Werewolf.class);
@@ -171,9 +177,26 @@ class WerewolfTest {
         jeffina.setSex(SexType.FEMALE);
         jeffina.mate(jeff);
         assertEquals(1, jeffina.getPregnancyState());
+    }
 
-        // Implémenter test pour vérifier que l'enfant est ajouté à la liste des animaux de l'enclos
-        jeffina.setPregnancyState(9);
+
+    @Test
+    void CanDeliver() {
+        Werewolf jeffina = new Werewolf();
+        jeffina.setName("Jeffina");
+
+        // Je sais pas comment faire pour récupérer l'enclos ou est rangé l'animal sans lui donner un attribut "enclos" ce qui est dégueulasse mais
+        // du coup faudra changer ça
+        Enclosure enclosure = new Enclosure();
+        jeffina.enclosure = enclosure;
+
+        ArrayList<Creature> animals = new ArrayList<>();
+        animals.add(jeffina);
+        enclosure.setAnimals(animals);
+
+        jeffina.setAsleep(false);
+        jeffina.deliver();
+        assertEquals(2,enclosure.getAnimalCount());
     }
 
     @Test
@@ -195,12 +218,4 @@ class WerewolfTest {
     void hierarchy() {
         
     }
-
-    // Deliver method is not implemented yet
-    /*@Test
-    void CanDeliver() {
-        jeff.setAsleep(false);
-        jeff.deliver();
-        assertEquals(jeff.name + " is giving birth!!!", jeff.deliver());
-    }*/
 }

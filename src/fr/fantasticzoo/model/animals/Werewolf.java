@@ -254,7 +254,8 @@ public class Werewolf extends Viviparous implements Running {
     }
 
     /**
-     * @return 
+     * @return
+     * Cette fonction renvoie le maximum de santé qu'un loup peut avoir
      */
 
     public int getMaxHealth() {
@@ -278,7 +279,24 @@ public class Werewolf extends Viviparous implements Running {
             System.out.println(this.name + " is asleep and cannot run.");
             return this.name + " is asleep and cannot run.";
         }
+    }
 
+
+    public void giveBirth() {
+        super.giveBirth();
+    }
+
+    public String cry(CryType cry) {
+        //cryTypeWerewolf();
+        return super.cry(cry);
+    }
+/*
+    public String cryTypeWerewolf(){
+       this.getClass();
+       for (super: this.getClass() )
+            System.out.println(this.name + " is howling!");
+            return this.name + " is howling!";
 
     }
+*/
 }

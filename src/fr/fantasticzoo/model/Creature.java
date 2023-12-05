@@ -1,9 +1,12 @@
 package fr.fantasticzoo.model;
 
+import fr.fantasticzoo.model.enclosure.Enclosure;
+
 public abstract class Creature {
 
     private final int MAX_HEALTH;
     private final int MAX_HUNGER;
+    //private final int MAX_AGE;
     public String name;
     public SexType sex;
     public CryType cry;
@@ -14,9 +17,20 @@ public abstract class Creature {
     public boolean isAsleep;
     public int health;
     public int PregnancyState = 0;
-
+    public Enclosure enclosure;
     public int strength;
 
+    public Creature(int maxHealth, int maxHunger, SexType sex, String name) {
+        MAX_HEALTH = maxHealth;
+        MAX_HUNGER = maxHunger;
+        this.name = name;
+        this.sex = sex;
+    }
+
+
+    public Enclosure getEnclosure(){
+        return this.enclosure;
+    }
 
     public void setStrength(int strength) {
         this.strength = strength;
@@ -36,13 +50,6 @@ public abstract class Creature {
 
     public int getPregnancyState() {
         return PregnancyState;
-    }
-
-    public Creature(int maxHealth, int maxHunger, SexType sex, String name) {
-        MAX_HEALTH = maxHealth;
-        MAX_HUNGER = maxHunger;
-        this.name = name;
-        this.sex = sex;
     }
 
 

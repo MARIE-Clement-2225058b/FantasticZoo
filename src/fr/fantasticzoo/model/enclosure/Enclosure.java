@@ -81,6 +81,10 @@ public class Enclosure {
         if(!this.animals.contains(creature)) return false;
         this.animals.remove(creature);
         another.animals.add(creature);
+
+        // J'ai ajouté un attribut "enclos" aux créatures psk jsp comment récupérer l'enclos ou l'animal est rangé sinon
+        // /!\ (bancal AF à changer ASAP)
+        creature.enclosure = another;
         return true;
     }
 }
