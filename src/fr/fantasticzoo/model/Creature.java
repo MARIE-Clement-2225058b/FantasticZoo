@@ -1,5 +1,7 @@
 package fr.fantasticzoo.model;
 
+import fr.fantasticzoo.model.animals.Dragons;
+import fr.fantasticzoo.model.animals.Nymphs;
 import fr.fantasticzoo.model.animals.Phenix;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 
@@ -153,12 +155,28 @@ public abstract class Creature {
 
     public void checkAge(){
         if (this.age > 99){
-            if (this.getClass() = Phenix.class){
+            // if the animal is a Phenix, it will be reborn
+            if (this instanceof Phenix){
+                this.age = 0;
+                this.health = MAX_HEALTH;
+                System.out.println(this.name + " has been reborn.");
+            }
+            if (this instanceof Dragons){
+                this.age = 0;
+                this.health = MAX_HEALTH;
+                System.out.println(this.name + " has been reborn.");
+            }
+            if (this instanceof Nymphs){
+                this.age = 0;
+                this.health = MAX_HEALTH;
+                System.out.println(this.name + " has been reborn.");
+            }else {
                 this.die("old age");
             }
             this.die("old age");
         }
     }
+
 
     public String getName() {
         return name;

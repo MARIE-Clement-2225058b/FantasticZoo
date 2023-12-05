@@ -19,6 +19,10 @@ public class Viviparous extends Creature{
         return 0;
     }
 
+    public Class<?> getType() {
+        return (Class<?>) this.getClass();
+    }
+
     public void deliver() {
         System.out.println(this.name + " is giving birth!!!");
 
