@@ -29,19 +29,35 @@ public abstract class Creature {
     }
 
 
+    /**
+     * Returns the value of Enclosure
+     * @return Enclosure
+     */
     public Enclosure getEnclosure(){
         return this.enclosure;
     }
 
+    /**
+     * Sets the value of Enclosure
+     * @param strength
+     */
     public void setStrength(int strength) {
         this.strength = strength;
     }
 
+    /**
+     * Returns the value of Strength
+     * @return int
+     */
     public int getStrength() {
         return strength;
     }
 
 
+    /**
+     * Sets the value of pregnancyState
+     * @param state
+     */
     public void setPregnancyState(int state) {
         PregnancyState = state;
         if (state==9){
@@ -49,12 +65,20 @@ public abstract class Creature {
         }
     }
 
+    /**
+     * Returns the value of pregnancyState
+     * @return int
+     */
     public int getPregnancyState() {
         return PregnancyState;
     }
 
 
     // Quand un bébé naît faudra penser à l'ajouter à l'enclos
+
+    /**
+     * La fonction giveBirth permet de faire accoucher un animal. Elle dépend de l'animal, s'il est une ovipare ou un vivipare.
+     */
     public abstract void giveBirth();
 
     /**
@@ -80,6 +104,10 @@ public abstract class Creature {
     };
 
 
+    /**
+     * @param food
+     * Pour nourrir l'animal
+     */
     public void eat(Food food) {
         if (!isAsleep){
             setHunger(hunger + food.getFoodStats());
@@ -89,6 +117,10 @@ public abstract class Creature {
         }
     }
 
+    /**
+     * @param cry
+     * Le cri par défaut de l'animal
+     */
     public String cry(CryType cry) {
         return cry.toString();
 
@@ -164,6 +196,10 @@ public abstract class Creature {
         return age;
     }
 
+    /**
+     * @return String
+     * Retourne le stade de vie de l'animal en fonction de son âge
+     */
     public String getAgeType() {
         if (age < 1) {
             return "Baby";

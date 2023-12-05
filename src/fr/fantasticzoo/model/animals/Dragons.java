@@ -1,8 +1,11 @@
 package fr.fantasticzoo.model.animals;
 
+import fr.fantasticzoo.Flying;
+import fr.fantasticzoo.Running;
+import fr.fantasticzoo.Swimming;
 import fr.fantasticzoo.model.*;
 
-public class Dragons extends Oviparous {
+public class Dragons extends Oviparous implements Running, Swimming, Flying {
     public Dragons(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }
@@ -192,4 +195,18 @@ public class Dragons extends Oviparous {
     }
 
 
+    @Override
+    public String run() {
+        return null;
+    }
+
+    @Override
+    public String fly() {
+        return null;
+    }
+
+    @Override
+    public String swim() {
+        return null;
+    }
 }
