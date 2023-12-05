@@ -1,5 +1,6 @@
 package fr.fantasticzoo.model;
 
+import fr.fantasticzoo.model.animals.Phenix;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 
 public abstract class Creature {
@@ -120,6 +121,9 @@ public abstract class Creature {
 
     public void checkAge(){
         if (this.age > 99){
+            if (this.getClass() = Phenix.class){
+                this.die("old age");
+            }
             this.die("old age");
         }
     }

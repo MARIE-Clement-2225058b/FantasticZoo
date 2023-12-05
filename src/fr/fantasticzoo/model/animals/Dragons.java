@@ -1,10 +1,8 @@
 package fr.fantasticzoo.model.animals;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.CryType;
-import fr.fantasticzoo.model.Food;
-import fr.fantasticzoo.model.SexType;
-public class Dragons extends Creature {
+import fr.fantasticzoo.model.*;
+
+public class Dragons extends Oviparous {
     public Dragons(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }
