@@ -89,7 +89,7 @@ public abstract class Creature {
     }
 
     public String cry(CryType cry) {
-        return CryType.GENERICCRY.toString();
+        return cry.toString();
 
     }
 

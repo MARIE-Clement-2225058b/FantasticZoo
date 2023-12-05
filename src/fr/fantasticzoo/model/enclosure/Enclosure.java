@@ -11,6 +11,18 @@ public class Enclosure {
     private int cleanness;
     private ArrayList<Creature> animals = new ArrayList<Creature>();
 
+    public Enclosure(String name, int area, int maxAnimal, int cleanness, ArrayList<Creature> animals) {
+        this.name = name;
+        this.area = area;
+        this.maxAnimal = maxAnimal;
+        this.cleanness = cleanness;
+        this.animals = animals;
+    }
+
+    public Enclosure() {
+
+    }
+
     public String getName() {
         return name;
     }
@@ -54,6 +66,7 @@ public class Enclosure {
     public void setAnimals(ArrayList<Creature> animals) {
         this.animals = animals;
     }
+
 
     @Override
     public String toString() {
