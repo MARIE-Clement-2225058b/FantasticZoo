@@ -14,35 +14,32 @@ public class Phenix extends Creature {
     public void giveBirth() {
 
     }
-
+    @Override
     public short cry() {
-        super.cry(CryType.GENERICCRY);
         return 0;
+    }
+
+    public String cry(CryType cry) {
+        return cry.toString();
     }
 
     /**
      * @param food
+     * Pour nourrir le dragon
      */
     public void eat(Food food) {
-        if (!isAsleep()) {
-            super.eat(food);
-        } else {
-            System.out.println("The Werewolf is asleep and cannot eat.");
-        }
+        super.eat(food);
     }
+
     @Override
     public void heal() {
-        if (!isAsleep()) {
-            super.heal();
-        } else {
-            System.out.println("The Werewolf is asleep and cannot heal.");
-        }
+        super.heal();
     }
 
     /**
      *
      */
-    @Override
+
     public void fallAsleep() {
         super.fallAsleep();
     }
@@ -50,7 +47,7 @@ public class Phenix extends Creature {
     /**
      *
      */
-    @Override
+
     public void aging() {
         super.aging();
     }
@@ -58,7 +55,7 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
+
     public String getName() {
         return super.getName();
     }
@@ -66,7 +63,6 @@ public class Phenix extends Creature {
     /**
      * @param name
      */
-    @Override
     public void setName(String name) {
         super.setName(name);
     }
@@ -74,7 +70,6 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
     public SexType getSex() {
         return super.getSex();
     }
@@ -82,7 +77,7 @@ public class Phenix extends Creature {
     /**
      * @param sex
      */
-    @Override
+
     public void setSex(SexType sex) {
         super.setSex(sex);
     }
@@ -90,7 +85,7 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getWeight() {
         return super.getWeight();
     }
@@ -98,7 +93,7 @@ public class Phenix extends Creature {
     /**
      * @param weight
      */
-    @Override
+
     public void setWeight(int weight) {
         super.setWeight(weight);
     }
@@ -106,7 +101,7 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getHeight() {
         return super.getHeight();
     }
@@ -114,7 +109,7 @@ public class Phenix extends Creature {
     /**
      * @param height
      */
-    @Override
+
     public void setHeight(int height) {
         super.setHeight(height);
     }
@@ -122,7 +117,7 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getAge() {
         return super.getAge();
     }
@@ -130,7 +125,7 @@ public class Phenix extends Creature {
     /**
      * @param age
      */
-    @Override
+
     public void setAge(int age) {
         super.setAge(age);
     }
@@ -138,7 +133,7 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getHunger() {
         return super.getHunger();
     }
@@ -146,7 +141,7 @@ public class Phenix extends Creature {
     /**
      * @param hunger
      */
-    @Override
+
     public void setHunger(int hunger) {
         super.setHunger(hunger);
     }
@@ -154,7 +149,7 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
+
     public boolean isAsleep() {
         return super.isAsleep();
     }
@@ -162,7 +157,7 @@ public class Phenix extends Creature {
     /**
      * @param asleep
      */
-    @Override
+
     public void setAsleep(boolean asleep) {
         super.setAsleep(asleep);
     }
@@ -170,7 +165,7 @@ public class Phenix extends Creature {
     /**
      * @return health
      */
-    @Override
+
     public int getHealth() {
         return super.getHealth();
     }
@@ -178,7 +173,7 @@ public class Phenix extends Creature {
     /**
      * @param health
      */
-    @Override
+
     public void setHealth(int health) {
         super.setHealth(health);
     }
@@ -186,7 +181,7 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getMaxHealth() {
         return super.getMaxHealth();
     }
@@ -194,7 +189,7 @@ public class Phenix extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getMaxHunger() {
         return super.getMaxHunger();
     }

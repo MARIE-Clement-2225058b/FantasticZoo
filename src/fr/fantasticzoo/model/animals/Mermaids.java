@@ -24,36 +24,32 @@ public class Mermaids extends Oviparous {
      */
 
 
-
+    @Override
     public short cry() {
-        super.cry(CryType.GENERICCRY);
         return 0;
+    }
+
+    public String cry(CryType cry) {
+        return cry.toString();
     }
 
     /**
      * @param food
+     * Pour nourrir le dragon
      */
     public void eat(Food food) {
-        if (!isAsleep()) {
-            super.eat(food);
-        } else {
-            System.out.println("The Werewolf is asleep and cannot eat.");
-        }
+        super.eat(food);
     }
 
     @Override
     public void heal() {
-        if (!isAsleep()) {
-            super.heal();
-        } else {
-            System.out.println("The Werewolf is asleep and cannot heal.");
-        }
+        super.heal();
     }
 
     /**
      *
      */
-    @Override
+
     public void fallAsleep() {
         super.fallAsleep();
     }
@@ -61,7 +57,7 @@ public class Mermaids extends Oviparous {
     /**
      *
      */
-    @Override
+
     public void aging() {
         super.aging();
     }
@@ -69,7 +65,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
+
     public String getName() {
         return super.getName();
     }
@@ -77,7 +73,6 @@ public class Mermaids extends Oviparous {
     /**
      * @param name
      */
-    @Override
     public void setName(String name) {
         super.setName(name);
     }
@@ -85,7 +80,6 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
     public SexType getSex() {
         return super.getSex();
     }
@@ -93,7 +87,7 @@ public class Mermaids extends Oviparous {
     /**
      * @param sex
      */
-    @Override
+
     public void setSex(SexType sex) {
         super.setSex(sex);
     }
@@ -101,7 +95,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
+
     public int getWeight() {
         return super.getWeight();
     }
@@ -109,7 +103,7 @@ public class Mermaids extends Oviparous {
     /**
      * @param weight
      */
-    @Override
+
     public void setWeight(int weight) {
         super.setWeight(weight);
     }
@@ -117,7 +111,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
+
     public int getHeight() {
         return super.getHeight();
     }
@@ -125,7 +119,7 @@ public class Mermaids extends Oviparous {
     /**
      * @param height
      */
-    @Override
+
     public void setHeight(int height) {
         super.setHeight(height);
     }
@@ -133,7 +127,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
+
     public int getAge() {
         return super.getAge();
     }
@@ -141,7 +135,7 @@ public class Mermaids extends Oviparous {
     /**
      * @param age
      */
-    @Override
+
     public void setAge(int age) {
         super.setAge(age);
     }
@@ -149,7 +143,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
+
     public int getHunger() {
         return super.getHunger();
     }
@@ -157,7 +151,7 @@ public class Mermaids extends Oviparous {
     /**
      * @param hunger
      */
-    @Override
+
     public void setHunger(int hunger) {
         super.setHunger(hunger);
     }
@@ -165,7 +159,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
+
     public boolean isAsleep() {
         return super.isAsleep();
     }
@@ -173,7 +167,7 @@ public class Mermaids extends Oviparous {
     /**
      * @param asleep
      */
-    @Override
+
     public void setAsleep(boolean asleep) {
         super.setAsleep(asleep);
     }
@@ -181,7 +175,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return health
      */
-    @Override
+
     public int getHealth() {
         return super.getHealth();
     }
@@ -189,7 +183,7 @@ public class Mermaids extends Oviparous {
     /**
      * @param health
      */
-    @Override
+
     public void setHealth(int health) {
         super.setHealth(health);
     }
@@ -197,7 +191,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
+
     public int getMaxHealth() {
         return super.getMaxHealth();
     }
@@ -205,7 +199,7 @@ public class Mermaids extends Oviparous {
     /**
      * @return
      */
-    @Override
+
     public int getMaxHunger() {
         return super.getMaxHunger();
     }

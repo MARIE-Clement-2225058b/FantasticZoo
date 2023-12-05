@@ -73,12 +73,16 @@ public abstract class Creature {
 
 
     public void eat(Food food) {
-        setHunger(hunger + food.getFoodStats());
-        System.out.println(this.name +" ate a " + food.getFoodName());
+        if (!isAsleep){
+            setHunger(hunger + food.getFoodStats());
+            System.out.println(this.name +" ate a " + food.getFoodName());
+        } else {
+            System.out.println(this.name + " is asleep and cannot eat.");
+        }
     }
 
     public String cry(CryType cry) {
-        return cry.toString();
+        return CryType.GENERICCRY.toString();
 
     }
 
@@ -88,7 +92,12 @@ public abstract class Creature {
     }
 
     public void heal(){
-        this.health = this.MAX_HEALTH;
+        if (!isAsleep()) {
+            this.setHealth(MAX_HEALTH);
+            System.out.println(this.name + " has been healed.");
+        } else {
+            System.out.println(this.name + " is asleep and cannot heal.");
+        }
     }
 
 

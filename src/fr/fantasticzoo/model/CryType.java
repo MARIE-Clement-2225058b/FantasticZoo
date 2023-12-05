@@ -16,4 +16,5 @@ public enum CryType {
     public String getCryname() {
         return cryname;
     }
+
 }

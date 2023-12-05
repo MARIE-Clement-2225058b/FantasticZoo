@@ -1,24 +1,27 @@
 package fr.fantasticzoo.model.animals;
 import fr.fantasticzoo.Running;
 import fr.fantasticzoo.model.*;
-
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class Werewolf extends Viviparous implements Running {
 
+    public Werewolf() {
+        super(100, 100, SexType.MALE, "Werewolf");
+        this.setStrength(10);
+        this.setdFactor(10);
+        this.setRank(0);
+        this.setTransformed(false);
+        this.setAge(0);
+        this.setHunger(0);
+    }
+
     private int dominationFactor;
 
     private int rank = 0;
 
     public boolean transformed = false;
-
-    public Werewolf() {
-        super(100, 100, SexType.MALE, "Werewolf");
-    }
 
     public void setRank(int rank) {
         this.rank = rank;
@@ -87,26 +90,15 @@ public class Werewolf extends Viviparous implements Running {
 
     /**
      * @param food
+     * Pour nourrir le dragon
      */
-    @Override
     public void eat(Food food) {
-        if (!isAsleep()) {
-            super.eat(food);
-        } else {
-            System.out.println(this.name + " is asleep and cannot eat.");
-        }
+        super.eat(food);
     }
 
-    /**
-     * 
-     */
     @Override
     public void heal() {
-        if (!isAsleep()) {
-            super.heal();
-        } else {
-            System.out.println(this.name + " is asleep and cannot heal.");
-        }
+        super.heal();
     }
 
     /**

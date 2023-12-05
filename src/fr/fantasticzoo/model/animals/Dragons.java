@@ -9,15 +9,17 @@ public class Dragons extends Creature {
         super(maxHealth, maxHunger, sex, name);
     }
 
-    @Override
     public void giveBirth() {
-
+        System.out.println("A baby dragon is born !");
     }
 
-
+    @Override
     public short cry() {
-        super.cry(CryType.GENERICCRY);
         return 0;
+    }
+
+    public String cry(CryType cry) {
+        return cry.toString();
     }
 
     /**
@@ -43,7 +45,7 @@ public class Dragons extends Creature {
     /**
      *
      */
-    @Override
+
     public void fallAsleep() {
         super.fallAsleep();
     }
@@ -51,7 +53,7 @@ public class Dragons extends Creature {
     /**
      *
      */
-    @Override
+
     public void aging() {
         super.aging();
     }
@@ -59,7 +61,7 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
+
     public String getName() {
         return super.getName();
     }
@@ -67,7 +69,6 @@ public class Dragons extends Creature {
     /**
      * @param name
      */
-    @Override
     public void setName(String name) {
         super.setName(name);
     }
@@ -75,7 +76,6 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
     public SexType getSex() {
         return super.getSex();
     }
@@ -83,7 +83,7 @@ public class Dragons extends Creature {
     /**
      * @param sex
      */
-    @Override
+
     public void setSex(SexType sex) {
         super.setSex(sex);
     }
@@ -91,7 +91,7 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getWeight() {
         return super.getWeight();
     }
@@ -99,7 +99,7 @@ public class Dragons extends Creature {
     /**
      * @param weight
      */
-    @Override
+
     public void setWeight(int weight) {
         super.setWeight(weight);
     }
@@ -107,7 +107,7 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getHeight() {
         return super.getHeight();
     }
@@ -115,7 +115,7 @@ public class Dragons extends Creature {
     /**
      * @param height
      */
-    @Override
+
     public void setHeight(int height) {
         super.setHeight(height);
     }
@@ -123,7 +123,7 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getAge() {
         return super.getAge();
     }
@@ -131,7 +131,7 @@ public class Dragons extends Creature {
     /**
      * @param age
      */
-    @Override
+
     public void setAge(int age) {
         super.setAge(age);
     }
@@ -139,7 +139,7 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getHunger() {
         return super.getHunger();
     }
@@ -147,7 +147,7 @@ public class Dragons extends Creature {
     /**
      * @param hunger
      */
-    @Override
+
     public void setHunger(int hunger) {
         super.setHunger(hunger);
     }
@@ -155,7 +155,7 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
+
     public boolean isAsleep() {
         return super.isAsleep();
     }
@@ -163,7 +163,7 @@ public class Dragons extends Creature {
     /**
      * @param asleep
      */
-    @Override
+
     public void setAsleep(boolean asleep) {
         super.setAsleep(asleep);
     }
@@ -171,7 +171,7 @@ public class Dragons extends Creature {
     /**
      * @return health
      */
-    @Override
+
     public int getHealth() {
         return super.getHealth();
     }
@@ -179,7 +179,7 @@ public class Dragons extends Creature {
     /**
      * @param health
      */
-    @Override
+
     public void setHealth(int health) {
         super.setHealth(health);
     }
@@ -187,7 +187,7 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getMaxHealth() {
         return super.getMaxHealth();
     }
@@ -195,8 +195,10 @@ public class Dragons extends Creature {
     /**
      * @return
      */
-    @Override
+
     public int getMaxHunger() {
         return super.getMaxHunger();
     }
+
+
 }
