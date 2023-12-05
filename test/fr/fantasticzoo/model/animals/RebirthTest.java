@@ -2,22 +2,21 @@ package fr.fantasticzoo.model.animals;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.CryType;
-import fr.fantasticzoo.model.Food;
 import fr.fantasticzoo.model.SexType;
-import fr.fantasticzoo.model.enclosure.Enclosure;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
- 
-public class PhenixTest {
+public class RebirthTest {
 
     Phenix phenix = new Phenix(100,100, SexType.FEMALE, "Fainix");
+    Dragons dragolosse = new Dragons(100,100,SexType.MALE,"Drago");
+    Nymphs nymphus = new Nymphs(100,100,SexType.FEMALE,"Nympha");
     @Test
     public void rebirthTest(){
         phenix.setAge(100);
+        dragolosse.setAge(100);
+        nymphus.setAge(100);
         assertEquals(100, phenix.getHealth());
-
+        assertEquals(100, dragolosse.getHealth());
+        assertEquals(100, nymphus.getHealth());
     }
 }

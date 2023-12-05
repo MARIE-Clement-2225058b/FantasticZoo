@@ -153,24 +153,28 @@ public abstract class Creature {
         this.age = this.age + 1;
     }
 
+    /**
+     * La méthode checkAge permet de vérifier l'âge de l'animal et de le faire mourir s'il est trop vieux.
+     * Par contre si c'est un animal qui peut renaître, il ne meurt pas!
+     */
     public void checkAge(){
         if (this.age > 99){
-            // if the animal is a Phenix, it will be reborn
             if (this instanceof Phenix){
-                this.age = 0;
-                this.health = MAX_HEALTH;
+                setAge(0);
+                this.setHealth(MAX_HEALTH);
                 System.out.println(this.name + " has been reborn.");
             }
-            if (this instanceof Dragons){
-                this.age = 0;
-                this.health = MAX_HEALTH;
+            else if (this instanceof Dragons){
+                this.setAge(0);
+                this.setHealth(MAX_HEALTH);
                 System.out.println(this.name + " has been reborn.");
             }
-            if (this instanceof Nymphs){
-                this.age = 0;
-                this.health = MAX_HEALTH;
+            else if (this instanceof Nymphs){
+                this.setAge(0);
+                this.setHealth(MAX_HEALTH);
                 System.out.println(this.name + " has been reborn.");
-            }else {
+            }
+            else {
                 this.die("old age");
             }
         }
