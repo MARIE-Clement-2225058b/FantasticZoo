@@ -2,7 +2,10 @@ package fr.fantasticzoo.model.animals;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import fr.fantasticzoo.model.SexType;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
+import fr.fantasticzoo.model.animals.types.Dragons;
+import fr.fantasticzoo.model.animals.types.Nymphs;
+import fr.fantasticzoo.model.animals.types.Phenix;
 import org.junit.jupiter.api.Test;
 
 public class RebirthTest {

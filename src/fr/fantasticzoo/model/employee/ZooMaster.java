@@ -1,9 +1,8 @@
 package fr.fantasticzoo.model.employee;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.Food;
-import fr.fantasticzoo.model.Human;
-import fr.fantasticzoo.model.SexType;
+import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
+import fr.fantasticzoo.model.animals.types.Human;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 
 public class ZooMaster extends Human {

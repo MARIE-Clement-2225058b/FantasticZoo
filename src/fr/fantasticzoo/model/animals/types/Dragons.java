@@ -1,16 +1,22 @@
-package fr.fantasticzoo.model.animals;
+package fr.fantasticzoo.model.animals.types;
 
-import fr.fantasticzoo.model.*;
+import fr.fantasticzoo.model.animals.behaviors.Flying;
+import fr.fantasticzoo.model.animals.behaviors.Running;
+import fr.fantasticzoo.model.animals.behaviors.Swimming;
+import fr.fantasticzoo.model.animals.Oviparous;
+import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.characteristics.Food;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
 
-public class Squats extends Oviparous {
-    public Squats(int maxHealth, int maxHunger, SexType sex, String name) {
+public class Dragons extends Oviparous implements Running, Swimming, Flying {
+    public Dragons(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }
 
-    @Override
     public void giveBirth() {
-
+        System.out.println("A baby dragon is born !");
     }
+
     @Override
     public short cry() {
         return 0;
@@ -189,5 +195,21 @@ public class Squats extends Oviparous {
 
     public int getMaxHunger() {
         return super.getMaxHunger();
+    }
+
+
+    @Override
+    public String run() {
+        return null;
+    }
+
+    @Override
+    public String fly() {
+        return null;
+    }
+
+    @Override
+    public String swim() {
+        return null;
     }
 }

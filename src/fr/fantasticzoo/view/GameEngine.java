@@ -1,10 +1,10 @@
 package fr.fantasticzoo.view;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.SexType;
-import fr.fantasticzoo.model.animals.Dragons;
-import fr.fantasticzoo.model.animals.Phenix;
-import fr.fantasticzoo.model.animals.Werewolf;
+import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
+import fr.fantasticzoo.model.animals.types.Dragons;
+import fr.fantasticzoo.model.animals.types.Phenix;
+import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.employee.ZooMaster;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 
@@ -27,7 +27,7 @@ public class GameEngine {
         scanner = new Scanner(System.in);
         player = new ZooMaster();
         enclosures = new ArrayList<>();
-        Enclosure enclosure = new Enclosure();
+        Enclosure enclosure = new Enclosure("Enclos 1");
         Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
         Phenix phenix = new Phenix(100,100, SexType.MALE, "Mark");
 
@@ -36,7 +36,7 @@ public class GameEngine {
         creatures.add(phenix);
         enclosure.setAnimals(creatures);
 
-        enclosures.add(new Enclosure());
+        enclosures.add(enclosure);
 
 
     }
@@ -67,13 +67,13 @@ public class GameEngine {
     }
 
     private Enclosure chooseEnclosure() {
-        return enclosures.get(selectFromList(enclosures, Enclosure::toString, "Choose an enclosure:") - 1);
+        return enclosures.get(selectFromList(enclosures, Enclosure::getDescription, "Choose an enclosure:") - 1);
     }
 
     private Enclosure chooseEnclosure(int firstEnclosureIndex) {
         List<Enclosure> otherEnclosures = new ArrayList<>(enclosures);
         otherEnclosures.remove(firstEnclosureIndex);
-        return otherEnclosures.get(selectFromList(otherEnclosures, Enclosure::toString, "Choose a second enclosure:") - 1);
+        return otherEnclosures.get(selectFromList(otherEnclosures, Enclosure::getDescription, "Choose a second enclosure:") - 1);
     }
 
     private int readInt(int min, int max) {

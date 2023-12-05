@@ -1,4 +1,7 @@
-package fr.fantasticzoo.model;
+package fr.fantasticzoo.model.animals.characteristics;
+
+import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.Oviparous;
 
 public class Egg {
     public int gestationPeriod;

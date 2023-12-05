@@ -1,6 +1,9 @@
-package fr.fantasticzoo.model;
+package fr.fantasticzoo.model.animals;
 
-public class Viviparous extends Creature{
+import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
+
+public class Viviparous extends Creature {
     public Viviparous(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }

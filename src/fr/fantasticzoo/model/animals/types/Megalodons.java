@@ -1,6 +1,9 @@
-package fr.fantasticzoo.model.animals;
+package fr.fantasticzoo.model.animals.types;
 
-import fr.fantasticzoo.model.*;
+import fr.fantasticzoo.model.animals.Oviparous;
+import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.characteristics.Food;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
 
 public class Megalodons extends Oviparous {
     public Megalodons(int maxHealth, int maxHunger, SexType sex, String name) {

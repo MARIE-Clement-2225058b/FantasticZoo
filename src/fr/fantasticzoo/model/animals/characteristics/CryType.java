@@ -1,6 +1,4 @@
-package fr.fantasticzoo.model;
-
-import fr.fantasticzoo.model.animals.Werewolf;
+package fr.fantasticzoo.model.animals.characteristics;
 
 public enum CryType {
     APPARTENANCE("APPARTENANCE"),

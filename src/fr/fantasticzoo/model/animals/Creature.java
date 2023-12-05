@@ -1,8 +1,11 @@
-package fr.fantasticzoo.model;
+package fr.fantasticzoo.model.animals;
 
-import fr.fantasticzoo.model.animals.Dragons;
-import fr.fantasticzoo.model.animals.Nymphs;
-import fr.fantasticzoo.model.animals.Phenix;
+import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.characteristics.Food;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
+import fr.fantasticzoo.model.animals.types.Dragons;
+import fr.fantasticzoo.model.animals.types.Nymphs;
+import fr.fantasticzoo.model.animals.types.Phenix;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 
 public abstract class Creature {

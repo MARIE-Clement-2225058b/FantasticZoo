@@ -1,29 +1,20 @@
-package fr.fantasticzoo.model.animals;
+package fr.fantasticzoo.model.animals.types;
 
-import fr.fantasticzoo.model.*;
+import fr.fantasticzoo.model.animals.Viviparous;
+import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.characteristics.Food;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
 
-public class Mermaids extends Oviparous {
-    public Mermaids(int maxHealth, int maxHunger, SexType sex, String name) {
+public class Unicorn extends Viviparous {
+    public Unicorn(int maxHealth, int maxHunger, SexType sex, String name) {
+
         super(maxHealth, maxHunger, sex, name);
     }
 
-    public Mermaids(){
-        super(100, 100, SexType.FEMALE, "Ariel");
-
-    }
-
-
-
     @Override
-    public Egg layEgg() {
-        return super.layEgg();
+    public void giveBirth() {
+
     }
-
-    /**
-     *
-     */
-
-
     @Override
     public short cry() {
         return 0;

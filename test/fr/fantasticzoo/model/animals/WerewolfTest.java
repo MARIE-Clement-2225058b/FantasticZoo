@@ -2,10 +2,10 @@ package fr.fantasticzoo.model.animals;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.CryType;
-import fr.fantasticzoo.model.Food;
-import fr.fantasticzoo.model.SexType;
+import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.characteristics.Food;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
+import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 import org.junit.jupiter.api.Test;
 
@@ -187,7 +187,7 @@ class WerewolfTest {
 
         // Je sais pas comment faire pour récupérer l'enclos ou est rangé l'animal sans lui donner un attribut "enclos" ce qui est dégueulasse mais
         // du coup faudra changer ça
-        Enclosure enclosure = new Enclosure();
+        Enclosure enclosure = new Enclosure("Enclos 1");
         jeffina.enclosure = enclosure;
 
         ArrayList<Creature> animals = new ArrayList<>();

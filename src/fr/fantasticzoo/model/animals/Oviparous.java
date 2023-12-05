@@ -1,10 +1,11 @@
-package fr.fantasticzoo.model;
+package fr.fantasticzoo.model.animals;
+
+import fr.fantasticzoo.model.animals.characteristics.Egg;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
 
 import java.util.Random;
 
-import static java.lang.Math.random;
-
-public class Oviparous extends Creature{
+public class Oviparous extends Creature {
     public Oviparous(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }

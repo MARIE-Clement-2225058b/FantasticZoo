@@ -1,9 +1,9 @@
 package fr.fantasticzoo.view;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.animals.Dragons;
-import fr.fantasticzoo.model.animals.Mermaids;
-import fr.fantasticzoo.model.animals.Werewolf;
+import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.types.Dragons;
+import fr.fantasticzoo.model.animals.types.Mermaids;
+import fr.fantasticzoo.model.animals.types.Werewolf;
 
 public class AsciiArtView {
 

@@ -1,4 +1,6 @@
-package fr.fantasticzoo.model;
+package fr.fantasticzoo.model.animals.types;
+
+import fr.fantasticzoo.model.animals.characteristics.SexType;
 
 public abstract class Human {
 

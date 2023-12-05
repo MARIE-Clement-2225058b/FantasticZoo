@@ -1,6 +1,6 @@
 package fr.fantasticzoo.model.enclosure;
 
-import fr.fantasticzoo.model.Creature;
+import fr.fantasticzoo.model.animals.Creature;
 
 import java.util.ArrayList;
 
@@ -19,8 +19,8 @@ public class Enclosure {
         this.animals = animals;
     }
 
-    public Enclosure() {
-
+    public Enclosure(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -67,6 +67,10 @@ public class Enclosure {
         this.animals = animals;
     }
 
+
+    public String getDescription () {
+        return name + " : " + animals.size() + " animaux, " + area + "m², " + cleanness + "% de propreté";
+    }
 
     @Override
     public String toString() {

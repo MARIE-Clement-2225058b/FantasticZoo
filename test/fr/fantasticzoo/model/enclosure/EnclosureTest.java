@@ -1,8 +1,8 @@
 package fr.fantasticzoo.model.enclosure;
 
-import fr.fantasticzoo.model.Creature;
-import fr.fantasticzoo.model.animals.Mermaids;
-import fr.fantasticzoo.model.animals.Werewolf;
+import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.types.Mermaids;
+import fr.fantasticzoo.model.animals.types.Werewolf;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EnclosureTest {
-    Enclosure enclosure = new Enclosure();
+    Enclosure enclosure = new Enclosure("Enclos 1");
 
     @Test
     void clean() {
@@ -49,7 +49,7 @@ class EnclosureTest {
 
         // On crée un deuxième enclos
         // Il faut fix ça : on devrait pas avoir à créer une liste vide pour instancier un enclos
-        Enclosure enclosure2 = new Enclosure();
+        Enclosure enclosure2 = new Enclosure("Enclos 2");
         ArrayList<Creature> animals2 = new ArrayList<>();
         enclosure2.setAnimals(animals2);
 

@@ -1,4 +1,4 @@
-package fr.fantasticzoo.model;
+package fr.fantasticzoo.model.animals.characteristics;
 
 public enum Food {
 

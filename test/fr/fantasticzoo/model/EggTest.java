@@ -1,6 +1,8 @@
 package fr.fantasticzoo.model;
 
-import fr.fantasticzoo.model.animals.Mermaids;
+import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.characteristics.Egg;
+import fr.fantasticzoo.model.animals.types.Mermaids;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
