@@ -173,7 +173,6 @@ public abstract class Creature {
             }else {
                 this.die("old age");
             }
-            this.die("old age");
         }
     }
 
