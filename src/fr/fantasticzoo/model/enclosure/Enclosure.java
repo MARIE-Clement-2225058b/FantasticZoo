@@ -80,6 +80,7 @@ public class Enclosure {
                 ", animalCount=" + animals.size() +
                 ", cleanness=" + cleanness +
                 ", animals=" + animals +
+                ", type=" + this.getClass().getSimpleName() +
                 '}';
     }
 
