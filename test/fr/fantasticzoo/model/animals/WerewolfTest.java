@@ -1,7 +1,5 @@
 package fr.fantasticzoo.model.animals;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import fr.fantasticzoo.model.animals.characteristics.CryType;
 import fr.fantasticzoo.model.animals.characteristics.Food;
 import fr.fantasticzoo.model.animals.characteristics.Pack;
@@ -11,7 +9,8 @@ import fr.fantasticzoo.model.enclosure.Enclosure;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WerewolfTest {
 
@@ -24,17 +23,16 @@ class WerewolfTest {
         System.out.println("Test de la classe Werewolf:");
         jeff.setName("Jeff");
         jeff.setSex(SexType.MALE);
-        jeff.setStrength(100);
+
 
         System.out.println("Test de la classe Werewolf:");
         pedro.setName("Pedro");
         pedro.setSex(SexType.MALE);
-        pedro.setStrength(50);
+
 
         System.out.println("Test de la classe Werewolf:");
         loup.setName("Loup");
         loup.setSex(SexType.MALE);
-        loup.setStrength(25);
 
     }
 
@@ -42,6 +40,14 @@ class WerewolfTest {
     @Test
     void cry_of_belonging() {
         jeff.cry(CryType.APPARTENANCE);
+        assertEquals("APPARTENANCE", jeff.cry(CryType.APPARTENANCE));
+    }
+
+    @Test
+    void cryEveryWereWolf(){
+        assertEquals("APPARTENANCE", jeff.cry(CryType.APPARTENANCE));
+
+        loup.setSick(60);
         assertEquals("APPARTENANCE", jeff.cry(CryType.APPARTENANCE));
     }
 
@@ -258,23 +264,15 @@ class WerewolfTest {
     }
 
     @Test
-    void getRank() {
-        jeff.setRank(0);
-        pedro.setRank(1);
-        loup.setRank(2);
-        assertEquals("Jeff is ranked 0.", jeff.getRank());
-
-        assertEquals("Pedro is ranked 1.", pedro.getRank());
-
-        assertEquals("Loup is ranked 2.", loup.getRank());
-    }
-
-    @Test
     void whatRank(){
         Pack pack = new Pack("Pack", 0, 10);
         pack.addWolf(jeff);
         pack.addWolf(pedro);
         pack.addWolf(loup);
+
+        jeff.setStrength(100);
+        pedro.setStrength(50);
+        loup.setStrength(20);
 
         pack.whatRank();
         assertEquals("Jeff is ranked 0.", pack.getWolves().get(0).getRank());

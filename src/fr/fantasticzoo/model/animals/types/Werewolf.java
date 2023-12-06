@@ -1,17 +1,15 @@
 package fr.fantasticzoo.model.animals.types;
-import fr.fantasticzoo.model.animals.behaviors.Running;
+
 import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.Viviparous;
+import fr.fantasticzoo.model.animals.behaviors.Running;
 import fr.fantasticzoo.model.animals.characteristics.CryType;
-import fr.fantasticzoo.model.animals.characteristics.Food;
-import fr.fantasticzoo.model.animals.characteristics.Pack;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 
-import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class Werewolf extends Viviparous implements Running {
 
@@ -23,11 +21,16 @@ public class Werewolf extends Viviparous implements Running {
 
     private int lvl = 0;
 
+    private static List<Werewolf> allWerewolves = new ArrayList<>();
 
     public Werewolf() {
         super(100, 100, SexType.MALE, "Werewolf");
+        allWerewolves.add(this);
     }
 
+    public static List<Werewolf> getAllWerewolves() {
+        return allWerewolves;
+    }
     public void setLvL(int lvl) {
         this.lvl = lvl;
     }
@@ -100,16 +103,15 @@ public class Werewolf extends Viviparous implements Running {
     }
 
     public String cry(CryType cry) {
-        //cryTypeWerewolf();
+        for (Werewolf wolf : allWerewolves) {
+            if (!isAsleep() && wolf.getSick() < 50) {
+                System.out.println(wolf.getName() + " is howling for " + cry + " !");
+            } else if (wolf.getSick() > 50) {
+                System.out.println(wolf.getName() + " is sick so he cannot howl.");
+            } else {
+                System.out.println(wolf.getName() + " is asleep and cannot howl.");
+            }
+        }
         return super.cry(cry);
     }
-/*
-    public String cryTypeWerewolf(){
-       this.getClass();
-       for (super: this.getClass() )
-            System.out.println(this.name + " is howling!");
-            return this.name + " is howling!";
-
-    }
-*/
 }

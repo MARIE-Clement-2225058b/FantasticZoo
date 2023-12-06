@@ -29,6 +29,15 @@ public abstract class Creature {
     private int PregnancyState = 0;
     private int strength;
 
+    private int sick = 0;
+
+    public int getSick() {
+        return sick;
+    }
+
+    public void setSick(int sick) {
+        this.sick = sick;
+    }
 
     public Creature() {
         this.MAX_AGE = 100;
@@ -143,7 +152,6 @@ public abstract class Creature {
      */
     public String cry(CryType cry) {
         return cry.toString();
-
     }
 
     public void die(String reason){
