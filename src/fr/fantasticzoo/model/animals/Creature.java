@@ -273,5 +273,7 @@ public abstract class Creature {
     public void feed() {
         this.hunger = MAX_HUNGER;
     }
+
+
 }
 
