@@ -11,6 +11,10 @@ import fr.fantasticzoo.model.enclosure.Enclosure;
 
 public class Kraken extends Oviparous implements Swimming {
 
+    public Kraken() {
+        super(100, 100, SexType.MALE, "Kraken");
+    }
+
     public Kraken(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }

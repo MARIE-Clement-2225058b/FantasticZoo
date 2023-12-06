@@ -12,8 +12,7 @@ public class Mermaids extends Oviparous {
     }
 
     public Mermaids(){
-        super(100, 100, SexType.FEMALE, "Ariel");
-
+        super(100, 100, SexType.FEMALE, "Mermaid");
     }
 
 

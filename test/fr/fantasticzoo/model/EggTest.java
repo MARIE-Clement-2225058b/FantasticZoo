@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EggTest {
 
-    Mermaids ariel = new Mermaids();
+    Mermaids ariel = new Mermaids(100, 100, SexType.MALE, "Marge");
     Kraken Cthulhu = new Kraken(100, 100, SexType.MALE, "Cthulhu");
 
 
