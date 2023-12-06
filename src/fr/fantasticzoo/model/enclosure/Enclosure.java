@@ -67,7 +67,6 @@ public class Enclosure {
         this.animals = animals;
     }
 
-
     public String getDescription () {
         return name + " : " + animals.size() + " animaux, " + area + "m², " + cleanness + "% de propreté";
     }

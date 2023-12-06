@@ -26,6 +26,7 @@ public abstract class Creature {
     public Enclosure enclosure;
     public int strength;
 
+
     public Creature(int maxHealth, int maxHunger, SexType sex, String name) {
         MAX_HEALTH = maxHealth;
         MAX_HUNGER = maxHunger;
@@ -35,6 +36,9 @@ public abstract class Creature {
         this.hunger = 100;
     }
 
+    public void setEnclosure(Enclosure enclosure) {
+        this.enclosure = enclosure;
+    }
 
     /**
      * Returns the value of Enclosure
@@ -110,7 +114,6 @@ public abstract class Creature {
         }
     };
 
-
     /**
      * @param food
      * Pour nourrir l'animal
@@ -147,7 +150,6 @@ public abstract class Creature {
         }
     }
 
-
     public void fallAsleep() {
         this.setAsleep(true);
         System.out.println(this.name + " fell asleep.");
@@ -164,18 +166,8 @@ public abstract class Creature {
      */
     public void checkAge(){
         if (this.age > 99){
-            if (this instanceof Phenix){
+            if (this instanceof Phenix || this instanceof Dragons || this instanceof Nymphs){
                 setAge(0);
-                this.setHealth(MAX_HEALTH);
-                System.out.println(this.name + " has been reborn.");
-            }
-            else if (this instanceof Dragons){
-                this.setAge(0);
-                this.setHealth(MAX_HEALTH);
-                System.out.println(this.name + " has been reborn.");
-            }
-            else if (this instanceof Nymphs){
-                this.setAge(0);
                 this.setHealth(MAX_HEALTH);
                 System.out.println(this.name + " has been reborn.");
             }
