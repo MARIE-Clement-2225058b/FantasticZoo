@@ -200,16 +200,16 @@ public class Dragons extends Oviparous implements Running, Swimming, Flying {
 
     @Override
     public String run() {
-        return null;
+        return this.name + " is running!";
     }
 
     @Override
     public String fly() {
-        return null;
+        return this.name + " is flying!";
     }
 
     @Override
     public String swim() {
-        return null;
+        return this.name + " is swimming!";
     }
 }

@@ -160,7 +160,7 @@ public abstract class Creature {
 
     /**
      * La méthode checkAge permet de vérifier l'âge de l'animal et de le faire mourir s'il est trop vieux.
-     * Par contre si c'est un animal qui peut renaître, il ne meurt pas!
+     * Par contre, si c'est un animal qui peut renaître, il ne meurt pas !
      */
     public void checkAge(){
         if (this.age > 99){
@@ -230,7 +230,7 @@ public abstract class Creature {
             return "Baby";
         }if (age < 5) {
             return "Young";
-        }if (age < 15) {
+        }if (age < 18) {
             return "Adult";
         } else {
             return "Old";
