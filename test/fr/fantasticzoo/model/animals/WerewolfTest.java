@@ -24,13 +24,9 @@ class WerewolfTest {
         jeff.setName("Jeff");
         jeff.setSex(SexType.MALE);
 
-
-        System.out.println("Test de la classe Werewolf:");
         pedro.setName("Pedro");
         pedro.setSex(SexType.MALE);
 
-
-        System.out.println("Test de la classe Werewolf:");
         loup.setName("Loup");
         loup.setSex(SexType.MALE);
 

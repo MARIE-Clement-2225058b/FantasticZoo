@@ -58,7 +58,6 @@ class EnclosureTest {
         Enclosure enclosure = new Enclosure("Enclos 1");
 
         // On ajoute dans le premier enclos
-        System.out.println(enclosure.getAnimalCount());
         enclosure.addCreature(werewolf);
 
         // On crée un deuxième enclos
@@ -88,6 +87,18 @@ class EnclosureTest {
         aquarium.addCreature(ariel);
         assertEquals(1, aquarium.getAnimalCount());
 }
+
+    @Test
+    void addAnimalToWrongEnclosure(){
+        Aquarium aquarium = new Aquarium("Aquarium 1");
+        Aviary aviary = new Aviary("Aviary 1");
+
+        aquarium.addCreature(werewolf);
+        assertEquals(0, aquarium.getAnimalCount());
+
+        aviary.addCreature(werewolf);
+        assertEquals(0, aviary.getAnimalCount());
+    }
 
     @Test
     void addWrongCreatureToEnclosure() {

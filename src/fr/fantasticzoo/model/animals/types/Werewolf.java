@@ -98,9 +98,6 @@ public class Werewolf extends Viviparous implements Running {
         }
     }
 
-    public void giveBirth() {
-        super.giveBirth();
-    }
 
     public String cry(CryType cry) {
         for (Werewolf wolf : allWerewolves) {

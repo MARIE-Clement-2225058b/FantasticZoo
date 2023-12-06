@@ -12,6 +12,10 @@ public class Aviary extends Enclosure{
         super(name, area, cleanness, animals);
     }
 
+    public Aviary(String name) {
+        super(name);
+    }
+
     @Override
     public void addCreature(Creature creature) {
         if(creature instanceof Flying) {
@@ -22,7 +26,7 @@ public class Aviary extends Enclosure{
                 setCreatureType(creature);
             }
         } else {
-            System.out.println("This creature can't swim, it can't be in this enclosure.");
+            System.out.println("This creature can't fly, it can't be in this enclosure.");
         }
     }
 }
