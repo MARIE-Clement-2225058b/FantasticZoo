@@ -4,6 +4,7 @@ import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.Viviparous;
 import fr.fantasticzoo.model.animals.characteristics.CryType;
 import fr.fantasticzoo.model.animals.characteristics.Food;
+import fr.fantasticzoo.model.animals.characteristics.Pack;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 
 import java.util.Arrays;
@@ -12,37 +13,31 @@ import java.util.Random;
 
 public class Werewolf extends Viviparous implements Running {
 
-    public Werewolf() {
-        super(100, 100, SexType.MALE, "Werewolf");
-        this.setStrength(10);
-        this.setdFactor(10);
-        this.setRank(0);
-        this.setTransformed(false);
-        this.setAge(0);
-        this.setHunger(0);
-    }
+    private int rank;
 
     private int dominationFactor;
 
-    private int rank = 0;
-
     private boolean transformed = false;
+
+    public Werewolf() {
+        super(100, 100, SexType.MALE, "Werewolf");
+    }
 
     public void setRank(int rank) {
         this.rank = rank;
     }
 
-    public void getRank() {
+    public String getRank() {
         List<String> greekAlphabet = Arrays.asList(
                 "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda",
                 "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega"
         );
         if (rank < greekAlphabet.size()) {
             System.out.println(getName() + " is ranked " + greekAlphabet.get(rank) + ".");
-        } else {
-            System.out.println(getName() + " is ranked " + rank + ".");
         }
+        return getName() + " is ranked " + rank + ".";
     }
+
 
     public void setdFactor(int dominationFactor) {
         this.dominationFactor = dominationFactor;
@@ -77,7 +72,6 @@ public class Werewolf extends Viviparous implements Running {
         super.mate(mate);
 
     }
-
 
     /**
      *

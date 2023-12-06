@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import fr.fantasticzoo.model.animals.characteristics.CryType;
 import fr.fantasticzoo.model.animals.characteristics.Food;
+import fr.fantasticzoo.model.animals.characteristics.Pack;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
@@ -15,12 +16,26 @@ import java.util.ArrayList;
 class WerewolfTest {
 
     static Werewolf jeff = new Werewolf();
+    static Werewolf pedro = new Werewolf();
+    static Werewolf loup = new Werewolf();
 
     @BeforeAll
     static void setUp() {
         System.out.println("Test de la classe Werewolf:");
         jeff.setName("Jeff");
         jeff.setSex(SexType.MALE);
+        jeff.setStrength(100);
+
+        System.out.println("Test de la classe Werewolf:");
+        pedro.setName("Pedro");
+        pedro.setSex(SexType.MALE);
+        pedro.setStrength(50);
+
+        System.out.println("Test de la classe Werewolf:");
+        loup.setName("Loup");
+        loup.setSex(SexType.MALE);
+        loup.setStrength(25);
+
     }
 
 
@@ -240,5 +255,30 @@ class WerewolfTest {
     @Test
     void hierarchy() {
         
+    }
+
+    @Test
+    void getRank() {
+        jeff.setRank(0);
+        pedro.setRank(1);
+        loup.setRank(2);
+        assertEquals("Jeff is ranked 0.", jeff.getRank());
+
+        assertEquals("Pedro is ranked 1.", pedro.getRank());
+
+        assertEquals("Loup is ranked 2.", loup.getRank());
+    }
+
+    @Test
+    void whatRank(){
+        Pack pack = new Pack("Pack", 0, 10);
+        pack.addWolf(jeff);
+        pack.addWolf(pedro);
+        pack.addWolf(loup);
+
+        pack.whatRank();
+        assertEquals("Jeff is ranked 0.", pack.getWolves().get(0).getRank());
+        assertEquals("Pedro is ranked 1.", pack.getWolves().get(1).getRank());
+        assertEquals("Loup is ranked 2.", pack.getWolves().get(2).getRank());
     }
 }

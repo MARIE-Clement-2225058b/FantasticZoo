@@ -15,6 +15,7 @@ public class Dragons extends Oviparous implements Running, Swimming, Flying {
     }
 
     public Dragons(int maxHealth, int maxHunger, SexType sex, String name) {
+
         super(maxHealth, maxHunger, sex, name);
     }
 
