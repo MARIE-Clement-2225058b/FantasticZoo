@@ -109,7 +109,6 @@ public class Enclosure {
 
     public boolean transfertCreature(Enclosure another, Creature creature) {
         if(!this.animals.contains(creature)) return false;
-
         this.animals.remove(creature);
         another.addCreature(creature);
 

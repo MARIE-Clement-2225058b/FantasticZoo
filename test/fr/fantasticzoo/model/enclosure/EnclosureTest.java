@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EnclosureTest {
-
-    static Enclosure enclosure = new Enclosure("Enclos 1");
     static Mermaids ariel = new Mermaids();
     static Werewolf werewolf = new Werewolf();
     @BeforeAll
@@ -23,12 +21,13 @@ class EnclosureTest {
         System.out.println("Test de la classe Enclosure:");
         ariel.setName("Ariel");
         werewolf.setName("Jeff");
-
+        Enclosure enclosure = new Enclosure("Enclos 1");
         assertEquals(0, enclosure.getAnimalCount());
     }
 
     @Test
     void clean() {
+        Enclosure enclosure = new Enclosure("Enclos 1");
         enclosure.setCleanness(0);
         enclosure.clean();
         assertEquals(100, enclosure.getCleanness());
@@ -56,8 +55,10 @@ class EnclosureTest {
 
     @Test
     void transfertCreature() {
+        Enclosure enclosure = new Enclosure("Enclos 1");
 
         // On ajoute dans le premier enclos
+        System.out.println(enclosure.getAnimalCount());
         enclosure.addCreature(werewolf);
 
         // On crée un deuxième enclos
@@ -75,6 +76,8 @@ class EnclosureTest {
 
     @Test
     void addMermaidToNon_AquariumEnclosure() {
+        Enclosure enclosure = new Enclosure("Enclos 1");
+
         enclosure.addCreature(ariel);
         assertEquals(0, enclosure.getAnimalCount());
     }
@@ -88,6 +91,8 @@ class EnclosureTest {
 
     @Test
     void addWrongCreatureToEnclosure() {
+        Enclosure enclosure = new Enclosure("Enclos 1");
+        
         // on met un loup-garou dans un enclos qui ne peut désormais qu'accueillir QUE des loup-garous
         enclosure.addCreature(werewolf);
         assertEquals(Werewolf.class, enclosure.getCreatureType().getClass());
