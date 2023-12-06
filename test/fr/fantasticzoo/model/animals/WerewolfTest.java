@@ -209,17 +209,16 @@ class WerewolfTest {
         Werewolf jeffina = new Werewolf();
         jeffina.setName("Jeffina");
 
-        // Je sais pas comment faire pour récupérer l'enclos ou est rangé l'animal sans lui donner un attribut "enclos" ce qui est dégueulasse mais
-        // du coup faudra changer ça
         Enclosure enclosure = new Enclosure("Enclos 1");
-        jeffina.enclosure = enclosure;
+        enclosure.addCreature(jeffina);
 
-        ArrayList<Creature> animals = new ArrayList<>();
-        animals.add(jeffina);
-        enclosure.setAnimals(animals);
 
         jeffina.setAsleep(false);
-        jeffina.deliver();
+        Creature child = jeffina.deliver();
+        if(child != null) {
+            System.out.println(jeffina.getName() + " has delivered a " + child.getClass().getSimpleName() + " named " + child.getName() + ".");
+            enclosure.addCreature(child);
+        }
         assertEquals(2,enclosure.getAnimalCount());
     }
 

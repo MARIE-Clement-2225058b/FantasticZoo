@@ -1,5 +1,6 @@
 package fr.fantasticzoo.model.animals;
 
+import fr.fantasticzoo.model.animals.characteristics.ActionType;
 import fr.fantasticzoo.model.animals.characteristics.CryType;
 import fr.fantasticzoo.model.animals.characteristics.Food;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
@@ -12,40 +13,41 @@ public abstract class Creature {
 
     private final int MAX_HEALTH;
     private final int MAX_HUNGER;
-    //private final int MAX_AGE;
+
+    private final int MAX_AGE;
+
     public String name;
+
     public SexType sex;
+
     public CryType cry;
     public int weight;
     public int height;
     public int age;
     public int hunger;
-    public boolean isAsleep;
+    public ActionType currentAction;
     public int health;
     public int PregnancyState = 0;
-    public Enclosure enclosure;
     public int strength;
 
 
-    public Creature(int maxHealth, int maxHunger, SexType sex, String name) {
-        MAX_HEALTH = maxHealth;
-        MAX_HUNGER = maxHunger;
+    public Creature(int maxHealth, int maxHunger, int maxAge, SexType sex, String name) {
+        this.MAX_AGE = maxAge;
+        this.MAX_HEALTH = maxHealth;
+        this.MAX_HUNGER = maxHunger;
         this.name = name;
         this.sex = sex;
         this.health = MAX_HEALTH;
-        this.hunger = 100;
+        this.hunger = MAX_HUNGER;
     }
-
-    public void setEnclosure(Enclosure enclosure) {
-        this.enclosure = enclosure;
-    }
-
-    /**
-     * Returns the value of Enclosure
-     * @return Enclosure
-     */
-    public Enclosure getEnclosure(){
-        return this.enclosure;
+    public Creature(int maxHealth, int maxHunger, SexType sex, String name) {
+        this.MAX_AGE = 100;
+        this.MAX_HEALTH = maxHealth;
+        this.MAX_HUNGER = maxHunger;
+        this.name = name;
+        this.sex = sex;
+        this.health = MAX_HEALTH;
+        this.hunger = MAX_HUNGER;
     }
 
     /**
@@ -119,7 +121,7 @@ public abstract class Creature {
      * Pour nourrir l'animal
      */
     public void eat(Food food) {
-        if (!isAsleep){
+        if (!isAsleep()) {
             setHunger(hunger + food.getFoodStats());
             System.out.println(this.name +" ate a " + food.getFoodName());
         } else {
@@ -141,13 +143,9 @@ public abstract class Creature {
         System.out.println(this.name + " has died of " + reason + ".");
     }
 
-    public void heal(){
-        if (!isAsleep()) {
-            this.setHealth(MAX_HEALTH);
-            System.out.println(this.name + " has been healed.");
-        } else {
-            System.out.println(this.name + " is asleep and cannot heal.");
-        }
+    public void heal() {
+        this.setHealth(MAX_HEALTH);
+        System.out.println(this.name + " has been healed.");
     }
 
     public void fallAsleep() {
@@ -165,7 +163,7 @@ public abstract class Creature {
      * Par contre, si c'est un animal qui peut renaître, il ne meurt pas !
      */
     public void checkAge(){
-        if (this.age > 99){
+        if (this.age >= MAX_AGE){
             if (this instanceof Phenix || this instanceof Dragons || this instanceof Nymphs){
                 setAge(0);
                 this.setHealth(MAX_HEALTH);
@@ -243,11 +241,15 @@ public abstract class Creature {
     }
 
     public boolean isAsleep() {
-        return isAsleep;
+        return this.currentAction == ActionType.SLEEPING;
     }
 
     public void setAsleep(boolean asleep) {
-        isAsleep = asleep;
+        if (asleep) {
+            this.currentAction = ActionType.SLEEPING;
+        } else {
+            this.currentAction = ActionType.IDLE;
+        }
     }
 
     public int getHealth() {
@@ -269,6 +271,7 @@ public abstract class Creature {
     public abstract short cry();
 
     public void feed() {
+        this.hunger = MAX_HUNGER;
     }
 }
 

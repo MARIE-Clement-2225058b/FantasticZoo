@@ -1,6 +1,9 @@
 package fr.fantasticzoo.view;
 
 import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.behaviors.Flying;
+import fr.fantasticzoo.model.animals.behaviors.Running;
+import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.Dragons;
 import fr.fantasticzoo.model.animals.types.Phenix;
@@ -51,6 +54,7 @@ public class GameEngine {
     public void startGame() {
 
         executorService.scheduleAtFixedRate(this::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::randomlyTriggerAnimalBehaviors, 0, 5, TimeUnit.SECONDS);
 
 
         while (true) {
@@ -170,12 +174,10 @@ public class GameEngine {
                 String name = scanner.nextLine();
                 System.out.println("Enter the area of the enclosure : ");
                 int area = scanner.nextInt();
-                System.out.println("Enter the maximum number of animals in the enclosure : ");
-                int maxAnimal = scanner.nextInt();
                 System.out.println("Enter the cleanness of the enclosure : ");
                 int cleanness = scanner.nextInt();
 
-                enclosures.add(new Enclosure(name, area, maxAnimal, cleanness, new ArrayList<>()));
+                enclosures.add(new Enclosure(name, area, cleanness, new ArrayList<>()));
                 scanner.nextLine();
                 break;
             case 6:
@@ -234,7 +236,6 @@ public class GameEngine {
 
 
     private void decreaseHungerForAllAnimals() {
-        missedMessages.add("Bouh");
         Random rand = new Random();
         List<Creature> deadAnimals = new ArrayList<>();
 
@@ -242,14 +243,13 @@ public class GameEngine {
             for (Creature creature : enclosure.getAnimals()) {
                 int hungerLoss = rand.nextInt(3) + 1;
                 creature.setHunger(creature.getHunger() - hungerLoss);
-
                 // Hunger levels
                 if (creature.getHunger() <= 0 && creature.getHealth() > 0) {
                     creature.die("starvation");
                     deadAnimals.add(creature);
-                } else if (creature.getHunger() < 30) {
+                } else if (creature.getHunger() < 30 && creature.getHunger() > 25) {
                     missedMessages.add("Warning: " + creature.getName() + " is very hungry!");
-                } else if (creature.getHunger() < 60) {
+                } else if (creature.getHunger() < 60 && creature.getHunger() > 55) {
                     missedMessages.add("Notice: " + creature.getName() + " is starting to get hungry.");
                 }
             }
@@ -267,6 +267,35 @@ public class GameEngine {
             missedMessages.clear();
         }
     }
+
+    private void randomlyTriggerAnimalBehaviors() {
+        Random rand = new Random();
+
+        for (Enclosure enclosure : enclosures) {
+            for (Creature creature : enclosure.getAnimals()) {
+                int behaviorChoice = rand.nextInt(3); // 0 = run, 1 = fly, 2 = swim
+
+                switch (behaviorChoice) {
+                    case 0: // Courir
+                        if (creature instanceof Running) {
+                            missedMessages.add(((Running) creature).run());
+                        }
+                        break;
+                    case 1: // Voler
+                        if (creature instanceof Flying) {
+                            missedMessages.add(((Flying) creature).fly());
+                        }
+                        break;
+                    case 2: // Nager
+                        if (creature instanceof Swimming) {
+                            missedMessages.add(((Swimming) creature).swim());
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
 
 }
 

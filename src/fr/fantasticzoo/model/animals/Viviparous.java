@@ -26,18 +26,16 @@ public class Viviparous extends Creature {
         return (Class<?>) this.getClass();
     }
 
-    public void deliver() {
+    public Creature deliver() {
         System.out.println(this.name + " is giving birth!!!");
 
         try {
-            Class<?> clazz = this.getClass();
-            Object newChild = clazz.getDeclaredConstructor().newInstance();
-            // add child to enclosure
-            this.enclosure.getAnimals().add((Creature) newChild);
+            Class<?> mother = this.getClass();
+            return (Creature) mother.getDeclaredConstructor().newInstance();
 
         } catch (Exception e) {
-
             e.printStackTrace();
         }
+        return null;
     }
 }

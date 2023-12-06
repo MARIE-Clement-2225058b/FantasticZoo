@@ -1,6 +1,8 @@
 package fr.fantasticzoo.model.enclosure;
 
 import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.behaviors.Flying;
+import fr.fantasticzoo.model.animals.behaviors.Swimming;
 
 import java.util.ArrayList;
 
@@ -9,20 +11,21 @@ public class Enclosure {
     private int area;
     private int maxAnimal;
     private int cleanness;
+    private ArrayList<Creature> animals = new ArrayList<>();
 
-    private ArrayList<Creature> animals = new ArrayList<Creature>();
-
-    public Enclosure(String name, int area, int maxAnimal, int cleanness, ArrayList<Creature> animals) {
+    public Enclosure(String name, int area, int cleanness, ArrayList<Creature> animals) {
         this.name = name;
         this.area = area;
-        this.maxAnimal = maxAnimal;
+        this.maxAnimal = area / 10;
         this.cleanness = cleanness;
         this.animals = animals;
     }
 
     public Enclosure(String name) {
         this.name = name;
-    }
+        this.area = 100;
+        this.maxAnimal = area / 10;
+    };
 
     public String getName() {
         return name;
@@ -97,12 +100,19 @@ public class Enclosure {
 
     public boolean transfertCreature(Enclosure another, Creature creature) {
         if(!this.animals.contains(creature)) return false;
+
         this.animals.remove(creature);
         another.animals.add(creature);
 
-        // J'ai ajouté un attribut "enclos" aux créatures psk jsp comment récupérer l'enclos ou l'animal est rangé sinon
-        // /!\ (bancal AF à changer ASAP)
-        creature.enclosure = another;
         return true;
+    }
+
+    public void addCreature(Creature creature) {
+        if(creature instanceof Swimming || creature instanceof Flying) {
+            System.out.println("This enclosure is not suitable for this animal.");
+        }
+        if (animals.size() < maxAnimal) {
+            animals.add(creature);
+        }
     }
 }
