@@ -18,7 +18,7 @@ class WerewolfTest {
 
     @BeforeAll
     static void setUp() {
-        System.out.println("Test de la classe Werewolf");
+        System.out.println("Test de la classe Werewolf:");
         jeff.setName("Jeff");
         jeff.setSex(SexType.MALE);
     }
@@ -226,7 +226,7 @@ class WerewolfTest {
     void transformation() {
         jeff.setTransformed(false);
         jeff.setTransformed(true);
-        assertEquals(true, jeff.getTransformed());
+        assertTrue(jeff.getTransformed());
     }
 
     @Test
