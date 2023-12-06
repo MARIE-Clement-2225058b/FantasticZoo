@@ -131,7 +131,7 @@ public abstract class Creature {
         } else {
             System.out.println(this.name + " is asleep and cannot mate.");
         }
-    };
+    }
 
     /**
      * @param food
