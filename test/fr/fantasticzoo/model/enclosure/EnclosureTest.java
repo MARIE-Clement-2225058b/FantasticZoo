@@ -1,6 +1,7 @@
 package fr.fantasticzoo.model.enclosure;
 
 import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.types.Dragons;
 import fr.fantasticzoo.model.animals.types.Mermaids;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import org.junit.jupiter.api.Test;
@@ -61,5 +62,19 @@ class EnclosureTest {
 
         // Vérifier que le deuxième enclos a été rempli
         assertEquals(1, enclosure2.getAnimalCount());
+    }
+
+    @Test
+    void addCreature() {
+        Mermaids ariel = new Mermaids();
+        enclosure.addCreature(ariel);
+        assertEquals(0, enclosure.getAnimalCount());
+
+        Aquarium aquarium = new Aquarium("Aquarium 1");
+        aquarium.addCreature(ariel);
+        assertEquals(1, aquarium.getAnimalCount());
+
+        Dragons dragons = new Dragons();
+
     }
 }

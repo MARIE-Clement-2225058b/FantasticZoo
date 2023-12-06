@@ -6,7 +6,9 @@ import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import java.util.ArrayList;
 
 public class Aquarium extends Enclosure{
-
+    public Aquarium(String name) {
+        super(name);
+    }
     public Aquarium(String name, int area, int cleanness, ArrayList<Creature> animals) {
         super(name, area, cleanness, animals);
     }

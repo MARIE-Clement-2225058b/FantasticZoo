@@ -9,6 +9,11 @@ import fr.fantasticzoo.model.animals.characteristics.Food;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 
 public class Dragons extends Oviparous implements Running, Swimming, Flying {
+
+    public Dragons() {
+        super();
+    }
+
     public Dragons(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }
@@ -200,16 +205,16 @@ public class Dragons extends Oviparous implements Running, Swimming, Flying {
 
     @Override
     public String run() {
-        return this.name + " is running!";
+        return getName() + " is running!";
     }
 
     @Override
     public String fly() {
-        return this.name + " is flying!";
+        return getName() + " is flying!";
     }
 
     @Override
     public String swim() {
-        return this.name + " is swimming!";
+        return getName() + " is swimming!";
     }
 }

@@ -7,6 +7,10 @@ import fr.fantasticzoo.model.animals.characteristics.Food;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 
 public class Phenix extends Oviparous implements Flying {
+    public Phenix() {
+        super();
+    }
+
     public Phenix(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }
@@ -197,6 +201,6 @@ public class Phenix extends Oviparous implements Flying {
 
     @Override
     public String fly() {
-        return this.name + " is flying!";
+        return getName() + " is flying!";
     }
 }

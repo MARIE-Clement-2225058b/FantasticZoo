@@ -6,6 +6,9 @@ import fr.fantasticzoo.model.animals.characteristics.SexType;
 import java.util.Random;
 
 public class Oviparous extends Creature {
+    public Oviparous() {
+        super();
+    }
     public Oviparous(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }
@@ -37,7 +40,7 @@ public class Oviparous extends Creature {
      * @return Egg
      */
     public Egg layEgg() {
-        System.out.println(this.name + " is giving birth!!!");
+        System.out.println(getName() + " is giving birth!!!");
 
         // returns new egg with random gestation period between 10 and 30 days
         Random rand = new Random();

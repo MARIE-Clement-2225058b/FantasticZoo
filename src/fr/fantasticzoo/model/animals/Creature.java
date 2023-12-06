@@ -16,21 +16,30 @@ public abstract class Creature {
 
     private final int MAX_AGE;
 
-    public String name;
+    private String name;
 
-    public SexType sex;
+    private SexType sex;
 
-    public CryType cry;
-    public int weight;
-    public int height;
-    public int age;
-    public int hunger;
-    public ActionType currentAction;
-    public int health;
-    public int PregnancyState = 0;
-    public int strength;
+    private CryType cry;
+    private int weight;
+    private int height;
+    private int age;
+    private int hunger;
+    private ActionType currentAction;
+    private int health;
+    private int PregnancyState = 0;
+    private int strength;
 
 
+    public Creature() {
+        this.MAX_AGE = 100;
+        this.MAX_HEALTH = 100;
+        this.MAX_HUNGER = 100;
+        this.name = "Creature";
+        this.sex = SexType.MALE;
+        this.health = MAX_HEALTH;
+        this.hunger = MAX_HUNGER;
+    }
     public Creature(int maxHealth, int maxHunger, int maxAge, SexType sex, String name) {
         this.MAX_AGE = maxAge;
         this.MAX_HEALTH = maxHealth;

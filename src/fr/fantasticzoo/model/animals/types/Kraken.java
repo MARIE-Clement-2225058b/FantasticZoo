@@ -164,6 +164,6 @@ public class Kraken extends Oviparous implements Swimming {
     }
 
     public String swim() {
-        return this.name + " is swimming.";
+        return getName() + " is swimming.";
     }
 }

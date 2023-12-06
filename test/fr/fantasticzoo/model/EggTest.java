@@ -28,8 +28,8 @@ class EggTest {
 
     @Test
     void getEggMother() {
-        assertEquals(ariel.name, oeufariel.getMother().name);
-        assertEquals(Cthulhu.name, oeufCthulhu.getMother().name);
+        assertEquals(ariel.getName(), oeufariel.getMother().getName());
+        assertEquals(Cthulhu.getName(), oeufCthulhu.getMother().getName());
     }
 
     @Test

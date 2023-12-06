@@ -172,11 +172,11 @@ class WerewolfTest {
     void CanRun() {
         jeff.setAsleep(false);
         jeff.run();
-        assertEquals(jeff.name + " is running!", jeff.run());
+        assertEquals(jeff.getName() + " is running!", jeff.run());
 
         jeff.setAsleep(true);
         jeff.run();
-        assertEquals(jeff.name + " is asleep and cannot run.", jeff.run());
+        assertEquals(jeff.getName() + " is asleep and cannot run.", jeff.run());
     }
 
     /**
@@ -225,8 +225,8 @@ class WerewolfTest {
     @Test
     void transformation() {
         jeff.setTransformed(false);
-        jeff.transformed = true;
-        assertEquals(true, jeff.transformed);
+        jeff.setTransformed(true);
+        assertEquals(true, jeff.getTransformed());
     }
 
     @Test

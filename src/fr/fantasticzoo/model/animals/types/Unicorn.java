@@ -198,6 +198,6 @@ public class Unicorn extends Viviparous implements Running {
 
     @Override
     public String run() {
-        return this.name + " is running!";
+        return getName() + " is running!";
     }
 }

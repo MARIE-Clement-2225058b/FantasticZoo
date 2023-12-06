@@ -26,7 +26,7 @@ public class Werewolf extends Viviparous implements Running {
 
     private int rank = 0;
 
-    public boolean transformed = false;
+    private boolean transformed = false;
 
     public void setRank(int rank) {
         this.rank = rank;
@@ -38,9 +38,9 @@ public class Werewolf extends Viviparous implements Running {
                 "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega"
         );
         if (rank < greekAlphabet.size()) {
-            System.out.println(this.name + " is ranked " + greekAlphabet.get(rank) + ".");
+            System.out.println(getName() + " is ranked " + greekAlphabet.get(rank) + ".");
         } else {
-            System.out.println(this.name + " is ranked " + rank + ".");
+            System.out.println(getName() + " is ranked " + rank + ".");
         }
     }
 
@@ -57,14 +57,7 @@ public class Werewolf extends Viviparous implements Running {
      */
 
     public void setTransformed(boolean transformed) {
-        Random random = new Random();
-        int randomNumber = random.nextInt(1000) + 1;
-        if (!isAsleep()) {
-            if (randomNumber == 1) {
-                this.transformed = true;
-                System.out.println(this.name + " has transformed.");
-            }
-        }
+        this.transformed = transformed;
     }
 
     public boolean getTransformed() {
@@ -278,11 +271,11 @@ public class Werewolf extends Viviparous implements Running {
     @Override
     public String run() {
         if (!isAsleep()) {
-            System.out.println(this.name + " is running!");
-            return this.name + " is running!";
+            System.out.println(getName() + " is running!");
+            return getName() + " is running!";
         } else {
-            System.out.println(this.name + " is asleep and cannot run.");
-            return this.name + " is asleep and cannot run.";
+            System.out.println(getName() + " is asleep and cannot run.");
+            return getName() + " is asleep and cannot run.";
         }
     }
 

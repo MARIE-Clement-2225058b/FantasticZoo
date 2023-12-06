@@ -27,7 +27,7 @@ public class Viviparous extends Creature {
     }
 
     public Creature deliver() {
-        System.out.println(this.name + " is giving birth!!!");
+        System.out.println(getName() + " is giving birth!!!");
 
         try {
             Class<?> mother = this.getClass();

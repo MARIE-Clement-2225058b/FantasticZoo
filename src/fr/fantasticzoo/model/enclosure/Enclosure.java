@@ -110,6 +110,7 @@ public class Enclosure {
     public void addCreature(Creature creature) {
         if(creature instanceof Swimming || creature instanceof Flying) {
             System.out.println("This enclosure is not suitable for this animal.");
+            return;
         }
         if (animals.size() < maxAnimal) {
             animals.add(creature);
