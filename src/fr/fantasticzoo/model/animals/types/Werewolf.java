@@ -7,22 +7,44 @@ import fr.fantasticzoo.model.animals.characteristics.Food;
 import fr.fantasticzoo.model.animals.characteristics.Pack;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Werewolf extends Viviparous implements Running {
 
     private int rank;
 
-    private int dominationFactor;
+    private int dominationFactor = 10;
 
     private boolean transformed = false;
 
-    private int dFactor;
+    private int lvl = 0;
+
 
     public Werewolf() {
         super(100, 100, SexType.MALE, "Werewolf");
+    }
+
+    public void setLvL(int lvl) {
+        this.lvl = lvl;
+    }
+
+    public int getLvl() {
+        if (Objects.equals(this.getAgeType(), "Baby")){
+            this.lvl = 0;
+            return this.lvl;
+        } else if (Objects.equals(this.getAgeType(), "Young")){
+            this.lvl = 1;
+        } else if (Objects.equals(this.getAgeType(), "Adult")){
+            this.lvl = 2;
+        } else if (Objects.equals(this.getAgeType(), "Old")){
+            this.lvl = 3;
+        }
+
+        return this.lvl + this.rank + this.dominationFactor;
     }
 
     public void setRank(int rank) {
@@ -49,10 +71,6 @@ public class Werewolf extends Viviparous implements Running {
         return dominationFactor;
     }
 
-    /**
-     *
-     */
-
     public void setTransformed(boolean transformed) {
         this.transformed = transformed;
     }
@@ -65,7 +83,6 @@ public class Werewolf extends Viviparous implements Running {
     public void mate(Creature mate) {
         super.mate(mate);
     }
-
 
     @Override
     public String run() {

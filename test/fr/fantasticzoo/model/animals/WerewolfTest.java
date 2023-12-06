@@ -281,4 +281,13 @@ class WerewolfTest {
         assertEquals("Pedro is ranked 1.", pack.getWolves().get(1).getRank());
         assertEquals("Loup is ranked 2.", pack.getWolves().get(2).getRank());
     }
+
+    @Test
+    void getLvl(){
+        jeff.setAge(1);
+        jeff.setStrength(1);
+        jeff.setdFactor(1);
+        jeff.setRank(1);
+        assertEquals(0, jeff.getLvl());
+    }
 }

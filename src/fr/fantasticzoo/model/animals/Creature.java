@@ -232,11 +232,11 @@ public abstract class Creature {
      * Retourne le stade de vie de l'animal en fonction de son âge
      */
     public String getAgeType() {
-        if (age < 1) {
+        if (age < 5) {
             return "Baby";
-        }if (age < 5) {
+        }if (age < 20) {
             return "Young";
-        }if (age < 18) {
+        }if (age < 60) {
             return "Adult";
         } else {
             return "Old";
