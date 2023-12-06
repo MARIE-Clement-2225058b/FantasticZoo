@@ -76,10 +76,6 @@ public class Enclosure {
         return animals;
     }
 
-    public void setAnimals(ArrayList<Creature> animals) {
-        this.animals = animals;
-    }
-
     public String getDescription () {
         return name + " : " + animals.size() + " animaux, " + area + "m², " + cleanness + "% de propreté de type : " + getClass().getSimpleName();
     }
