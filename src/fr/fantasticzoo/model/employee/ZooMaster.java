@@ -11,7 +11,7 @@ public class ZooMaster extends Human {
     }
 
     public void examinateEnclosure(Enclosure enclosure) {
-        System.out.println(enclosure.toString());
+        System.out.println(enclosure.getDescription());
     }
 
     public void cleanEnclosure(Enclosure enclosure) {

@@ -6,10 +6,7 @@ import fr.fantasticzoo.model.animals.behaviors.Running;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.characteristics.ActionType;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
-import fr.fantasticzoo.model.animals.types.Dragons;
-import fr.fantasticzoo.model.animals.types.Mermaids;
-import fr.fantasticzoo.model.animals.types.Phoenix;
-import fr.fantasticzoo.model.animals.types.Werewolf;
+import fr.fantasticzoo.model.animals.types.*;
 import fr.fantasticzoo.model.employee.ZooMaster;
 import fr.fantasticzoo.model.enclosure.Aquarium;
 import fr.fantasticzoo.model.enclosure.Aviary;
@@ -33,9 +30,18 @@ public class GameEngine {
     private final Scanner scanner;
     private ArrayList<Enclosure> enclosures;
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-    private List<String> missedMessages = new ArrayList<>();
+    private ArrayList<String> defaultChoice = new ArrayList<>();
+    private final List<String> missedMessages = new ArrayList<>();
 
     public GameEngine() {
+        defaultChoice.addAll(
+                List.of("Examiner un enclos",
+                "Nettoyer un enclos",
+                "Nourrir les créatures",
+                "Transférer une créature",
+                "Construire un enclos",
+                "Surveiller le parc"));
+
         currentAnimal = new Werewolf();
         asciiArtView = new AsciiArtView();
         scanner = new Scanner(System.in);
@@ -44,11 +50,15 @@ public class GameEngine {
         Enclosure enclosure = new Enclosure("Enclos 1");
         Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
         Phoenix phoenix = new Phoenix(100,100, SexType.MALE, "Mark");
+        Megalodons megalodons = new Megalodons(100,100, SexType.MALE, "Zig et Sharko");
+
         Mermaids mermaids = new Mermaids(100,100, SexType.FEMALE, "Ariel la petite sirène");
         ArrayList<Creature> creatures = new ArrayList<>();
         creatures.add(dragons);
         creatures.add(phoenix);
         creatures.add(mermaids);
+        creatures.add(megalodons);
+
         enclosure.setAnimals(creatures);
 
         enclosures.add(enclosure);
@@ -57,14 +67,12 @@ public class GameEngine {
     }
 
     public void startGame() {
-
         executorService.scheduleAtFixedRate(this::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(this::randomlyTriggerAnimalBehaviors, 0, 5, TimeUnit.SECONDS);
 
 
         while (true) {
-            displayMenu();
-            int choice = scanner.nextInt();
+            int choice = selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
             processUserInput(choice);
 
         }
@@ -83,21 +91,12 @@ public class GameEngine {
     }
 
 
-    private void displayMenu() {
-        System.out.println("1. Examiner un enclos");
-        System.out.println("2. Nettoyer un enclos");
-        System.out.println("3. Nourrir les créatures");
-        System.out.println("4. Transférer une créature");
-        System.out.println("5. Construire un enclos");
-        System.out.println("6. Surveiller le parc");
-        System.out.println("Choisissez une option : ");
-    }
     private <T> int selectFromList(List<T> items, Function<T, String> displayFunction, String prompt) {
         System.out.println(prompt);
         for (int i = 0; i < items.size(); i++) {
             System.out.println((i + 1) + ". " + displayFunction.apply(items.get(i)));
         }
-        return readInt(1, items.size());
+        return readInt(items.size());
     }
 
     private Enclosure chooseEnclosure() {
@@ -110,36 +109,26 @@ public class GameEngine {
         return otherEnclosures.get(selectFromList(otherEnclosures, Enclosure::getDescription, "Choose a second enclosure:") - 1);
     }
 
-    private int readInt(int min, int max) {
+    private int readInt(int max) {
         int choice;
         while (true) {
             try {
                 choice = Integer.parseInt(scanner.nextLine());
-                if (choice >= min && choice <= max) {
+                if (choice >= 1 && choice <= max) {
                     return choice;
                 }
-                System.out.println("Please enter a number between " + min + " and " + max + ".");
+                System.out.println("Please enter a number between " + 1 + " and " + max + ".");
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid number.");
             }
         }
     }
 
-    private int readInt(int min, int max, int exclude) {
-        int choice;
-        while (true) {
-            choice = readInt(min, max);
-            if (choice != exclude) {
-                return choice;
-            }
-            System.out.println("You cannot select enclosure " + (exclude + 1) + ". Please choose a different enclosure.");
-        }
-    }
 
 
     private Creature chooseAnimal(int enclosureIndex) {
         List<Creature> animals = enclosures.get(enclosureIndex).getAnimals();
-        return animals.get(selectFromList(animals, Creature::getName, "Choisissez une créature :") - 1);
+        return animals.get(selectFromList(animals, Creature::getName, "Choose a creature :") - 1);
     }
 
     private void processUserInput(int choice) {
@@ -149,7 +138,11 @@ public class GameEngine {
             case 1:
                 selectedEnclosure = chooseEnclosure();
                 player.examinateEnclosure(selectedEnclosure);
-
+                for(Creature creature : selectedEnclosure.getAnimals()) {
+                    asciiArtView.renderAnimal(creature);
+                    System.out.println(creature.getDescription());
+                    waitForEnter();
+                }
                 break;
             case 2:
                 selectedEnclosure = chooseEnclosure();
@@ -173,17 +166,15 @@ public class GameEngine {
                 player.moveAnimalFromEnclosure(currentAnimal, selectedEnclosure, secondEnclosure);
                 break;
             case 5:
-
-                scanner.nextLine();
                 System.out.println("Enter the name of the enclosure : ");
                 String name = scanner.nextLine();
-                System.out.println("Enter the type of the enclosure : ");
-                System.out.println("1. Basic Enclosure");
-                System.out.println("2. Aquatic Enclosure");
-                System.out.println("3. Aviary Enclosure");
-                int enclosureType = scanner.nextInt();
+
+                int enclosureType = selectFromList(
+                        List.of("Basic Enclosure", "Aquatic Enclosure", "Aviary Enclosure"),
+                        Function.identity(),
+                        "Choose an enclosure type : \n");
                 System.out.println("Enter the area of the enclosure : ");
-                int area = scanner.nextInt();
+                int area = Integer.parseInt(scanner.nextLine());
 
                 switch (enclosureType) {
                     case 2 :
@@ -196,7 +187,6 @@ public class GameEngine {
                         enclosures.add(new Enclosure(name, area, 100, new ArrayList<>()));
 
                 }
-                scanner.nextLine();
                 break;
             case 6:
                 monitorPark();
@@ -204,7 +194,6 @@ public class GameEngine {
             default:
                 System.out.println("Invalid option");
         }
-        waitForEnter();
         clearConsole();
 
     }
@@ -221,6 +210,7 @@ public class GameEngine {
                 showMissedMessages();
                 try {
                     Thread.sleep(2000);
+
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -228,8 +218,6 @@ public class GameEngine {
         });
 
         monitoringThread.start();
-
-        scanner.nextLine();
         exitMonitoring.set(true);
 
         try {
@@ -241,7 +229,6 @@ public class GameEngine {
 
         private void waitForEnter() {
             System.out.println("OK ?");
-            scanner.nextLine();
             scanner.nextLine();
         }
 

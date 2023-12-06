@@ -298,6 +298,8 @@ public abstract class Creature {
         this.hunger = MAX_HUNGER;
     }
 
-
+    public String getDescription() {
+        return getName() + " is a " + getAgeType() + " " + getClass().getSimpleName() + " (" + getSex() + ").";
+    }
 }
 
