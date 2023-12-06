@@ -7,13 +7,22 @@ import fr.fantasticzoo.model.animals.characteristics.Food;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 class WerewolfTest {
 
-    Werewolf jeff = new Werewolf();
+    static Werewolf jeff = new Werewolf();
+
+    @BeforeAll
+    static void setUp() {
+        System.out.println("Test de la classe Werewolf");
+        jeff.setName("Jeff");
+        jeff.setSex(SexType.MALE);
+    }
+
 
     @Test
     void cry_of_belonging() {
@@ -26,9 +35,11 @@ class WerewolfTest {
         assertEquals(jeff.getClass(), Werewolf.class);
     }
 
+    /**
+     * Teste si les animaux peuvent manger et regarde si leur niveau de faim n'est bien plus à 0 après avoir mangé.
+     */
     @Test
     void eat() {
-        jeff.setName("Jeff");
         jeff.setAsleep(false);
         jeff.setHunger(0);
         jeff.eat(Food.MEAT);
@@ -47,7 +58,6 @@ class WerewolfTest {
 
     @Test
     void fallAsleep() {
-        jeff.setName("Jeff");
         jeff.setAsleep(false);
         jeff.fallAsleep();
         assertTrue(jeff.isAsleep());
@@ -62,19 +72,16 @@ class WerewolfTest {
 
     @Test
     void getName() {
-        jeff.setName("Jeff");
         assertEquals("Jeff", jeff.getName());
     }
 
     @Test
     void setName() {
-        jeff.setName("Jeff");
         assertEquals("Jeff", jeff.getName());
     }
 
     @Test
     void getSex() {
-        jeff.setSex(SexType.MALE);
         assertEquals(SexType.MALE, jeff.getSex());
     }
 
@@ -102,6 +109,11 @@ class WerewolfTest {
         assertEquals(100, jeff.getAge());
     }
 
+    /**
+     * Teste si l'animal peut changer d'âge.
+     * @see Creature#setAge(int)
+     * Il ne devrait pas être mort normalement (à 100 ans) ?
+     */
     @Test
     void setAge() {
         jeff.setAge(100);
@@ -167,6 +179,9 @@ class WerewolfTest {
         assertEquals(jeff.name + " is asleep and cannot run.", jeff.run());
     }
 
+    /**
+     * Teste si les femelles peuvent tomber enceinte.
+     */
     @Test
     public void canGetPregnant(){
         jeff.setName("Jeff");
@@ -174,9 +189,18 @@ class WerewolfTest {
         Werewolf jeffina = new Werewolf();
         jeffina.setName("Jeffina");
 
+        Werewolf joe = new Werewolf();
+        joe.setName("Joe");
+        joe.setSex(SexType.MALE);
+
         jeffina.setSex(SexType.FEMALE);
         jeffina.mate(jeff);
         assertEquals(1, jeffina.getPregnancyState());
+        assertEquals(0, jeff.getPregnancyState());
+
+        jeff.mate(joe);
+        assertEquals(0, jeff.getPregnancyState());
+        assertEquals(0, joe.getPregnancyState());
     }
 
 

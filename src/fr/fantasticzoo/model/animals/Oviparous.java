@@ -12,7 +12,7 @@ public class Oviparous extends Creature {
 
 
     /**
-     * Cette méthode est héritée de la classe Creature et permet de pondre un oeuf pour les ovipares.
+     * Cette méthode est héritée de la classe Creature et permet de pondre un œuf pour les ovipares.
      */
     @Override
     public void giveBirth() {
@@ -22,6 +22,7 @@ public class Oviparous extends Creature {
     public Class<?> getType() {
         return (Class<?>) this.getClass();
     }
+
     /**
      * @return
      */
@@ -32,7 +33,7 @@ public class Oviparous extends Creature {
     }
 
     /**
-     * Cette fonction permet aux ovipares de pondre un oeuf
+     * Cette fonction permet aux ovipares de pondre un œuf
      * @return Egg
      */
     public Egg layEgg() {
