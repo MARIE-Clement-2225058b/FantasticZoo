@@ -15,10 +15,6 @@ public class Kraken extends Oviparous implements Swimming {
         super(maxHealth, maxHunger, sex, name);
     }
 
-    public Enclosure getEnclosure() {
-        return super.getEnclosure();
-    }
-
     public void setStrength(int strength) {
         super.setStrength(strength);
     }
