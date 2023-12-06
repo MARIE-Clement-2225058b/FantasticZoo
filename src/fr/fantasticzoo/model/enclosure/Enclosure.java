@@ -81,7 +81,7 @@ public class Enclosure {
     }
 
     public String getDescription () {
-        return name + " : " + animals.size() + " animaux, " + area + "m², " + cleanness + "% de propreté";
+        return name + " : " + animals.size() + " animaux, " + area + "m², " + cleanness + "% de propreté de type : " + getClass().getSimpleName();
     }
 
     @Override

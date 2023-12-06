@@ -92,7 +92,7 @@ class EnclosureTest {
     @Test
     void addWrongCreatureToEnclosure() {
         Enclosure enclosure = new Enclosure("Enclos 1");
-        
+
         // on met un loup-garou dans un enclos qui ne peut désormais qu'accueillir QUE des loup-garous
         enclosure.addCreature(werewolf);
         assertEquals(Werewolf.class, enclosure.getCreatureType().getClass());

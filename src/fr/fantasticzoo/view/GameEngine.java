@@ -11,6 +11,8 @@ import fr.fantasticzoo.model.animals.types.Mermaids;
 import fr.fantasticzoo.model.animals.types.Phoenix;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.employee.ZooMaster;
+import fr.fantasticzoo.model.enclosure.Aquarium;
+import fr.fantasticzoo.model.enclosure.Aviary;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 
 import java.util.ArrayList;
@@ -182,10 +184,18 @@ public class GameEngine {
                 int enclosureType = scanner.nextInt();
                 System.out.println("Enter the area of the enclosure : ");
                 int area = scanner.nextInt();
-                System.out.println("Enter the cleanness of the enclosure : ");
-                int cleanness = scanner.nextInt();
 
-                enclosures.add(new Enclosure(name, area, cleanness, new ArrayList<>()));
+                switch (enclosureType) {
+                    case 2 :
+                        enclosures.add(new Aquarium(name, area, 100, new ArrayList<>()));
+                        break;
+                    case 3 :
+                        enclosures.add(new Aviary(name, area, 100, new ArrayList<>()));
+                        break;
+                    default:
+                        enclosures.add(new Enclosure(name, area, 100, new ArrayList<>()));
+
+                }
                 scanner.nextLine();
                 break;
             case 6:
@@ -284,19 +294,19 @@ public class GameEngine {
                 switch (behaviorChoice) {
                     case 0: // Courir
                         if (creature instanceof Running) {
-                            if(!creature.isAsleep() && creature.getHunger() > 50 && creature.getCurrentAction().equals(ActionType.RUNNING))
+                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.RUNNING))
                                 missedMessages.add(((Running) creature).run());
                         }
                         break;
                     case 1: // Voler
                         if (creature instanceof Flying) {
-                            if(!creature.isAsleep() && creature.getHunger() > 50 && creature.getCurrentAction().equals(ActionType.FLYING))
+                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.FLYING))
                                 missedMessages.add(((Flying) creature).fly());
                         }
                         break;
                     case 2: // Nager
                         if (creature instanceof Swimming) {
-                            if(!creature.isAsleep() && creature.getHunger() > 50 && creature.getCurrentAction().equals(ActionType.SWIMMING))
+                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.SWIMMING))
                                 missedMessages.add(((Swimming) creature).swim());
                         }
                         break;
