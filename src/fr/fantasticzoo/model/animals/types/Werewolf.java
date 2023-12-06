@@ -19,6 +19,8 @@ public class Werewolf extends Viviparous implements Running {
 
     private boolean transformed = false;
 
+    private int dFactor;
+
     public Werewolf() {
         super(100, 100, SexType.MALE, "Werewolf");
     }
@@ -59,208 +61,11 @@ public class Werewolf extends Viviparous implements Running {
         return this.transformed;
     }
 
-    /**
-     *
-     */
-    public int getStrength() {
-            return super.getStrength();
-    }
-
-
     @Override
     public void mate(Creature mate) {
         super.mate(mate);
-
     }
 
-    /**
-     *
-     */
-    public void setStrength(int strength) {
-        super.setStrength(strength);
-    }
-
-    /**
-     * @param food
-     * Pour nourrir le dragon
-     */
-    public void eat(Food food) {
-        super.eat(food);
-    }
-
-    @Override
-    public void heal() {
-        super.heal();
-    }
-
-    /**
-     * 
-     */
-
-    public void fallAsleep() {
-        super.fallAsleep();
-    }
-
-    /**
-     * 
-     */
-
-    public void aging() {
-        super.aging();
-    }
-
-    /**
-     * @return 
-     */
-
-    public String getName() {
-        return super.getName();
-    }
-
-    /**
-     * @param name 
-     */
-
-    public void setName(String name) {
-        super.setName(name);
-    }
-
-    /**
-     * @return 
-     */
-
-    public SexType getSex() {
-        return super.getSex();
-    }
-
-    /**
-     * @param sex 
-     */
-
-    public void setSex(SexType sex) {
-        super.setSex(sex);
-    }
-
-    /**
-     * @return 
-     */
-
-    public int getWeight() {
-        return super.getWeight();
-    }
-
-    /**
-     * @param weight 
-     */
-
-    public void setWeight(int weight) {
-        super.setWeight(weight);
-    }
-
-    /**
-     * @return height
-     */
-
-    public int getHeight() {
-        return super.getHeight();
-    }
-
-    /**
-     * @param height 
-     */
-
-    public void setHeight(int height) {
-        super.setHeight(height);
-    }
-
-    /**
-     * @return age
-     */
-
-    public int getAge() {
-        return super.getAge();
-    }
-
-    /**
-     * @return type of age
-     */
-
-    public String getAgeType() {
-        return super.getAgeType();
-    }
-
-    /**
-     * @param age 
-     */
-
-    public void setAge(int age) {
-        super.setAge(age);
-    }
-
-    /**
-     * @return 
-     */
-
-    public int getHunger() {
-        return super.getHunger();
-    }
-
-    /**
-     * @param hunger 
-     */
-
-    public void setHunger(int hunger) {
-        super.setHunger(hunger);
-    }
-
-    /**
-     * @return 
-     */
-
-    public boolean isAsleep() {
-        return super.isAsleep();
-    }
-
-    /**
-     * @param asleep 
-     */
-
-    public void setAsleep(boolean asleep) {
-        super.setAsleep(asleep);
-    }
-
-    /**
-     * @return health
-     */
-
-    public int getHealth() {
-        return super.getHealth();
-    }
-
-    /**
-     * @param health 
-     */
-
-    public void setHealth(int health) {
-        super.setHealth(health);
-    }
-
-    /**
-     * @return
-     * Cette fonction renvoie le maximum de santé qu'un loup peut avoir
-     */
-
-    public int getMaxHealth() {
-        return super.getMaxHealth();
-    }
-
-    /**
-     * @return 
-     */
-
-    public int getMaxHunger() {
-        return super.getMaxHunger();
-    }
 
     @Override
     public String run() {
@@ -272,7 +77,6 @@ public class Werewolf extends Viviparous implements Running {
             return getName() + " is asleep and cannot run.";
         }
     }
-
 
     public void giveBirth() {
         super.giveBirth();

@@ -60,16 +60,6 @@ public class Pack extends Werewolf{
         for(Werewolf wolf : wolves) {
             wolf.setRank(wolves.indexOf(wolf));
         }
-        System.out.println(wolves.get(0).getName() + " is ranked " + wolves.get(0).getRank() + ".");
-
-        System.out.println(wolves.get(1).getName() + " is ranked " + wolves.get(1).getRank() + ".");
-    }
-
-    public void hierarchy() {
-        wolves.sort(Comparator.comparing(Werewolf::getStrength));
-        for (Werewolf wolf : wolves) {
-            System.out.println(wolf.getName() + " is ranked " + wolf.getRank() + ".");
-        }
     }
 
     @Override
