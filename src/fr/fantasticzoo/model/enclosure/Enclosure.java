@@ -9,6 +9,7 @@ public class Enclosure {
     private int area;
     private int maxAnimal;
     private int cleanness;
+
     private ArrayList<Creature> animals = new ArrayList<Creature>();
 
     public Enclosure(String name, int area, int maxAnimal, int cleanness, ArrayList<Creature> animals) {
@@ -67,7 +68,6 @@ public class Enclosure {
         this.animals = animals;
     }
 
-
     public String getDescription () {
         return name + " : " + animals.size() + " animaux, " + area + "m², " + cleanness + "% de propreté";
     }
@@ -81,6 +81,7 @@ public class Enclosure {
                 ", animalCount=" + animals.size() +
                 ", cleanness=" + cleanness +
                 ", animals=" + animals +
+                ", type=" + this.getClass().getSimpleName() +
                 '}';
     }
 
