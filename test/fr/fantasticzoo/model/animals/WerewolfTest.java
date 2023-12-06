@@ -15,12 +15,22 @@ import java.util.ArrayList;
 class WerewolfTest {
 
     static Werewolf jeff = new Werewolf();
+    static Werewolf pedro = new Werewolf();
+    static Werewolf loup = new Werewolf();
 
     @BeforeAll
     static void setUp() {
         System.out.println("Test de la classe Werewolf:");
         jeff.setName("Jeff");
         jeff.setSex(SexType.MALE);
+
+        System.out.println("Test de la classe Werewolf:");
+        pedro.setName("Pedro");
+        pedro.setSex(SexType.MALE);
+
+        System.out.println("Test de la classe Werewolf:");
+        loup.setName("Loup");
+        loup.setSex(SexType.MALE);
     }
 
 
@@ -240,5 +250,17 @@ class WerewolfTest {
     @Test
     void hierarchy() {
         
+    }
+
+    @Test
+    void getRank() {
+        jeff.setRank(0);
+        pedro.setRank(1);
+        loup.setRank(2);
+        assertEquals("Jeff is ranked 0.", jeff.getRank());
+
+        assertEquals("Pedro is ranked 1.", pedro.getRank());
+
+        assertEquals("Loup is ranked 2.", loup.getRank());
     }
 }
