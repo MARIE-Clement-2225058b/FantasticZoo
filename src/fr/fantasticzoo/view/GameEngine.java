@@ -4,9 +4,11 @@ import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.behaviors.Flying;
 import fr.fantasticzoo.model.animals.behaviors.Running;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
+import fr.fantasticzoo.model.animals.characteristics.ActionType;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.Dragons;
-import fr.fantasticzoo.model.animals.types.Phenix;
+import fr.fantasticzoo.model.animals.types.Mermaids;
+import fr.fantasticzoo.model.animals.types.Phoenix;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.employee.ZooMaster;
 import fr.fantasticzoo.model.enclosure.Enclosure;
@@ -39,11 +41,12 @@ public class GameEngine {
         enclosures = new ArrayList<>();
         Enclosure enclosure = new Enclosure("Enclos 1");
         Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
-        Phenix phenix = new Phenix(100,100, SexType.MALE, "Mark");
-
+        Phoenix phoenix = new Phoenix(100,100, SexType.MALE, "Mark");
+        Mermaids mermaids = new Mermaids(100,100, SexType.FEMALE, "Ariel la petite sirène");
         ArrayList<Creature> creatures = new ArrayList<>();
         creatures.add(dragons);
-        creatures.add(phenix);
+        creatures.add(phoenix);
+        creatures.add(mermaids);
         enclosure.setAnimals(creatures);
 
         enclosures.add(enclosure);
@@ -172,6 +175,11 @@ public class GameEngine {
                 scanner.nextLine();
                 System.out.println("Enter the name of the enclosure : ");
                 String name = scanner.nextLine();
+                System.out.println("Enter the type of the enclosure : ");
+                System.out.println("1. Basic Enclosure");
+                System.out.println("2. Aquatic Enclosure");
+                System.out.println("3. Aviary Enclosure");
+                int enclosureType = scanner.nextInt();
                 System.out.println("Enter the area of the enclosure : ");
                 int area = scanner.nextInt();
                 System.out.println("Enter the cleanness of the enclosure : ");
@@ -182,9 +190,7 @@ public class GameEngine {
                 break;
             case 6:
                 monitorPark();
-
                 break;
-
             default:
                 System.out.println("Invalid option");
         }
@@ -278,17 +284,20 @@ public class GameEngine {
                 switch (behaviorChoice) {
                     case 0: // Courir
                         if (creature instanceof Running) {
-                            missedMessages.add(((Running) creature).run());
+                            if(!creature.isAsleep() && creature.getHunger() > 50 && creature.getCurrentAction().equals(ActionType.RUNNING))
+                                missedMessages.add(((Running) creature).run());
                         }
                         break;
                     case 1: // Voler
                         if (creature instanceof Flying) {
-                            missedMessages.add(((Flying) creature).fly());
+                            if(!creature.isAsleep() && creature.getHunger() > 50 && creature.getCurrentAction().equals(ActionType.FLYING))
+                                missedMessages.add(((Flying) creature).fly());
                         }
                         break;
                     case 2: // Nager
                         if (creature instanceof Swimming) {
-                            missedMessages.add(((Swimming) creature).swim());
+                            if(!creature.isAsleep() && creature.getHunger() > 50 && creature.getCurrentAction().equals(ActionType.SWIMMING))
+                                missedMessages.add(((Swimming) creature).swim());
                         }
                         break;
                 }

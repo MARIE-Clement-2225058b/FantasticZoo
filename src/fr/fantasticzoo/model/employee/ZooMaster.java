@@ -38,9 +38,6 @@ public class ZooMaster extends Human {
         super.aging();
     }
 
-    /**
-     * @return
-     */
     @Override
     public String getName() {
         return super.getName();

@@ -6,8 +6,7 @@ import fr.fantasticzoo.model.animals.characteristics.Food;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.Dragons;
 import fr.fantasticzoo.model.animals.types.Nymphs;
-import fr.fantasticzoo.model.animals.types.Phenix;
-import fr.fantasticzoo.model.enclosure.Enclosure;
+import fr.fantasticzoo.model.animals.types.Phoenix;
 
 public abstract class Creature {
 
@@ -173,7 +172,7 @@ public abstract class Creature {
      */
     public void checkAge(){
         if (this.age >= MAX_AGE){
-            if (this instanceof Phenix || this instanceof Dragons || this instanceof Nymphs){
+            if (this instanceof Phoenix || this instanceof Dragons || this instanceof Nymphs){
                 setAge(0);
                 this.setHealth(MAX_HEALTH);
                 System.out.println(this.name + " has been reborn.");
@@ -218,6 +217,14 @@ public abstract class Creature {
 
     public int getAge() {
         return age;
+    }
+
+    public ActionType getCurrentAction() {
+        return currentAction;
+    }
+
+    public void setCurrentAction(ActionType action) {
+        this.currentAction = action;
     }
 
     /**
