@@ -270,5 +270,7 @@ public abstract class Creature {
 
     public void feed() {
     }
+
+
 }
 
