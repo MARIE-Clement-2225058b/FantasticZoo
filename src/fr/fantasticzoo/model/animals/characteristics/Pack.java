@@ -5,7 +5,7 @@ import fr.fantasticzoo.model.animals.types.Werewolf;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.IntStream;
+
 
 public class Pack extends Werewolf{
 
@@ -37,8 +37,10 @@ public class Pack extends Werewolf{
         return wolves;
     }
 
+
     public void addWolf(Werewolf wolf) {
         if (wolves.size() < max) {
+            System.out.println("adding " + wolf.getName() + " to the pack.");
             wolves.add(wolf);
         } else {
             System.out.println("Pack is already at maximum capacity.");
@@ -55,7 +57,19 @@ public class Pack extends Werewolf{
 
     public void whatRank(){
         wolves.sort(Comparator.comparing(Werewolf::getStrength).reversed());
-        IntStream.range(0, wolves.size()).forEach(i -> wolves.get(i).setRank(i));
+        for(Werewolf wolf : wolves) {
+            wolf.setRank(wolves.indexOf(wolf));
+        }
+        System.out.println(wolves.get(0).getName() + " is ranked " + wolves.get(0).getRank() + ".");
+
+        System.out.println(wolves.get(1).getName() + " is ranked " + wolves.get(1).getRank() + ".");
+    }
+
+    public void hierarchy() {
+        wolves.sort(Comparator.comparing(Werewolf::getStrength));
+        for (Werewolf wolf : wolves) {
+            System.out.println(wolf.getName() + " is ranked " + wolf.getRank() + ".");
+        }
     }
 
     @Override
