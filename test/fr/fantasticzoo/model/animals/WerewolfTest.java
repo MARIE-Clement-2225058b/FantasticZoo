@@ -277,11 +277,33 @@ class WerewolfTest {
     }
 
     @Test
+    void testformStrongestCouple(){
+        Werewolf jeffina = new Werewolf();
+        jeffina.setName("Jeffina");
+        jeffina.setStrength(100);
+        jeffina.setSex(SexType.FEMALE);
+
+        Werewolf joe = new Werewolf();
+        joe.setName("Joe");
+        joe.setStrength(100);
+        joe.setSex(SexType.MALE);
+
+        assertEquals("The strongest couple is formed by Joe and Jeffina.", jeffina.formStrongestCouple());
+    }
+
+    @Test
     void getLvl(){
         jeff.setAge(1);
         jeff.setStrength(1);
         jeff.setdFactor(1);
         jeff.setRank(1);
         assertEquals(0, jeff.getLvl());
+
+        pedro.setAge(20);
+        pedro.setStrength(20);
+        pedro.setdFactor(20);
+        pedro.setRank(20);
+        assertEquals(42, pedro.getLvl());
+
     }
 }

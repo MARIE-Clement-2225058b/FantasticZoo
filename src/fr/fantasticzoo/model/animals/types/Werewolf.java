@@ -4,6 +4,7 @@ import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.Viviparous;
 import fr.fantasticzoo.model.animals.behaviors.Running;
 import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.characteristics.Pack;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 
 import java.util.ArrayList;
@@ -27,6 +28,31 @@ public class Werewolf extends Viviparous implements Running {
         super(100, 100, SexType.MALE, "Werewolf");
         allWerewolves.add(this);
     }
+
+    public String formStrongestCouple() {
+        Werewolf strongestMale = null;
+        Werewolf strongestFemale = null;
+
+        for (Werewolf werewolf : allWerewolves) {
+            if (werewolf.getSex() == SexType.MALE && (strongestMale == null || werewolf.getStrength() > strongestMale.getStrength())) {
+                strongestMale = werewolf;
+            } else if (werewolf.getSex() == SexType.FEMALE && (strongestFemale == null || werewolf.getStrength() > strongestFemale.getStrength())) {
+                strongestFemale = werewolf;
+            }
+        }
+
+        if (strongestMale != null && strongestFemale != null) {
+            System.out.println("The strongest couple is formed by " + strongestMale.getName() + " and " + strongestFemale.getName() + ".");
+            Pack pack = new Pack(strongestMale + " and " + strongestFemale , 2, 15);
+            pack.addWolf(strongestMale);
+            pack.addWolf(strongestFemale);
+            return "The strongest couple is formed by " + strongestMale.getName() + " and " + strongestFemale.getName() + ".";
+        } else {
+            System.out.println("Could not form a couple. Make sure there is at least one male and one female in the pack.");
+            return "Could not form a couple. Make sure there is at least one male and one female in the pack.";
+        }
+    }
+
 
     public static List<Werewolf> getAllWerewolves() {
         return allWerewolves;
