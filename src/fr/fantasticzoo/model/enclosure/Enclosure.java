@@ -9,6 +9,7 @@ public class Enclosure {
     private int area;
     private int maxAnimal;
     private int cleanness;
+
     private ArrayList<Creature> animals = new ArrayList<Creature>();
 
     public Enclosure(String name, int area, int maxAnimal, int cleanness, ArrayList<Creature> animals) {
