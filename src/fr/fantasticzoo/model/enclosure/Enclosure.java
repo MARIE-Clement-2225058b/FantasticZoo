@@ -11,6 +11,7 @@ public class Enclosure {
     private int area;
     private int maxAnimal;
     private int cleanness;
+    private Creature creatureType;
     private ArrayList<Creature> animals = new ArrayList<>();
 
     public Enclosure(String name, int area, int cleanness, ArrayList<Creature> animals) {
@@ -29,6 +30,14 @@ public class Enclosure {
 
     public String getName() {
         return name;
+    }
+
+    public Creature getCreatureType() {
+        return creatureType;
+    }
+
+    public void setCreatureType(Creature creatureType) {
+        this.creatureType = creatureType;
     }
 
     public void setName(String name) {
@@ -102,15 +111,20 @@ public class Enclosure {
         if(!this.animals.contains(creature)) return false;
 
         this.animals.remove(creature);
-        another.animals.add(creature);
+        another.addCreature(creature);
 
         return true;
     }
 
     public void addCreature(Creature creature) {
-        if(creature instanceof Swimming || creature instanceof Flying) {
+        if(creature instanceof Swimming
+                || creature instanceof Flying
+                || (creatureType != null && creatureType.getClass() != creature.getClass()) && !animals.isEmpty()) {
             System.out.println("This enclosure is not suitable for this animal.");
             return;
+        }
+        if (animals.isEmpty()){
+            creatureType = creature;
         }
         if (animals.size() < maxAnimal) {
             animals.add(creature);

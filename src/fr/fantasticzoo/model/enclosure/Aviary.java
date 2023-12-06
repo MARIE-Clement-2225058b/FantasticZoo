@@ -18,6 +18,9 @@ public class Aviary extends Enclosure{
             if (getAnimals().size() < getMaxAnimal()) {
                 getAnimals().add(creature);
             }
+            if (getAnimals().isEmpty()){
+                setCreatureType(creature);
+            }
         } else {
             System.out.println("This creature can't swim, it can't be in this enclosure.");
         }

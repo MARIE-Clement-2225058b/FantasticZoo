@@ -1,9 +1,12 @@
 package fr.fantasticzoo.model.enclosure;
 
 import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.Dragons;
 import fr.fantasticzoo.model.animals.types.Mermaids;
+import fr.fantasticzoo.model.animals.types.Nymphs;
 import fr.fantasticzoo.model.animals.types.Werewolf;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,7 +14,18 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EnclosureTest {
-    Enclosure enclosure = new Enclosure("Enclos 1");
+
+    static Enclosure enclosure = new Enclosure("Enclos 1");
+    static Mermaids ariel = new Mermaids();
+    static Werewolf werewolf = new Werewolf();
+    @BeforeAll
+    static void setUp() {
+        System.out.println("Test de la classe Enclosure:");
+        ariel.setName("Ariel");
+        werewolf.setName("Jeff");
+
+        assertEquals(0, enclosure.getAnimalCount());
+    }
 
     @Test
     void clean() {
@@ -22,40 +36,35 @@ class EnclosureTest {
 
     @Test
     void feedAllCreatures() {
-        Mermaids mermaids = new Mermaids();
-        mermaids.setHunger(0);
+        ariel.setHunger(0);
 
-        Werewolf werewolf = new Werewolf();
-        werewolf.setHunger(0);
+        Aquarium aquarium = new Aquarium("Aquarium 1");
 
-        ArrayList<Creature> animals = new ArrayList<>();
+        Mermaids ariel2 = new Mermaids();
+        ariel2.setHunger(0);
 
-        enclosure.setAnimals(animals);
+        aquarium.addCreature(ariel);
+        aquarium.addCreature(ariel2);
 
-        enclosure.feedAllCreatures();
+        aquarium.feedAllCreatures();
 
-        for (Creature animal : enclosure.getAnimals()) {
+        assertEquals(2, aquarium.getAnimalCount());
+        for (Creature animal : aquarium.getAnimals()) {
             assertEquals(100, animal.getHunger());
         }
     }
 
     @Test
     void transfertCreature() {
-        Mermaids ariel = new Mermaids();
 
-        // On ajoute Ariel dans le premier enclos
-        ArrayList<Creature> animals = new ArrayList<>();
-        animals.add(ariel);
-        enclosure.setAnimals(animals);
+        // On ajoute dans le premier enclos
+        enclosure.addCreature(werewolf);
 
         // On crée un deuxième enclos
-        // Il faut fix ça : on devrait pas avoir à créer une liste vide pour instancier un enclos
         Enclosure enclosure2 = new Enclosure("Enclos 2");
-        ArrayList<Creature> animals2 = new ArrayList<>();
-        enclosure2.setAnimals(animals2);
 
-        // On transfère Ariel dans le deuxième enclos
-        enclosure.transfertCreature(enclosure2, ariel);
+        // On transfère le loup-garou dans le deuxième enclos
+        enclosure.transfertCreature(enclosure2, werewolf);
 
         // Vérifier que le premier enclos a été vidé
         assertEquals(0, enclosure.getAnimalCount());
@@ -65,16 +74,47 @@ class EnclosureTest {
     }
 
     @Test
-    void addCreature() {
-        Mermaids ariel = new Mermaids();
+    void addMermaidToNon_AquariumEnclosure() {
         enclosure.addCreature(ariel);
         assertEquals(0, enclosure.getAnimalCount());
+    }
 
+    @Test
+    void addMermaidToAquariumEnclosure() {
         Aquarium aquarium = new Aquarium("Aquarium 1");
         aquarium.addCreature(ariel);
         assertEquals(1, aquarium.getAnimalCount());
+}
 
-        Dragons dragons = new Dragons();
+    @Test
+    void addWrongCreatureToEnclosure() {
+        // on met un loup-garou dans un enclos qui ne peut désormais qu'accueillir QUE des loup-garous
+        enclosure.addCreature(werewolf);
+        assertEquals(Werewolf.class, enclosure.getCreatureType().getClass());
 
+        // on crée une nymphe qu'on va essayer d'ajouter à l'enclos des loup-garous
+        Nymphs navi = new Nymphs(100, 100, SexType.MALE, "Navi");
+
+        // Allez c'est parti on l'ajoute hop hop hop
+        enclosure.addCreature(navi);
+
+        // Normalement ça marche pas
+        assertEquals(1, enclosure.getAnimalCount());
+
+        // On crée un deuxième enclos
+        Enclosure enclosure2 = new Enclosure("Enclos 2");
+
+        // On transfère le loup-garou dans le deuxième enclos et on vérifie que le premier est vide
+        enclosure.transfertCreature(enclosure2, werewolf);
+        assertEquals(0, enclosure.getAnimalCount());
+        //assertTrue(enclosure.getAnimals().isEmpty());
+
+        // Maintenant que le premier enclos est vide on peut normalement ajouter la nymphe
+        enclosure.addCreature(navi);
+
+        // Et elle est toute seule dans un enclos qui ne peut accueillir QUE des nymphes
+        assertEquals(Nymphs.class, enclosure.getCreatureType().getClass());
+        assertEquals(1, enclosure.getAnimalCount());
     }
+
 }
