@@ -10,7 +10,12 @@ import fr.fantasticzoo.model.enclosure.Enclosure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
 public class GameEngine {
@@ -20,6 +25,8 @@ public class GameEngine {
     private final ZooMaster player;
     private final Scanner scanner;
     private ArrayList<Enclosure> enclosures;
+    ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+    private List<String> missedMessages = new ArrayList<>();
 
     public GameEngine() {
         currentAnimal = new Werewolf();
@@ -31,7 +38,7 @@ public class GameEngine {
         Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
         Phenix phenix = new Phenix(100,100, SexType.MALE, "Mark");
 
-        ArrayList<Creature> creatures = new ArrayList<Creature>();
+        ArrayList<Creature> creatures = new ArrayList<>();
         creatures.add(dragons);
         creatures.add(phenix);
         enclosure.setAnimals(creatures);
@@ -42,6 +49,10 @@ public class GameEngine {
     }
 
     public void startGame() {
+
+        executorService.scheduleAtFixedRate(this::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
+
+
         while (true) {
             displayMenu();
             int choice = scanner.nextInt();
@@ -50,12 +61,26 @@ public class GameEngine {
         }
     }
 
+    public void stopGame() {
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+    }
+
+
     private void displayMenu() {
         System.out.println("1. Examiner un enclos");
         System.out.println("2. Nettoyer un enclos");
         System.out.println("3. Nourrir les créatures");
         System.out.println("4. Transférer une créature");
         System.out.println("5. Construire un enclos");
+        System.out.println("6. Surveiller le parc");
         System.out.println("Choisissez une option : ");
     }
     private <T> int selectFromList(List<T> items, Function<T, String> displayFunction, String prompt) {
@@ -153,6 +178,10 @@ public class GameEngine {
                 enclosures.add(new Enclosure(name, area, maxAnimal, cleanness, new ArrayList<>()));
                 scanner.nextLine();
                 break;
+            case 6:
+                monitorPark();
+
+                break;
 
             default:
                 System.out.println("Invalid option");
@@ -162,15 +191,82 @@ public class GameEngine {
 
     }
 
-    private void waitForEnter() {
-        System.out.println("OK ?");
+    private void monitorPark() {
+        System.out.println("Monitoring the park. Press 'Enter' to return to the main menu...");
+
+        AtomicBoolean exitMonitoring = new AtomicBoolean(false);
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        }
+        Thread monitoringThread = new Thread(() -> {
+            while (!exitMonitoring.get()) {
+                showMissedMessages();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+
+        monitoringThread.start();
+
         scanner.nextLine();
-        scanner.nextLine();
+        exitMonitoring.set(true);
+
+        try {
+            monitoringThread.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
+
+        private void waitForEnter() {
+            System.out.println("OK ?");
+            scanner.nextLine();
+            scanner.nextLine();
+        }
 
 
     private void clearConsole() {
         for(int i = 0 ; i < 50 ; i++) System.out.println(" ");
     }
 
+
+    private void decreaseHungerForAllAnimals() {
+        missedMessages.add("Bouh");
+        Random rand = new Random();
+        List<Creature> deadAnimals = new ArrayList<>();
+
+        for (Enclosure enclosure : enclosures) {
+            for (Creature creature : enclosure.getAnimals()) {
+                int hungerLoss = rand.nextInt(3) + 1;
+                creature.setHunger(creature.getHunger() - hungerLoss);
+
+                // Hunger levels
+                if (creature.getHunger() <= 0 && creature.getHealth() > 0) {
+                    creature.die("starvation");
+                    deadAnimals.add(creature);
+                } else if (creature.getHunger() < 30) {
+                    missedMessages.add("Warning: " + creature.getName() + " is very hungry!");
+                } else if (creature.getHunger() < 60) {
+                    missedMessages.add("Notice: " + creature.getName() + " is starting to get hungry.");
+                }
+            }
+
+            enclosure.getAnimals().removeAll(deadAnimals);
+            deadAnimals.clear();
+        }
+    }
+
+    private void showMissedMessages() {
+        if (!missedMessages.isEmpty()) {
+            for (String message : missedMessages) {
+                System.out.println(message);
+            }
+            missedMessages.clear();
+        }
+    }
+
 }
+

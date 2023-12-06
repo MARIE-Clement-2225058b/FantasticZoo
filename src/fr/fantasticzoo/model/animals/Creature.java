@@ -31,6 +31,8 @@ public abstract class Creature {
         MAX_HUNGER = maxHunger;
         this.name = name;
         this.sex = sex;
+        this.health = MAX_HEALTH;
+        this.hunger = 100;
     }
 
 
