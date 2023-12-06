@@ -1,202 +1,169 @@
 package fr.fantasticzoo.model.animals.types;
 
+import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.Oviparous;
-import fr.fantasticzoo.model.animals.behaviors.Flying;
+import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.characteristics.Egg;
 import fr.fantasticzoo.model.animals.characteristics.Food;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
+import fr.fantasticzoo.model.enclosure.Enclosure;
 
-public class Phenix extends Oviparous implements Flying {
-    public Phenix(int maxHealth, int maxHunger, SexType sex, String name) {
+public class Kraken extends Oviparous implements Swimming {
+
+    public Kraken(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }
 
-    @Override
-    public void giveBirth() {
-
-    }
-    @Override
-    public short cry() {
-        return 0;
+    public Enclosure getEnclosure() {
+        return super.getEnclosure();
     }
 
-    public String cry(CryType cry) {
-        return cry.toString();
+    public void setStrength(int strength) {
+        super.setStrength(strength);
     }
 
-    /**
-     * @param food
-     * Pour nourrir le dragon
-     */
+    public int getStrength() {
+        return super.getStrength();
+    }
+
+    public void setPregnancyState(int state) {
+        super.setPregnancyState(state);
+    }
+
+    public int getPregnancyState() {
+        return super.getPregnancyState();
+    }
+
+    public void mate(Creature mate) {
+        super.mate(mate);
+    }
+
     public void eat(Food food) {
         super.eat(food);
     }
 
-    @Override
+    public String cry(CryType cry) {
+        return super.cry(cry);
+    }
+
+    public void die(String reason) {
+        super.die(reason);
+    }
+
     public void heal() {
         super.heal();
     }
-
-    /**
-     *
-     */
 
     public void fallAsleep() {
         super.fallAsleep();
     }
 
-    /**
-     *
-     */
-
     public void aging() {
         super.aging();
     }
 
-    /**
-     * @return
-     */
+    public void checkAge() {
+        super.checkAge();
+    }
 
     public String getName() {
         return super.getName();
     }
 
-    /**
-     * @param name
-     */
     public void setName(String name) {
         super.setName(name);
     }
 
-    /**
-     * @return
-     */
     public SexType getSex() {
         return super.getSex();
     }
-
-    /**
-     * @param sex
-     */
 
     public void setSex(SexType sex) {
         super.setSex(sex);
     }
 
-    /**
-     * @return
-     */
-
     public int getWeight() {
         return super.getWeight();
     }
-
-    /**
-     * @param weight
-     */
 
     public void setWeight(int weight) {
         super.setWeight(weight);
     }
 
-    /**
-     * @return
-     */
-
     public int getHeight() {
         return super.getHeight();
     }
-
-    /**
-     * @param height
-     */
 
     public void setHeight(int height) {
         super.setHeight(height);
     }
 
-    /**
-     * @return
-     */
-
     public int getAge() {
         return super.getAge();
     }
 
-    /**
-     * @param age
-     */
+    public String getAgeType() {
+        return super.getAgeType();
+    }
 
     public void setAge(int age) {
         super.setAge(age);
     }
 
-    /**
-     * @return
-     */
-
     public int getHunger() {
         return super.getHunger();
     }
-
-    /**
-     * @param hunger
-     */
 
     public void setHunger(int hunger) {
         super.setHunger(hunger);
     }
 
-    /**
-     * @return
-     */
-
     public boolean isAsleep() {
         return super.isAsleep();
     }
-
-    /**
-     * @param asleep
-     */
 
     public void setAsleep(boolean asleep) {
         super.setAsleep(asleep);
     }
 
-    /**
-     * @return health
-     */
-
     public int getHealth() {
         return super.getHealth();
     }
-
-    /**
-     * @param health
-     */
 
     public void setHealth(int health) {
         super.setHealth(health);
     }
 
-    /**
-     * @return
-     */
-
     public int getMaxHealth() {
         return super.getMaxHealth();
     }
-
-    /**
-     * @return
-     */
 
     public int getMaxHunger() {
         return super.getMaxHunger();
     }
 
-    @Override
-    public String fly() {
-        return this.name + " is flying!";
+    public void feed() {
+        super.feed();
+    }
+
+    public void giveBirth() {
+        super.giveBirth();
+    }
+
+    public Class<?> getType() {
+        return super.getType();
+    }
+
+    public short cry() {
+        return super.cry();
+    }
+
+    public Egg layEgg() {
+        return super.layEgg();
+    }
+
+    public String swim() {
+        return this.name + " is swimming.";
     }
 }
