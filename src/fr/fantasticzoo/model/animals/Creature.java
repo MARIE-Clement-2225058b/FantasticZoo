@@ -107,16 +107,16 @@ public abstract class Creature {
     // Quand un bébé naît faudra penser à l'ajouter à l'enclos
 
     /**
-     * La fonction giveBirth permet de faire accoucher un animal. Elle dépend de l'animal, s'il est une ovipare ou un vivipare.
+     * La fonction giveBirth permet de faire accoucher un animal. Elle dépend de l'animal, s'il est un ovipare ou un vivipare.
      */
     public abstract void giveBirth();
 
     /**
      * @param mate
-     * La fonction mate permet de faire se reproduire deux Werewolf.
-     * Normalement elle prend comme param un Werewolf mais pour l'instant on va faire avec un Creature.
+     * La fonction mate permet de faire se reproduire deux créatures.
      */
     public void mate(Creature mate){
+        // && mate.getAgeType()=="Adult" && this.getAgeType()=="Adult") {
         if (!isAsleep()) {
             if (mate.sex != this.sex) {
                 System.out.println(this.name + " is mating with " + mate.getName() + ".");
@@ -135,7 +135,8 @@ public abstract class Creature {
 
     /**
      * @param food
-     * Pour nourrir l'animal
+     * Pour nourrir l'animal, on fournit un aliment.
+     * Sa faim est augmentée de la valeur de l'aliment.
      */
     public void eat(Food food) {
         if (!isAsleep()) {
@@ -154,22 +155,38 @@ public abstract class Creature {
         return cry.toString();
     }
 
+    /**
+     * @param reason
+     * La fonction damage permet de faire perdre de la vie à l'animal.
+     * On met la vie à 0 et on affiche la raison de la mort.
+     */
     public void die(String reason){
         this.health = 0;
         System.out.println(this.name + " has died of " + reason + ".");
     }
 
+    /**
+     * La fonction heal permet de soigner l'animal.
+     * Elle remet sa santé au maximum.
+     */
     public void heal() {
         this.setHealth(MAX_HEALTH);
         System.out.println(this.name + " has been healed.");
     }
 
+    /**
+     * La méthode fallAsleep permet de faire dormir l'animal.
+     * Elle met son action à "dormir" et affiche un message.
+     */
     public void fallAsleep() {
         this.setAsleep(true);
         System.out.println(this.name + " fell asleep.");
     }
 
-
+    /**
+     * La méthode aging permet de faire vieillir l'animal.
+     * Elle incrémente l'âge de 1.
+     */
     public void aging() {
         this.age = this.age + 1;
     }

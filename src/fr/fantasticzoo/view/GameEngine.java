@@ -178,13 +178,13 @@ public class GameEngine {
 
                 switch (enclosureType) {
                     case 2 :
-                        enclosures.add(new Aquarium(name, area, 100, new ArrayList<>()));
+                        enclosures.add(new Aquarium(name, area, new ArrayList<>()));
                         break;
                     case 3 :
-                        enclosures.add(new Aviary(name, area, 100, new ArrayList<>()));
+                        enclosures.add(new Aviary(name, area, new ArrayList<>()));
                         break;
                     default:
-                        enclosures.add(new Enclosure(name, area, 100, new ArrayList<>()));
+                        enclosures.add(new Enclosure(name, area, new ArrayList<>()));
 
                 }
                 break;

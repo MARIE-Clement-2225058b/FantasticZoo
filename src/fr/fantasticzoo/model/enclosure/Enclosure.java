@@ -14,11 +14,11 @@ public class Enclosure {
     private Creature creatureType;
     private ArrayList<Creature> animals = new ArrayList<>();
 
-    public Enclosure(String name, int area, int cleanness, ArrayList<Creature> animals) {
+    public Enclosure(String name, int area, ArrayList<Creature> animals) {
         this.name = name;
         this.area = area;
         this.maxAnimal = area / 10;
-        this.cleanness = cleanness;
+        this.cleanness = 100;
         this.animals = animals;
     }
 

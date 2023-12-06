@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Aviary extends Enclosure{
 
-    public Aviary(String name, int area, int cleanness, ArrayList<Creature> animals) {
-        super(name, area, cleanness, animals);
+    public Aviary(String name, int area, ArrayList<Creature> animals) {
+        super(name, area, animals);
     }
 
     public Aviary(String name) {

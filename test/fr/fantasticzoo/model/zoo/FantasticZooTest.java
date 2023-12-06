@@ -1,9 +1,16 @@
 package fr.fantasticzoo.model.zoo;
 
+import fr.fantasticzoo.model.animals.types.Dragons;
+import fr.fantasticzoo.model.animals.types.Megalodons;
+import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.employee.ZooMaster;
+import fr.fantasticzoo.model.enclosure.Aquarium;
+import fr.fantasticzoo.model.enclosure.Aviary;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import javax.swing.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,6 +54,31 @@ class FantasticZooTest {
         zoo.addEnclosure(enclosure);
         zoo.removeEnclosure(enclosure);
         assertEquals(0, zoo.getEnclosures().size());
+    }
+
+    @Test
+    void getAnimalsInZoo() {
+        Enclosure enclosure = new Enclosure("Enclos 1");
+        Aquarium aquarium = new Aquarium("Aquarium 1");
+        Aviary aviary = new Aviary("Aviary 1");
+
+        Werewolf werewolf = new Werewolf();
+        werewolf.setName("Jeff");
+        Megalodons megalodons = new Megalodons();
+        megalodons.setName("Bob");
+        Dragons dragons = new Dragons();
+        dragons.setName("Gérard");
+
+        enclosure.addCreature(werewolf);
+        aquarium.addCreature(megalodons);
+        aviary.addCreature(dragons);
+
+        zoo.addEnclosure(enclosure);
+        zoo.addEnclosure(aquarium);
+        zoo.addEnclosure(aviary);
+
+        //zoo.displayAnimals();
+        assertEquals(3, zoo.getCreatedAnimalsNumber());
     }
 
 

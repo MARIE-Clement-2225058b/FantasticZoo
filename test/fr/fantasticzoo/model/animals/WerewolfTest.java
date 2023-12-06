@@ -205,10 +205,13 @@ class WerewolfTest {
 
         Werewolf jeffina = new Werewolf();
         jeffina.setName("Jeffina");
+        jeffina.setAge(20);
+        jeffina.setAsleep(false);
 
         Werewolf joe = new Werewolf();
         joe.setName("Joe");
         joe.setSex(SexType.MALE);
+        joe.setAge(20);
 
         jeffina.setSex(SexType.FEMALE);
         jeffina.mate(jeff);

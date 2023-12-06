@@ -8,10 +8,21 @@ import java.util.Collection;
 
 public class FantasticZoo {
     private ArrayList<Enclosure> enclosures;
-
     private String name;
     private ZooMaster zooMaster;
     private int MaxEnclosure;
+
+    // Il doit permettre :
+    //− d’afficher le nombre de créatures présentes dans le zoo fantastique ;
+    //− d’afficher les créatures de tous les enclos.
+
+    //Il doit en plus avoir la méthode principale de l’application (point d’entrée de la simulation) qui est
+    //chargée de modéliser l’aspect temporel de la gestion du zoo fantastique. À intervalle régulier, cette
+    //méthode doit :
+    //− modifier aléatoirement l’état de certaines créatures (les rendre malades, les endormir, etc.) ;
+    //− modifier aléatoirement l’état de certains enclos (leur propreté, leur salinité, etc.) ;
+    //− passer la main au maître de zoo fantastique (et donc à l’utilisateur) pour qu'il s'occupe du
+    //zoo fantastique (son nombre d’action par intervalle de temps devant être limité).
 
     public FantasticZoo(String name, ZooMaster zooMaster, int MaxEnclosure) {
         this.enclosures = new ArrayList<>();
@@ -38,6 +49,24 @@ public class FantasticZoo {
 
     public int getCreatedEnclosuresNumber() {
         return enclosures.size();
+    }
+
+    public int getCreatedAnimalsNumber() {
+        int animalsNumber = 0;
+        for (Enclosure enclosure : enclosures) {
+            animalsNumber += enclosure.getAnimalCount();
+        }
+        return animalsNumber;
+    }
+
+    public void displayAnimals() {
+        for (Enclosure enclosure : enclosures) {
+            System.out.println(enclosure.getName() + " :");
+            for (int i = 0; i < enclosure.getAnimalCount(); i++) {
+                System.out.println(enclosure.getAnimals().get(i).getName()
+                        + " the " + enclosure.getAnimals().get(i).getClass().getSimpleName());
+            }
+        }
     }
 
     public ArrayList<Enclosure> getEnclosures() {

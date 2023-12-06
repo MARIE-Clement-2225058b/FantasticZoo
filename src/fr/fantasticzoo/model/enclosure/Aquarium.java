@@ -9,8 +9,8 @@ public class Aquarium extends Enclosure{
     public Aquarium(String name) {
         super(name);
     }
-    public Aquarium(String name, int area, int cleanness, ArrayList<Creature> animals) {
-        super(name, area, cleanness, animals);
+    public Aquarium(String name, int area, ArrayList<Creature> animals) {
+        super(name, area, animals);
     }
 
     @Override
