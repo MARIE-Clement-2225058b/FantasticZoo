@@ -1,10 +1,9 @@
 package fr.fantasticzoo.view;
 
+import fr.fantasticzoo.controller.AnimalController;
+import fr.fantasticzoo.controller.EnclosureController;
+import fr.fantasticzoo.controller.UIController;
 import fr.fantasticzoo.model.animals.Creature;
-import fr.fantasticzoo.model.animals.behaviors.Flying;
-import fr.fantasticzoo.model.animals.behaviors.Running;
-import fr.fantasticzoo.model.animals.behaviors.Swimming;
-import fr.fantasticzoo.model.animals.characteristics.ActionType;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.*;
 import fr.fantasticzoo.model.employee.ZooMaster;
@@ -14,7 +13,6 @@ import fr.fantasticzoo.model.enclosure.Enclosure;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -33,7 +31,18 @@ public class GameEngine {
     private ArrayList<String> defaultChoice = new ArrayList<>();
     private final List<String> missedMessages = new ArrayList<>();
 
+    private final UIController uiController;
+    private final EnclosureController enclosureController;
+    private final AnimalController animalController;
+
     public GameEngine() {
+        scanner = new Scanner(System.in);
+
+        this.uiController = new UIController(scanner);
+        this.enclosureController = new EnclosureController(uiController);
+        this.animalController = new AnimalController(uiController, missedMessages, enclosures);
+
+
         defaultChoice.addAll(
                 List.of("Examiner un enclos",
                 "Nettoyer un enclos",
@@ -44,7 +53,6 @@ public class GameEngine {
 
         currentAnimal = new Werewolf();
         asciiArtView = new AsciiArtView();
-        scanner = new Scanner(System.in);
         player = new ZooMaster();
         enclosures = new ArrayList<>();
         Enclosure enclosure = new Enclosure("Enclos 1");
@@ -53,13 +61,7 @@ public class GameEngine {
         Megalodons megalodons = new Megalodons(100,100, SexType.MALE, "Zig et Sharko");
 
         Mermaids mermaids = new Mermaids(100,100, SexType.FEMALE, "Ariel la petite sirène");
-        ArrayList<Creature> creatures = new ArrayList<>();
-        creatures.add(dragons);
-        creatures.add(phoenix);
-        creatures.add(mermaids);
-        creatures.add(megalodons);
-
-        enclosure.setAnimals(creatures);
+        enclosure.addCreature(dragons);
 
         enclosures.add(enclosure);
 
@@ -67,12 +69,11 @@ public class GameEngine {
     }
 
     public void startGame() {
-        executorService.scheduleAtFixedRate(this::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
-        executorService.scheduleAtFixedRate(this::randomlyTriggerAnimalBehaviors, 0, 5, TimeUnit.SECONDS);
-
+        executorService.scheduleAtFixedRate(animalController::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(animalController::randomlyTriggerAnimalBehaviors, 0, 5, TimeUnit.SECONDS);
 
         while (true) {
-            int choice = selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
+            int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
             processUserInput(choice);
 
         }
@@ -91,77 +92,38 @@ public class GameEngine {
     }
 
 
-    private <T> int selectFromList(List<T> items, Function<T, String> displayFunction, String prompt) {
-        System.out.println(prompt);
-        for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + ". " + displayFunction.apply(items.get(i)));
-        }
-        return readInt(items.size());
-    }
-
-    private Enclosure chooseEnclosure() {
-        return enclosures.get(selectFromList(enclosures, Enclosure::getDescription, "Choose an enclosure:") - 1);
-    }
-
-    private Enclosure chooseEnclosure(int firstEnclosureIndex) {
-        List<Enclosure> otherEnclosures = new ArrayList<>(enclosures);
-        otherEnclosures.remove(firstEnclosureIndex);
-        return otherEnclosures.get(selectFromList(otherEnclosures, Enclosure::getDescription, "Choose a second enclosure:") - 1);
-    }
-
-    private int readInt(int max) {
-        int choice;
-        while (true) {
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-                if (choice >= 1 && choice <= max) {
-                    return choice;
-                }
-                System.out.println("Please enter a number between " + 1 + " and " + max + ".");
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid number.");
-            }
-        }
-    }
-
-
-
-    private Creature chooseAnimal(int enclosureIndex) {
-        List<Creature> animals = enclosures.get(enclosureIndex).getAnimals();
-        return animals.get(selectFromList(animals, Creature::getName, "Choose a creature :") - 1);
-    }
 
     private void processUserInput(int choice) {
         Enclosure selectedEnclosure;
 
         switch(choice) {
             case 1:
-                selectedEnclosure = chooseEnclosure();
+                selectedEnclosure = enclosureController.chooseEnclosure(enclosures);
                 player.examinateEnclosure(selectedEnclosure);
                 for(Creature creature : selectedEnclosure.getAnimals()) {
                     asciiArtView.renderAnimal(creature);
                     System.out.println(creature.getDescription());
-                    waitForEnter();
+                    uiController.waitForEnter();
                 }
                 break;
             case 2:
-                selectedEnclosure = chooseEnclosure();
+                selectedEnclosure = enclosureController.chooseEnclosure(enclosures);
                 player.cleanEnclosure(selectedEnclosure);
 
                 break;
             case 3:
-                selectedEnclosure = chooseEnclosure();
+                selectedEnclosure = enclosureController.chooseEnclosure(enclosures);
                 player.feedCreaturesInEnclosure(selectedEnclosure);
 
                 break;
             case 4:
 
-                selectedEnclosure = chooseEnclosure();
+                selectedEnclosure = enclosureController.chooseEnclosure(enclosures);
 
-                currentAnimal = chooseAnimal(enclosures.indexOf(selectedEnclosure));
+                currentAnimal = animalController.chooseAnimal(enclosures.indexOf(selectedEnclosure), enclosures);
 
                 Enclosure secondEnclosure;
-                secondEnclosure = chooseEnclosure(enclosures.indexOf(selectedEnclosure));
+                secondEnclosure = enclosureController.chooseEnclosure(enclosures.indexOf(selectedEnclosure), enclosures);
 
                 player.moveAnimalFromEnclosure(currentAnimal, selectedEnclosure, secondEnclosure);
                 break;
@@ -169,7 +131,7 @@ public class GameEngine {
                 System.out.println("Enter the name of the enclosure : ");
                 String name = scanner.nextLine();
 
-                int enclosureType = selectFromList(
+                int enclosureType = uiController.selectFromList(
                         List.of("Basic Enclosure", "Aquatic Enclosure", "Aviary Enclosure"),
                         Function.identity(),
                         "Choose an enclosure type : \n");
@@ -194,9 +156,15 @@ public class GameEngine {
             default:
                 System.out.println("Invalid option");
         }
-        clearConsole();
+        uiController.clearConsole();
 
     }
+
+
+
+
+
+
 
     private void monitorPark() {
         System.out.println("Monitoring the park. Press 'Enter' to return to the main menu...");
@@ -207,7 +175,7 @@ public class GameEngine {
         }
         Thread monitoringThread = new Thread(() -> {
             while (!exitMonitoring.get()) {
-                showMissedMessages();
+                uiController.showMissedMessages((ArrayList<String>) missedMessages);
                 try {
                     Thread.sleep(2000);
 
@@ -224,81 +192,6 @@ public class GameEngine {
             monitoringThread.join();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-        }
-    }
-
-        private void waitForEnter() {
-            System.out.println("OK ?");
-            scanner.nextLine();
-        }
-
-
-    private void clearConsole() {
-        for(int i = 0 ; i < 50 ; i++) System.out.println(" ");
-    }
-
-
-    private void decreaseHungerForAllAnimals() {
-        Random rand = new Random();
-        List<Creature> deadAnimals = new ArrayList<>();
-
-        for (Enclosure enclosure : enclosures) {
-            for (Creature creature : enclosure.getAnimals()) {
-                int hungerLoss = rand.nextInt(3) + 1;
-                creature.setHunger(creature.getHunger() - hungerLoss);
-                // Hunger levels
-                if (creature.getHunger() <= 0 && creature.getHealth() > 0) {
-                    creature.die("starvation");
-                    deadAnimals.add(creature);
-                } else if (creature.getHunger() < 30 && creature.getHunger() > 25) {
-                    missedMessages.add("Warning: " + creature.getName() + " is very hungry!");
-                } else if (creature.getHunger() < 60 && creature.getHunger() > 55) {
-                    missedMessages.add("Notice: " + creature.getName() + " is starting to get hungry.");
-                }
-            }
-
-            enclosure.getAnimals().removeAll(deadAnimals);
-            deadAnimals.clear();
-        }
-    }
-
-    private void showMissedMessages() {
-        if (!missedMessages.isEmpty()) {
-            for (String message : missedMessages) {
-                System.out.println(message);
-            }
-            missedMessages.clear();
-        }
-    }
-
-    private void randomlyTriggerAnimalBehaviors() {
-        Random rand = new Random();
-
-        for (Enclosure enclosure : enclosures) {
-            for (Creature creature : enclosure.getAnimals()) {
-                int behaviorChoice = rand.nextInt(3); // 0 = run, 1 = fly, 2 = swim
-
-                switch (behaviorChoice) {
-                    case 0: // Courir
-                        if (creature instanceof Running) {
-                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.RUNNING))
-                                missedMessages.add(((Running) creature).run());
-                        }
-                        break;
-                    case 1: // Voler
-                        if (creature instanceof Flying) {
-                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.FLYING))
-                                missedMessages.add(((Flying) creature).fly());
-                        }
-                        break;
-                    case 2: // Nager
-                        if (creature instanceof Swimming) {
-                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.SWIMMING))
-                                missedMessages.add(((Swimming) creature).swim());
-                        }
-                        break;
-                }
-            }
         }
     }
 
