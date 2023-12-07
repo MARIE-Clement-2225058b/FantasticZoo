@@ -11,45 +11,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static fr.fantasticzoo.view.GameEngine.missedMessages;
+
 public class AnimalController {
     private final UIController uiController;
-    private final List<String> missedMessages ;
     private final ArrayList<Enclosure> enclosures;
 
-    public AnimalController(UIController uiController, List<String> missedMessages, ArrayList<Enclosure> enclosures) {
+    public AnimalController(UIController uiController, ArrayList<Enclosure> enclosures) {
         this.uiController = uiController;
-        this.missedMessages = missedMessages;
         this.enclosures = enclosures;
     }
 
     public void randomlyTriggerAnimalBehaviors() {
         Random rand = new Random();
+        try {
+            for (Enclosure enclosure : enclosures) {
+                for (Creature creature : enclosure.getAnimals()) {
+                    int behaviorChoice = rand.nextInt(3); // 0 = run, 1 = fly, 2 = swim
 
-        for (Enclosure enclosure : enclosures) {
-            for (Creature creature : enclosure.getAnimals()) {
-                int behaviorChoice = rand.nextInt(3); // 0 = run, 1 = fly, 2 = swim
-
-                switch (behaviorChoice) {
-                    case 0: // Courir
-                        if (creature instanceof Running) {
-                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.RUNNING))
-                                missedMessages.add(((Running) creature).run());
-                        }
-                        break;
-                    case 1: // Voler
-                        if (creature instanceof Flying) {
-                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.FLYING))
-                                missedMessages.add(((Flying) creature).fly());
-                        }
-                        break;
-                    case 2: // Nager
-                        if (creature instanceof Swimming) {
-                            if(!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.SWIMMING))
-                                missedMessages.add(((Swimming) creature).swim());
-                        }
-                        break;
+                    switch (behaviorChoice) {
+                        case 0: // Courir
+                            if (creature instanceof Running) {
+                                if (!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.RUNNING))
+                                    missedMessages.add(((Running) creature).run());
+                            }
+                            break;
+                        case 1: // Voler
+                            if (creature instanceof Flying) {
+                                if (!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.FLYING))
+                                    missedMessages.add(((Flying) creature).fly());
+                            }
+                            break;
+                        case 2: // Nager
+                            if (creature instanceof Swimming) {
+                                if (!creature.isAsleep() && creature.getHunger() > 20 && !creature.getCurrentAction().equals(ActionType.SWIMMING))
+                                    missedMessages.add(((Swimming) creature).swim());
+                            }
+                            break;
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

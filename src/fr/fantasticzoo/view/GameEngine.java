@@ -24,9 +24,9 @@ import java.util.function.Function;
 public class GameEngine {
 
     private final Scanner scanner;
-    private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
     private final ArrayList<String> defaultChoice = new ArrayList<>();
-    private final List<String> missedMessages = new ArrayList<>();
+    public static final List<String> missedMessages = new ArrayList<>();
     private final FantasticZoo zoo;
     private final UIController uiController;
     private final EnclosureController enclosureController;
@@ -50,7 +50,7 @@ public class GameEngine {
 
             Enclosure enclosure = new Enclosure("Default enclosure", 100, new ArrayList<>());
 
-            Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
+            Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris Execution");
             enclosure.addCreature(dragons);
             enclosures.add(enclosure);
 
@@ -58,16 +58,17 @@ public class GameEngine {
 
             this.uiController = new UIController(scanner);
             this.enclosureController = new EnclosureController(uiController);
-            this.animalController = new AnimalController(uiController, missedMessages, zoo.getEnclosures());
+            this.animalController = new AnimalController(uiController, zoo.getEnclosures());
 
     }
 
     public void startGame() {
         executorService.scheduleAtFixedRate(animalController::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(animalController::randomlyTriggerAnimalBehaviors, 0, 5, TimeUnit.SECONDS);
-        monitorPark();
 
         while (true) {
+            if(!uiController.isInMenu()) monitorPark();
+
             uiController.setInMenu(true);
             int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
             processUserInput(choice);
@@ -166,15 +167,32 @@ public class GameEngine {
     }
 
     private void monitorPark() {
-        System.out.println("Monitoring the park. Press 'Enter' to go to the main menu for 50 seconds...");
         uiController.setInMenu(false);
-
         AtomicBoolean exitMonitoring = new AtomicBoolean(false);
-        if (scanner.hasNextLine()) {
+
+        System.out.println("Monitoring the park. Press 'Enter' to go to the main menu for 50 seconds...");
+
+        Thread inputThread = new Thread(() -> {
             scanner.nextLine();
+            exitMonitoring.set(true);
+        });
+
+        inputThread.start();
+
+        Thread monitoringThread = getThread(exitMonitoring);
+
+        try {
+            monitoringThread.join();
+            inputThread.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+        executorService.schedule(this::monitorPark, 50, TimeUnit.SECONDS);
+    }
+    private Thread getThread(AtomicBoolean exitMonitoring) {
         Thread monitoringThread = new Thread(() -> {
             while (!exitMonitoring.get()) {
+
                 uiController.showMissedMessages((ArrayList<String>) missedMessages);
                 try {
                     Thread.sleep(2000);
@@ -186,16 +204,7 @@ public class GameEngine {
         });
 
         monitoringThread.start();
-        exitMonitoring.set(true);
-
-
-        try {
-            monitoringThread.join();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        executorService.schedule(this::monitorPark, 50, TimeUnit.SECONDS);
-
+        return monitoringThread;
     }
 
 }

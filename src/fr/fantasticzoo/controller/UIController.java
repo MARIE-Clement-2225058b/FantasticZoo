@@ -11,7 +11,7 @@ import java.util.function.Function;
 public class UIController {
 
     private final Scanner scanner;
-    private boolean isInMenu = true;
+    private boolean isInMenu = false;
     private final AsciiArtView asciiArtView;
 
     public boolean isInMenu() {

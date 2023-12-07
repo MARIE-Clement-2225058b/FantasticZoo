@@ -22,7 +22,7 @@ public abstract class Creature {
     private int height;
     private int age;
     private int hunger;
-    private ActionType currentAction;
+    private ActionType currentAction = ActionType.IDLE;
     private int health;
     private int PregnancyState = 0;
     private int strength;
