@@ -14,7 +14,11 @@ public class EnclosureController {
 
 
     public Enclosure chooseEnclosure(ArrayList<Enclosure> enclosures) {
-        return enclosures.get(uiController.selectFromList(enclosures, Enclosure::getDescription, "Choose an enclosure:") - 1);
+        int enclosureIndex = uiController.selectFromList(enclosures, Enclosure::getDescription, "Choose an enclosure:");
+        if(enclosureIndex == 0) {
+            return null;
+        }
+        return enclosures.get(enclosureIndex - 1);
     }
 
     public Enclosure chooseEnclosure(int firstEnclosureIndex, ArrayList<Enclosure> otherEnclosures) {

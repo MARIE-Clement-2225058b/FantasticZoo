@@ -7,7 +7,7 @@ public class Egg {
     public int gestationPeriod;
     public int hatchDate;
     public String name;
-    private Oviparous mother;
+    private final Oviparous mother;
 
     public String getName() {
         return name;

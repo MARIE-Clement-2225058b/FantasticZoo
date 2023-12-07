@@ -10,6 +10,7 @@ import fr.fantasticzoo.model.employee.ZooMaster;
 import fr.fantasticzoo.model.enclosure.Aquarium;
 import fr.fantasticzoo.model.enclosure.Aviary;
 import fr.fantasticzoo.model.enclosure.Enclosure;
+import fr.fantasticzoo.model.zoo.FantasticZoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,57 +23,52 @@ import java.util.function.Function;
 
 public class GameEngine {
 
-    private Creature currentAnimal;
-    private final AsciiArtView asciiArtView;
-    private final ZooMaster player;
     private final Scanner scanner;
-    private ArrayList<Enclosure> enclosures;
-    ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-    private ArrayList<String> defaultChoice = new ArrayList<>();
+    private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+    private final ArrayList<String> defaultChoice = new ArrayList<>();
     private final List<String> missedMessages = new ArrayList<>();
-
+    private final FantasticZoo zoo;
     private final UIController uiController;
     private final EnclosureController enclosureController;
     private final AnimalController animalController;
 
     public GameEngine() {
-        scanner = new Scanner(System.in);
 
-        this.uiController = new UIController(scanner);
-        this.enclosureController = new EnclosureController(uiController);
-        this.animalController = new AnimalController(uiController, missedMessages, enclosures);
+            ArrayList<Enclosure> enclosures = new ArrayList<>();
 
+            scanner = new Scanner(System.in);
 
-        defaultChoice.addAll(
-                List.of("Examiner un enclos",
-                "Nettoyer un enclos",
-                "Nourrir les créatures",
-                "Transférer une créature",
-                "Construire un enclos",
-                "Surveiller le parc"));
+            defaultChoice.addAll(
+                    List.of("Examiner un enclos",
+                    "Nettoyer un enclos",
+                    "Nourrir les créatures",
+                    "Transférer une créature",
+                    "Construire un enclos",
+                    "Surveiller le parc"));
 
-        currentAnimal = new Werewolf();
-        asciiArtView = new AsciiArtView();
-        player = new ZooMaster();
-        enclosures = new ArrayList<>();
-        Enclosure enclosure = new Enclosure("Enclos 1");
-        Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
-        Phoenix phoenix = new Phoenix(100,100, SexType.MALE, "Mark");
-        Megalodons megalodons = new Megalodons(100,100, SexType.MALE, "Zig et Sharko");
+            ZooMaster player = new ZooMaster();
 
-        Mermaids mermaids = new Mermaids(100,100, SexType.FEMALE, "Ariel la petite sirène");
-        enclosure.addCreature(dragons);
+            Enclosure enclosure = new Enclosure("Default enclosure", 100, new ArrayList<>());
 
-        enclosures.add(enclosure);
+            Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
+            enclosure.addCreature(dragons);
+            enclosures.add(enclosure);
 
+            this.zoo = new FantasticZoo("Zootopie", player, 10, enclosures);
+
+            this.uiController = new UIController(scanner);
+            this.enclosureController = new EnclosureController(uiController);
+            this.animalController = new AnimalController(uiController, missedMessages, zoo.getEnclosures());
 
     }
 
     public void startGame() {
         executorService.scheduleAtFixedRate(animalController::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(animalController::randomlyTriggerAnimalBehaviors, 0, 5, TimeUnit.SECONDS);
+        monitorPark();
 
         while (true) {
+            uiController.setInMenu(true);
             int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
             processUserInput(choice);
 
@@ -91,36 +87,44 @@ public class GameEngine {
         }
     }
 
-
-
     private void processUserInput(int choice) {
         Enclosure selectedEnclosure;
+        ArrayList<Enclosure> enclosures = zoo.getEnclosures();
+        ZooMaster player = zoo.getZooMaster();
 
         switch(choice) {
+            case 0:
+                return;
             case 1:
                 selectedEnclosure = enclosureController.chooseEnclosure(enclosures);
+                if(selectedEnclosure == null) return;
                 player.examinateEnclosure(selectedEnclosure);
                 for(Creature creature : selectedEnclosure.getAnimals()) {
-                    asciiArtView.renderAnimal(creature);
+                    uiController.renderAnimal(creature);
                     System.out.println(creature.getDescription());
                     uiController.waitForEnter();
                 }
                 break;
             case 2:
                 selectedEnclosure = enclosureController.chooseEnclosure(enclosures);
+                if(selectedEnclosure == null) return;
+
                 player.cleanEnclosure(selectedEnclosure);
 
                 break;
             case 3:
                 selectedEnclosure = enclosureController.chooseEnclosure(enclosures);
+                if(selectedEnclosure == null) return;
+
                 player.feedCreaturesInEnclosure(selectedEnclosure);
 
                 break;
             case 4:
 
                 selectedEnclosure = enclosureController.chooseEnclosure(enclosures);
+                if(selectedEnclosure == null) return;
 
-                currentAnimal = animalController.chooseAnimal(enclosures.indexOf(selectedEnclosure), enclosures);
+                Creature currentAnimal = animalController.chooseAnimal(enclosures.indexOf(selectedEnclosure), enclosures);
 
                 Enclosure secondEnclosure;
                 secondEnclosure = enclosureController.chooseEnclosure(enclosures.indexOf(selectedEnclosure), enclosures);
@@ -129,14 +133,15 @@ public class GameEngine {
                 break;
             case 5:
                 System.out.println("Enter the name of the enclosure : ");
-                String name = scanner.nextLine();
+                String name = uiController.readString();
 
                 int enclosureType = uiController.selectFromList(
                         List.of("Basic Enclosure", "Aquatic Enclosure", "Aviary Enclosure"),
                         Function.identity(),
                         "Choose an enclosure type : \n");
+
                 System.out.println("Enter the area of the enclosure : ");
-                int area = Integer.parseInt(scanner.nextLine());
+                int area = uiController.readInt(10000);
 
                 switch (enclosureType) {
                     case 2 :
@@ -160,14 +165,9 @@ public class GameEngine {
 
     }
 
-
-
-
-
-
-
     private void monitorPark() {
-        System.out.println("Monitoring the park. Press 'Enter' to return to the main menu...");
+        System.out.println("Monitoring the park. Press 'Enter' to go to the main menu for 50 seconds...");
+        uiController.setInMenu(false);
 
         AtomicBoolean exitMonitoring = new AtomicBoolean(false);
         if (scanner.hasNextLine()) {
@@ -188,13 +188,14 @@ public class GameEngine {
         monitoringThread.start();
         exitMonitoring.set(true);
 
+
         try {
             monitoringThread.join();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+        executorService.schedule(this::monitorPark, 50, TimeUnit.SECONDS);
+
     }
 
-
 }
-

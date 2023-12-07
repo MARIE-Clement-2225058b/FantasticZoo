@@ -3,6 +3,7 @@ package fr.fantasticzoo.model.enclosure;
 import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.behaviors.Flying;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
+import fr.fantasticzoo.model.animals.types.Dragons;
 
 import java.util.ArrayList;
 
@@ -119,9 +120,11 @@ public class Enclosure {
     }
 
     public void addCreature(Creature creature) {
-        if(creature instanceof Swimming
+        if((creature instanceof Swimming
                 || creature instanceof Flying
-                || (creatureType != null && creatureType.getClass() != creature.getClass()) && !animals.isEmpty()) {
+                || (creatureType != null && creatureType.getClass() != creature.getClass()) && !animals.isEmpty())
+                && !(creature instanceof Dragons))
+        {
             System.out.println("This enclosure is not suitable for this animal.");
             return;
         }

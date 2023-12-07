@@ -25,8 +25,8 @@ public class FantasticZoo {
     //− passer la main au maître de zoo fantastique (et donc à l’utilisateur) pour qu'il s'occupe du
     //zoo fantastique (son nombre d’action par intervalle de temps devant être limité).
 
-    public FantasticZoo(String name, ZooMaster zooMaster, int MaxEnclosure) {
-        this.enclosures = new ArrayList<>();
+    public FantasticZoo(String name, ZooMaster zooMaster, int MaxEnclosure, ArrayList<Enclosure> enclosures) {
+        this.enclosures = enclosures;
         this.zooMaster = zooMaster;
         this.MaxEnclosure = MaxEnclosure;
         this.name = name;
