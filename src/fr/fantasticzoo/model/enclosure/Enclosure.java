@@ -24,6 +24,7 @@ public class Enclosure {
 
     public Enclosure(String name) {
         this.name = name;
+        this.cleanness = 100;
         this.area = 100;
         this.maxAnimal = area / 10;
     };
@@ -70,6 +71,12 @@ public class Enclosure {
 
     public void setCleanness(int cleanness) {
         this.cleanness = cleanness;
+        if (this.cleanness < 10) {
+            // Makes all animals sick
+            for (Creature animal : animals) {
+                animal.setSick(1);
+            }
+        }
     }
 
     public ArrayList<Creature> getAnimals() {

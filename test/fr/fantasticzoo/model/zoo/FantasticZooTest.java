@@ -18,8 +18,6 @@ class FantasticZooTest {
 
     static ZooMaster zooMaster = new ZooMaster();
 
-    static FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
-
     @BeforeAll
     static void setUp() {
         System.out.println("Test de la classe FantasticZoo:");
@@ -28,6 +26,8 @@ class FantasticZooTest {
 
     @Test
     void addEnclosure() {
+        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
+
         zoo.addEnclosure(new Enclosure("Enclos 1"));
         assertEquals(1, zoo.getEnclosures().size());
 
@@ -43,6 +43,8 @@ class FantasticZooTest {
 
     @Test
     void setZooMaster() {
+        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
+
         ZooMaster Bozo = new ZooMaster();
         zoo.setZooMaster(Bozo);
         assertEquals(Bozo, zoo.getZooMaster());
@@ -50,6 +52,8 @@ class FantasticZooTest {
 
     @Test
     void removeEnclosure() {
+        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
+
         Enclosure enclosure = new Enclosure("Enclos 1");
         zoo.addEnclosure(enclosure);
         zoo.removeEnclosure(enclosure);
@@ -58,6 +62,8 @@ class FantasticZooTest {
 
     @Test
     void getAnimalsInZoo() {
+        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
+
         Enclosure enclosure = new Enclosure("Enclos 1");
         Aquarium aquarium = new Aquarium("Aquarium 1");
         Aviary aviary = new Aviary("Aviary 1");

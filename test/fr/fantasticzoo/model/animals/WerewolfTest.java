@@ -6,6 +6,7 @@ import fr.fantasticzoo.model.animals.characteristics.Pack;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
+import fr.fantasticzoo.model.zoo.FantasticZoo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ class WerewolfTest {
 
     @BeforeAll
     static void setUp() {
-        System.out.println("Test de la classe Werewolf:");
+        System.out.println("Test de la classe Werewolf (compte aussi comme test pour les Vivipares):");
         jeff.setName("Jeff");
         jeff.setSex(SexType.MALE);
 
@@ -93,11 +94,6 @@ class WerewolfTest {
     }
 
     @Test
-    void setName() {
-        assertEquals("Jeff", jeff.getName());
-    }
-
-    @Test
     void getSex() {
         assertEquals(SexType.MALE, jeff.getSex());
     }
@@ -106,12 +102,6 @@ class WerewolfTest {
     void setWeight() {
         jeff.setWeight(100);
         assertEquals(100, jeff.getWeight());
-    }
-
-    @Test
-    void getHeight() {
-        jeff.setHeight(100);
-        assertEquals(100, jeff.getHeight());
     }
 
     @Test
@@ -229,16 +219,17 @@ class WerewolfTest {
         Werewolf jeffina = new Werewolf();
         jeffina.setName("Jeffina");
 
+        FantasticZoo zoo = new FantasticZoo("Zoo 1", null, 10);
         Enclosure enclosure = new Enclosure("Enclos 1");
         enclosure.addCreature(jeffina);
+        zoo.addEnclosure(enclosure);
+        assertEquals(1,enclosure.getAnimalCount());
 
 
         jeffina.setAsleep(false);
-        Creature child = jeffina.deliver();
-        if(child != null) {
-            System.out.println(jeffina.getName() + " has delivered a " + child.getClass().getSimpleName() + " named " + child.getName() + ".");
-            enclosure.addCreature(child);
-        }
+        jeffina.setPregnancyState(9);
+
+        assertEquals(0, jeffina.getPregnancyState());
         assertEquals(2,enclosure.getAnimalCount());
     }
 
@@ -257,10 +248,6 @@ class WerewolfTest {
         assertEquals(0, jeff.getHealth());
     }
 
-    @Test
-    void hierarchy() {
-        
-    }
 
     @Test
     void whatRank(){

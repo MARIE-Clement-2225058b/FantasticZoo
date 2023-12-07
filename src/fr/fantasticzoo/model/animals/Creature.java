@@ -1,12 +1,10 @@
 package fr.fantasticzoo.model.animals;
 
-import fr.fantasticzoo.model.animals.characteristics.ActionType;
-import fr.fantasticzoo.model.animals.characteristics.CryType;
-import fr.fantasticzoo.model.animals.characteristics.Food;
-import fr.fantasticzoo.model.animals.characteristics.SexType;
+import fr.fantasticzoo.model.animals.characteristics.*;
 import fr.fantasticzoo.model.animals.types.Dragons;
 import fr.fantasticzoo.model.animals.types.Nymphs;
 import fr.fantasticzoo.model.animals.types.Phoenix;
+import fr.fantasticzoo.model.zoo.FantasticZoo;
 
 public abstract class Creature {
 
@@ -37,6 +35,9 @@ public abstract class Creature {
 
     public void setSick(int sick) {
         this.sick = sick;
+        if (sick >= 100) {
+            this.die("sickness");
+        }
     }
 
     public Creature() {
@@ -68,7 +69,7 @@ public abstract class Creature {
     }
 
     /**
-     * Sets the value of Enclosure
+     * Sets the value of Strength
      * @param strength
      */
     public void setStrength(int strength) {
@@ -85,13 +86,22 @@ public abstract class Creature {
 
 
     /**
-     * Sets the value of pregnancyState
+     * Mets à jour l'avancée de la grossesse
+     * TODO : METTRE LES OEUF DANS UNE SOUS-CLASSE COUVEUSE
      * @param state
      */
     public void setPregnancyState(int state) {
         PregnancyState = state;
         if (state==9){
-            this.giveBirth();
+            Object baby = giveBirth();
+            if (baby instanceof Creature){
+                FantasticZoo.getCreaturesEnclosure(this).addCreature((Creature) baby);
+            }
+            else if (baby instanceof Egg){
+                //FantasticZoo.getCreaturesEnclosure(this).addEgg((Egg) baby);
+            }
+            // On ajoute le bébé ou l'oeuf à l'enclos
+            setPregnancyState(0);
         }
     }
 
@@ -109,7 +119,7 @@ public abstract class Creature {
     /**
      * La fonction giveBirth permet de faire accoucher un animal. Elle dépend de l'animal, s'il est un ovipare ou un vivipare.
      */
-    public abstract void giveBirth();
+    public abstract Object giveBirth();
 
     /**
      * @param mate
@@ -171,6 +181,7 @@ public abstract class Creature {
      */
     public void heal() {
         this.setHealth(MAX_HEALTH);
+        this.sick = 0;
         System.out.println(this.name + " has been healed.");
     }
 
@@ -188,7 +199,7 @@ public abstract class Creature {
      * Elle incrémente l'âge de 1.
      */
     public void aging() {
-        this.age = this.age + 1;
+        setAge(age + 1);
     }
 
     /**

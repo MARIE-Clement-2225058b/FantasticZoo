@@ -1,5 +1,6 @@
 package fr.fantasticzoo.model.zoo;
 
+import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.employee.ZooMaster;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class FantasticZoo {
-    private ArrayList<Enclosure> enclosures;
+    private static ArrayList<Enclosure> enclosures;
     private String name;
     private ZooMaster zooMaster;
     private int MaxEnclosure;
@@ -67,6 +68,15 @@ public class FantasticZoo {
                         + " the " + enclosure.getAnimals().get(i).getClass().getSimpleName());
             }
         }
+    }
+
+    public static Enclosure getCreaturesEnclosure(Creature creature) {
+        for (Enclosure enclosure : enclosures) {
+            if (enclosure.getAnimals().contains(creature)) {
+                return enclosure;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Enclosure> getEnclosures() {

@@ -133,4 +133,14 @@ class EnclosureTest {
         assertEquals(1, enclosure.getAnimalCount());
     }
 
+    @Test
+    void animalsGetSickIfEnclosureIsDirty() {
+        Enclosure enclosure = new Enclosure("Enclos 1");
+        assertEquals(100, enclosure.getCleanness());
+        enclosure.addCreature(werewolf);
+        enclosure.setCleanness(0);
+        assertEquals(1, werewolf.getSick());
+    }
+
+
 }

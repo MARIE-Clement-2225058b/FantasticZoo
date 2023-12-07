@@ -22,7 +22,6 @@ public class Egg {
     }
 
     public void setHatchDate(int hatchDate) {
-
         this.hatchDate = hatchDate;
     }
 
@@ -32,18 +31,23 @@ public class Egg {
 
     public Egg(int daysRemaining, Oviparous mother) {
         this.gestationPeriod = 0;
-        this.name = "Egg";
+        this.name = mother.getName() + "'s Egg";
         this.hatchDate = daysRemaining;
         this.mother = mother;
     }
 
+    /**
+     * Cette fonction aux œufs d'éclore et instancie un nouveau bébé
+     * @return Creature
+     */
     public Creature hatch(){
         System.out.println(this.name + " is hatching!!!");
 
         try {
-            Creature newChild = (Creature) this.mother.getType().getDeclaredConstructor().newInstance();
+            Creature baby = (Creature) this.mother.getType().getDeclaredConstructor().newInstance();
             System.out.println(this.name + " has hatched!");
-            return newChild;
+            baby.setName(Names.getRandomName().name());
+            return baby;
 
         } catch (Exception e) {
 
