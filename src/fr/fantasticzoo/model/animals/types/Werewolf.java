@@ -7,10 +7,7 @@ import fr.fantasticzoo.model.animals.characteristics.CryType;
 import fr.fantasticzoo.model.animals.characteristics.Pack;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Werewolf extends Viviparous implements Running {
 
@@ -101,6 +98,11 @@ public class Werewolf extends Viviparous implements Running {
     }
 
     public void setTransformed(boolean transformed) {
+        Random random = new Random();
+        int randomInt = random.nextInt(100);
+        if (randomInt == 1) {
+            transformed = true;
+        }
         this.transformed = transformed;
     }
 
