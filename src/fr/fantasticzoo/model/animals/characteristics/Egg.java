@@ -6,6 +6,7 @@ import fr.fantasticzoo.model.animals.Oviparous;
 public class Egg {
     public int gestationPeriod;
     public int hatchDate;
+
     public String name;
     private Oviparous mother;
 
