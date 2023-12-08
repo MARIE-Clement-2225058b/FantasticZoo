@@ -13,6 +13,10 @@ public class EnclosureController {
         this.uiController = uiController;
     }
 
+    /**
+     *
+     * @param enclosures
+     */
     public void dirtyEnclosure(ArrayList<Enclosure> enclosures) {
         for(Enclosure enclosure : enclosures) {
             if(enclosure.getCleanness() > 0) {
@@ -23,6 +27,10 @@ public class EnclosureController {
         }
     }
 
+    /**
+     *
+     * @param enclosures
+     */
     public Enclosure chooseEnclosure(ArrayList<Enclosure> enclosures) {
         int enclosureIndex = uiController.selectFromList(enclosures, Enclosure::getDescription, "Choose an enclosure:");
         if(enclosureIndex == 0) {
@@ -31,6 +39,10 @@ public class EnclosureController {
         return enclosures.get(enclosureIndex - 1);
     }
 
+    /**
+     *
+     * @param firstEnclosureIndex, otherEnclosures
+     */
     public Enclosure chooseEnclosure(int firstEnclosureIndex, ArrayList<Enclosure> otherEnclosures) {
         otherEnclosures.remove(firstEnclosureIndex);
         return otherEnclosures.get(uiController.selectFromList(otherEnclosures, Enclosure::getDescription, "Choose a second enclosure:") - 1);

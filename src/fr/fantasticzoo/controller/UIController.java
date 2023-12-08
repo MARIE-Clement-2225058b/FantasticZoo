@@ -14,26 +14,51 @@ public class UIController {
     private boolean isInMenu = false;
     private final AsciiArtView asciiArtView;
 
+    /**
+     *
+     * @return
+     */
     public boolean isInMenu() {
         return isInMenu;
     }
 
+    /**
+     *
+     * @param inMenu
+     */
     public void setInMenu(boolean inMenu) {
         isInMenu = inMenu;
     }
 
+    /**
+     *
+     * @param scanner
+     */
     public UIController(Scanner scanner) {
         this.scanner = scanner;
         this.asciiArtView = new AsciiArtView();
     }
 
+    /**
+     *
+     * @param creature
+     */
     public void renderAnimal(Creature creature) {
         asciiArtView.renderAnimal(creature);
     }
+
+    /**
+     *
+     * call the function for render the egg
+     */
     public void renderEgg() {
         asciiArtView.renderEgg();
     }
 
+    /**
+     *
+     * @param items, displayFunction, prompt
+     */
     public <T> int selectFromList(List<T> items, Function<T, String> displayFunction, String prompt) {
         try{
             if (!isInMenu) {
@@ -51,6 +76,10 @@ public class UIController {
 
     }
 
+    /**
+     *
+     * @return string read
+     */
     public String readString() {
         try {
             if (!isInMenu) {
@@ -64,6 +93,11 @@ public class UIController {
         }
     }
 
+    /**
+     *
+     * @param max
+     * @return int read
+     */
     public int readInt(int max) {
         int choice;
         while (true) {
@@ -91,7 +125,9 @@ public class UIController {
         }
     }
 
-
+    /**
+     * scan the next line
+     */
     public void waitForEnter() {
         System.out.println("OK ?");
         synchronized (scanner) {
@@ -99,10 +135,17 @@ public class UIController {
         }
     }
 
+    /**
+     * clear the console
+     */
     public void clearConsole() {
         for(int i = 0 ; i < 50 ; i++) System.out.println(" ");
     }
 
+    /**
+     *
+     * @param missedMessages
+     */
     public void showMissedMessages(CopyOnWriteArrayList<String> missedMessages) {
         if (!missedMessages.isEmpty()) {
             for (String message : missedMessages) {

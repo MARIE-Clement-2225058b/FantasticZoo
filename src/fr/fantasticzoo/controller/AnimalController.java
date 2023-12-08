@@ -26,6 +26,10 @@ public class AnimalController {
         this.zoo = zoo;
     }
 
+    /**
+     * This method is used to randomly trigger animal behaviors.
+     * It is called every 10 seconds.
+     */
     public void randomlyTriggerAnimalBehaviors() {
         Random rand = new Random();
         Random rand2 = new Random();
@@ -107,6 +111,9 @@ public class AnimalController {
         }
     }
 
+    /**
+     * It's used to make animals sick if their enclosure is dirty.
+     */
     public void becomeSick() {
         for (Enclosure enclosure : zoo.getEnclosures()) {
             if(enclosure.getCleanness() < 30 ) {
@@ -138,6 +145,9 @@ public class AnimalController {
         }
     }
 
+    /**
+     * It's where the eggs are hatched.
+     */
     public void hatchHandler(){
         for (Egg egg : zoo.getIncubator().getEggs()) {
             egg.setTimeRemainingBeforeHatch(egg.getTimeRemainingBeforeHatch() - 10);
@@ -161,6 +171,9 @@ public class AnimalController {
         }
     }
 
+    /**
+     * It's animals pregnancy handler.
+     */
     public void pregnancyHandler() {
         try {
             for (Enclosure enclosure : zoo.getEnclosures()) {
@@ -205,6 +218,9 @@ public class AnimalController {
         }
     }
 
+    /**
+     * It's for find a partner for animals.
+     */
     public void findPartner() {
         for (Enclosure enclosure : zoo.getEnclosures()) {
             List<Creature> animals = enclosure.getAnimals();
@@ -216,10 +232,20 @@ public class AnimalController {
         }
     }
 
+    /**
+     *
+     * @param creature
+     * @return
+     */
     private boolean shouldFindPartner(Creature creature) {
         return !creature.isAsleep() && creature.getAgeType().equals("Adult");
     }
 
+    /**
+     *
+     * @param creature
+     * @param animals
+     */
     private void findMateForCreature(Creature creature, List<Creature> animals) {
         animals.stream()
                 .filter(potentialPartner -> isSuitableMate(creature, potentialPartner))
@@ -227,6 +253,12 @@ public class AnimalController {
                 .ifPresent(creature::mate);
     }
 
+    /**
+     *
+     * @param creature
+     * @param potentialPartner
+     * @return
+     */
     private boolean isSuitableMate(Creature creature, Creature potentialPartner) {
         return !potentialPartner.isAsleep() &&
                 potentialPartner.getPregnancyState() == 0 &&
@@ -234,7 +266,9 @@ public class AnimalController {
                 creature.getSex() != potentialPartner.getSex();
     }
 
-
+    /**
+     * It's for increase hunger for all animals.
+     */
     public void decreaseHungerForAllAnimals() {
         Random rand = new Random();
         List<Creature> deadAnimals = new ArrayList<>();
@@ -259,6 +293,12 @@ public class AnimalController {
         }
     }
 
+    /**
+     *
+     * @param enclosureIndex
+     * @param enclosures
+     * @return
+     */
     public Creature chooseAnimal(int enclosureIndex, ArrayList<Enclosure> enclosures) {
         List<Creature> animals = enclosures.get(enclosureIndex).getAnimals();
         return animals.get(uiController.selectFromList(animals, Creature::getName, "Choose a creature :") - 1);
