@@ -10,6 +10,8 @@ import fr.fantasticzoo.model.zoo.FantasticZoo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -219,7 +221,7 @@ class WerewolfTest {
         Werewolf jeffina = new Werewolf();
         jeffina.setName("Jeffina");
 
-        FantasticZoo zoo = new FantasticZoo("Zoo 1", null, 10);
+        FantasticZoo zoo = new FantasticZoo("Zoo 1", null, 10, new ArrayList<Enclosure>());
         Enclosure enclosure = new Enclosure("Enclos 1");
         enclosure.addCreature(jeffina);
         zoo.addEnclosure(enclosure);

@@ -26,12 +26,12 @@ public class Incubator extends Enclosure {
         this.eggs.remove(egg);
     }
 
-    public void isHatch() {
+/*    public void isHatch() {
         for (Egg egg : eggs) {
-            if (egg.getHatchDate() == 0) {
+            if (egg.getDaysRemainingBeforeHatch() == 0) {
                 egg.hatch();
                 removeEgg(egg);
             }
         }
-    }
+    }*/
 }

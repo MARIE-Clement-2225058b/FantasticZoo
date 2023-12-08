@@ -8,5 +8,4 @@ public enum ActionType {
     IDLE,
     SLEEPING,
     REPRODUCING;
-
 }

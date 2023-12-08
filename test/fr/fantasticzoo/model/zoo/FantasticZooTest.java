@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FantasticZooTest {
@@ -26,7 +28,7 @@ class FantasticZooTest {
 
     @Test
     void addEnclosure() {
-        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
+        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10, new ArrayList<Enclosure>());
 
         zoo.addEnclosure(new Enclosure("Enclos 1"));
         assertEquals(1, zoo.getEnclosures().size());
@@ -43,7 +45,7 @@ class FantasticZooTest {
 
     @Test
     void setZooMaster() {
-        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
+        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10, new ArrayList<Enclosure>());
 
         ZooMaster Bozo = new ZooMaster();
         zoo.setZooMaster(Bozo);
@@ -52,7 +54,7 @@ class FantasticZooTest {
 
     @Test
     void removeEnclosure() {
-        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
+        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10, new ArrayList<Enclosure>());
 
         Enclosure enclosure = new Enclosure("Enclos 1");
         zoo.addEnclosure(enclosure);
@@ -62,7 +64,7 @@ class FantasticZooTest {
 
     @Test
     void getAnimalsInZoo() {
-        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10);
+        FantasticZoo zoo = new FantasticZoo("Zoo de la mort", new ZooMaster(), 10, new ArrayList<Enclosure>());
 
         Enclosure enclosure = new Enclosure("Enclos 1");
         Aquarium aquarium = new Aquarium("Aquarium 1");

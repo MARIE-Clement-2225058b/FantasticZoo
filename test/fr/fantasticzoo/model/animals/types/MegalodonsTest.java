@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MegalodonsTest {
 
-    FantasticZoo zoo = new FantasticZoo("Zoo 1", null, 10);
+    FantasticZoo zoo = new FantasticZoo("Zoo 1", null, 10, null);
     Aquarium aquarium = new Aquarium("Aquarium 1");
 
     Megalodons megamind = new Megalodons(100, 100, SexType.MALE, "Megamind");

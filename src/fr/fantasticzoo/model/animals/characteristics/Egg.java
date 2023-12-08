@@ -3,9 +3,10 @@ package fr.fantasticzoo.model.animals.characteristics;
 import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.Oviparous;
 
+import java.util.Random;
+
 public class Egg {
-    public int gestationPeriod;
-    public int hatchDate;
+    public int timeRemainingBeforeHatch;
 
     public String name;
     private final Oviparous mother;
@@ -18,27 +19,28 @@ public class Egg {
         this.name = name;
     }
 
-    public int getHatchDate() {
-        return hatchDate;
-    }
-
-    public void setHatchDate(int hatchDate) {
-        this.hatchDate = hatchDate;
-    }
-
     public Oviparous getMother() {
         return mother;
     }
 
-    public Egg(int daysRemaining, Oviparous mother) {
-        this.gestationPeriod = 0;
+    public int getTimeRemainingBeforeHatch() {
+        return timeRemainingBeforeHatch;
+    }
+
+    public void setTimeRemainingBeforeHatch(int timeRemainingBeforeHatch) {
+        this.timeRemainingBeforeHatch = timeRemainingBeforeHatch;
+    }
+
+    public Egg(Oviparous mother) {
         this.name = mother.getName() + "'s Egg";
-        this.hatchDate = daysRemaining;
+        Random rand = new Random();
+        // entre 400 et 800 unités de temps
+        this.timeRemainingBeforeHatch = rand.nextInt(400) + 400;
         this.mother = mother;
     }
 
     /**
-     * Cette fonction aux œufs d'éclore et instancie un nouveau bébé
+     * Cette fonction permet aux œufs d'éclore et instancie un nouveau bébé
      * @return Creature
      */
     public Creature hatch(){

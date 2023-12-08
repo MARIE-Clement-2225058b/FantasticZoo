@@ -3,12 +3,14 @@ package fr.fantasticzoo.model.zoo;
 import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.employee.ZooMaster;
 import fr.fantasticzoo.model.enclosure.Enclosure;
+import fr.fantasticzoo.model.enclosure.Incubator;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class FantasticZoo {
     public static ArrayList<Enclosure> enclosures;
+    private Incubator incubator;
     private String name;
     private ZooMaster zooMaster;
     private int MaxEnclosure;
@@ -89,5 +91,13 @@ public class FantasticZoo {
 
     public void setZooMaster(ZooMaster zooMaster) {
         this.zooMaster = zooMaster;
+    }
+
+    public Incubator getIncubator() {
+        return incubator;
+    }
+
+    public void setIncubator(Incubator incubator) {
+        this.incubator = incubator;
     }
 }
