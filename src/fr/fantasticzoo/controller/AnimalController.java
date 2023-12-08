@@ -9,6 +9,7 @@ import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.characteristics.ActionType;
 import fr.fantasticzoo.model.animals.characteristics.CryType;
 import fr.fantasticzoo.model.animals.characteristics.Egg;
+import fr.fantasticzoo.model.animals.characteristics.SicknessType;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 import fr.fantasticzoo.model.zoo.FantasticZoo;
@@ -79,15 +80,16 @@ public class AnimalController {
                                 break;
                         case 4: //Malade
                             if (creature.getHealth() > 0 && creature.getSick() !=0) {
-                                missedMessages.add(creature.getName() + " is sick");
                                 creature.setSick(creature.getSick());
+                                creature.setSicknessType(SicknessType.getRandomSickness());
+                                missedMessages.add(creature.getName() + " is sick of " + creature.getSicknessType().getSicknessName() + " !");
                             }
                             break;
                     }
 
                     if (yesOrNo == 1){
                         if (creature.getSick() > 1){
-                            missedMessages.add(creature.getName() + " is losing health by sickness");
+                            missedMessages.add(creature.getName() + " is losing health because of " + creature.getSicknessType().getSicknessName() + " !");
                             creature.setSick(creature.getSick());
                         }
                     }
