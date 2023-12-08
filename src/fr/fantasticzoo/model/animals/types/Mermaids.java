@@ -22,6 +22,6 @@ public class Mermaids extends Viviparous implements Swimming {
      */
     @Override
     public String swim() {
-        return this.getName() + " is swimming.";
+        return this.getName() + " is swimming like a fish.";
     }
 }

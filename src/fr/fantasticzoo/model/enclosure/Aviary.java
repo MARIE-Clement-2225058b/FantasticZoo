@@ -5,10 +5,11 @@ import fr.fantasticzoo.model.animals.behaviors.Flying;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Aviary extends Enclosure{
 
-    public Aviary(String name, int area, ArrayList<Creature> animals) {
+    public Aviary(String name, int area, CopyOnWriteArrayList<Creature> animals) {
         super(name, area, animals);
     }
 
@@ -27,8 +28,6 @@ public class Aviary extends Enclosure{
                 getAnimals().add(creature);
                 return true;
             }
-        } else {
-            System.out.println("This creature can't fly, it can't be in this enclosure.");
         }
 
         return false;

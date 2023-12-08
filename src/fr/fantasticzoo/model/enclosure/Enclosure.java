@@ -6,6 +6,7 @@ import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.types.Dragons;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Enclosure {
     private String name;
@@ -13,9 +14,9 @@ public class Enclosure {
     private int maxAnimal;
     private int cleanness;
     private Creature creatureType;
-    private ArrayList<Creature> animals = new ArrayList<>();
+    private CopyOnWriteArrayList<Creature> animals = new CopyOnWriteArrayList<>();
 
-    public Enclosure(String name, int area, ArrayList<Creature> animals) {
+    public Enclosure(String name, int area, CopyOnWriteArrayList<Creature> animals) {
         this.name = name;
         this.area = area;
         this.maxAnimal = area / 10;
@@ -80,7 +81,7 @@ public class Enclosure {
         }
     }
 
-    public ArrayList<Creature> getAnimals() {
+    public CopyOnWriteArrayList<Creature> getAnimals() {
         return animals;
     }
 

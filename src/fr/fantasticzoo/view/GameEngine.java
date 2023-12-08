@@ -27,8 +27,6 @@ import java.util.function.Function;
 public class GameEngine {
 
     private final Scanner scanner;
-    private final Object scannerLock = new Object();
-
     private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
     private final ArrayList<String> defaultChoice = new ArrayList<>();
     public static final CopyOnWriteArrayList<String> missedMessages = new CopyOnWriteArrayList<>();
@@ -55,7 +53,7 @@ public class GameEngine {
 
             ZooMaster player = new ZooMaster();
 
-            Enclosure enclosure = new Enclosure("Default enclosure", 100, new ArrayList<>());
+            Enclosure enclosure = new Enclosure("Default enclosure", 100, new CopyOnWriteArrayList<>());
 
             Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
             dragons.setAge(50);
@@ -75,12 +73,14 @@ public class GameEngine {
     }
 
     public void startGame() {
-        executorService.scheduleAtFixedRate(animalController::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
-        executorService.scheduleAtFixedRate(animalController::randomlyTriggerAnimalBehaviors, 0, 5, TimeUnit.SECONDS);
-        // TODO : CHECK IF PREGNANT
-        executorService.scheduleAtFixedRate(animalController::pregnancyHandler, 0, 2, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(animalController::decreaseHungerForAllAnimals, 0, 15, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(animalController::randomlyTriggerAnimalBehaviors, 0, 25, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(animalController::pregnancyHandler, 0, 30, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(animalController::hatchHandler, 0, 10, TimeUnit.SECONDS);
-        executorService.scheduleAtFixedRate(animalController::findPartner, 0, 10, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(animalController::findPartner, 0, 1, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(animalController::becomeSick, 0, 30, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(() -> enclosureController.dirtyEnclosure(zoo.getEnclosures()), 0, 30, TimeUnit.SECONDS);
+
 
         while (true) {
             if(!uiController.isInMenu()) monitorPark();
@@ -160,13 +160,13 @@ public class GameEngine {
 
                 switch (enclosureType) {
                     case 2 :
-                        enclosures.add(new Aquarium(name, area, new ArrayList<>()));
+                        enclosures.add(new Aquarium(name, area, new CopyOnWriteArrayList<>()));
                         break;
                     case 3 :
-                        enclosures.add(new Aviary(name, area, new ArrayList<>()));
+                        enclosures.add(new Aviary(name, area, new CopyOnWriteArrayList<>()));
                         break;
                     default:
-                        enclosures.add(new Enclosure(name, area, new ArrayList<>()));
+                        enclosures.add(new Enclosure(name, area, new CopyOnWriteArrayList<>()));
 
                 }
                 break;

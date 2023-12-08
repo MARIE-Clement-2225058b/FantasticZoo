@@ -4,12 +4,13 @@ import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Aquarium extends Enclosure{
     public Aquarium(String name) {
         super(name);
     }
-    public Aquarium(String name, int area, ArrayList<Creature> animals) {
+    public Aquarium(String name, int area, CopyOnWriteArrayList<Creature> animals) {
         super(name, area, animals);
     }
 
@@ -23,8 +24,6 @@ public class Aquarium extends Enclosure{
                 getAnimals().add(creature);
                 return true;
             }
-        } else {
-            System.out.println("This creature can't swim, it can't be in this enclosure.");
         }
         return false;
     }

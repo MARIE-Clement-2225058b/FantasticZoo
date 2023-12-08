@@ -35,7 +35,7 @@ public class Egg {
         this.name = mother.getName() + "'s Egg";
         Random rand = new Random();
         // entre 400 et 800 unités de temps
-        this.timeRemainingBeforeHatch = rand.nextInt(400) + 400;
+        this.timeRemainingBeforeHatch = rand.nextInt(10) + 20;
         this.mother = mother;
     }
 
@@ -44,11 +44,8 @@ public class Egg {
      * @return Creature
      */
     public Creature hatch(){
-        System.out.println(this.name + " is hatching!!!");
-
         try {
             Creature baby = (Creature) this.mother.getType().getDeclaredConstructor().newInstance();
-            System.out.println(this.name + " has hatched!");
             baby.setName(Names.getRandomName());
             return baby;
 

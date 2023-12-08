@@ -38,7 +38,7 @@ public class Dragons extends Oviparous implements Running, Swimming, Flying {
     @Override
     public String run() {
         setCurrentAction(ActionType.RUNNING);
-        return getName() + "(" + this.getClass().getSimpleName() + ") is running!";
+        return "(" + this.getClass().getSimpleName() + ") " +  getName() + " is running!";
     }
 
     /**

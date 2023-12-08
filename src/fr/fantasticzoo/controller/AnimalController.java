@@ -6,14 +6,10 @@ import fr.fantasticzoo.model.animals.Viviparous;
 import fr.fantasticzoo.model.animals.behaviors.Flying;
 import fr.fantasticzoo.model.animals.behaviors.Running;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
-import fr.fantasticzoo.model.animals.characteristics.ActionType;
-import fr.fantasticzoo.model.animals.characteristics.CryType;
-import fr.fantasticzoo.model.animals.characteristics.Egg;
-import fr.fantasticzoo.model.animals.characteristics.Names;
+import fr.fantasticzoo.model.animals.characteristics.*;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 import fr.fantasticzoo.model.zoo.FantasticZoo;
-import fr.fantasticzoo.view.GameEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +60,7 @@ public class AnimalController {
                         case 3: // Crier
                             if (creature instanceof Werewolf werewolf) {
                                 werewolf.setTransformed(werewolf.getTransformed());
-                                if (werewolf.getTransformed() == true){
+                                if (werewolf.getTransformed()){
                                     missedMessages.add(werewolf.getName() + " is transformed and fight the ZOO Master");
                                     if (yesOrNo == 1){
                                         werewolf.die(" Kill by the ZOO master");
@@ -111,6 +107,37 @@ public class AnimalController {
         }
     }
 
+    public void becomeSick() {
+        for (Enclosure enclosure : zoo.getEnclosures()) {
+            if(enclosure.getCleanness() < 30 ) {
+                for (Creature creature : enclosure.getAnimals()) {
+                    if(creature.getSicknessType() == null) {
+                        creature.setSicknessType(SicknessType.getRandomSickness());
+                        missedMessages.add("The enclosure " + enclosure.getName() + " is dirty, " + creature.getName() + " is sick of " + creature.getSicknessType().getSicknessName() + ".");
+
+                    } else{
+                        creature.setSick(creature.getSick() + creature.getSicknessType().getGravity());
+                        creature.setHealth(creature.getHealth() - creature.getSicknessType().getGravity());
+                        if(creature.getSick() >50) {
+                            missedMessages.add(creature.getName() + " is dangerously sick of " + creature.getSicknessType().getSicknessName());
+                        }
+                        else if (creature.getSick() > 70) {
+                            missedMessages.add(creature.getName() + " is very dangerously sick of " + creature.getSicknessType().getSicknessName());
+                        }
+                        else if(creature.getSick() > 90) {
+                            missedMessages.add(creature.getName() + " is extremely dangerously sick of " + creature.getSicknessType().getSicknessName());
+                        }
+                        else if(creature.getSick() > 100) {
+                            creature.die("sickness");
+                            missedMessages.add(creature.getName() + " has died of " + creature.getSicknessType().getSicknessName());
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
     public void hatchHandler(){
         for (Egg egg : zoo.getIncubator().getEggs()) {
             egg.setTimeRemainingBeforeHatch(egg.getTimeRemainingBeforeHatch() - 10);
@@ -135,15 +162,12 @@ public class AnimalController {
 
     public void pregnancyHandler() {
         try {
-            missedMessages.add("Pregnancy handler");
             for (Enclosure enclosure : zoo.getEnclosures()) {
                 for (Creature creature : enclosure.getAnimals()) {
-                    missedMessages.add(creature.getName() + " is now at pregnancy state " + creature.getPregnancyState() + ".");
 
                     if (creature.getPregnancyState() > 0) {
 
                         creature.setPregnancyState(creature.getPregnancyState() + 1);
-                        missedMessages.add(creature.getName() + " is now at pregnancy state " + creature.getPregnancyState() + ".");
                         if (creature.getPregnancyState() == 9) {
                             creature.setPregnancyState(0);
 
@@ -154,13 +178,12 @@ public class AnimalController {
                                 zoo.getIncubator().addEgg(egg);
 
                             } else if(creature instanceof Viviparous) {
-                                missedMessages.add(creature.getName() + " has given birth.");
-
                                 Creature baby = ((Viviparous) creature).giveBirth();
                                 baby.setName(Names.getRandomName());
                                 Enclosure suitableEnclosure = null;
                                 for (Enclosure enclosure1 : zoo.getEnclosures()) {
                                     if (enclosure1.addCreature(baby)) {
+                                        missedMessages.add(creature.getName() + " has given birth a little baby " + baby.getClass().getSimpleName() + ".");
                                         missedMessages.add(baby.getName() + " has been added to " + enclosure1.getName());
                                         suitableEnclosure = enclosure1;
                                         break;

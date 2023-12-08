@@ -5,6 +5,7 @@ import fr.fantasticzoo.model.animals.types.Dragons;
 import fr.fantasticzoo.model.animals.types.Nymphs;
 import fr.fantasticzoo.model.animals.types.Phoenix;
 import fr.fantasticzoo.model.zoo.FantasticZoo;
+import fr.fantasticzoo.view.GameEngine;
 
 public abstract class Creature {
 
@@ -90,9 +91,6 @@ public abstract class Creature {
      */
     public void setSick(int sick) {
         this.sick = sick + 1;
-        if (sick >= 100) {
-            this.die(getSicknessType().sicknessName);
-        }
     }
 
     /**
@@ -143,17 +141,12 @@ public abstract class Creature {
     public void mate(Creature mate){
         if (!isAsleep()) {
             if (mate.sex != this.sex && mate.getPregnancyState() == 0 && this.getPregnancyState() == 0) {
-                System.out.println(this.name + " is mating with " + mate.getName() + ".");
                 if (mate.sex == SexType.FEMALE) {
                     mate.setPregnancyState(1);
-                    System.out.println(mate.getName() + " is pregnant.");
                 } else {
                     this.setPregnancyState(1);
-                    System.out.println(this.name + " is pregnant.");
                 }
             }
-        } else {
-            System.out.println(this.name + " is asleep and cannot mate.");
         }
     }
 
@@ -186,7 +179,7 @@ public abstract class Creature {
      */
     public void die(String reason){
         this.health = 0;
-        System.out.println(this.name + " has died of " + reason + ".");
+        GameEngine.missedMessages.add(this.name + " has died of " + reason + ".");
     }
 
     /**
