@@ -34,7 +34,7 @@ public abstract class Creature {
     }
 
     public void setSick(int sick) {
-        this.sick = sick;
+        this.sick = sick +1;
         if (sick >= 100) {
             this.die("sickness");
         }
