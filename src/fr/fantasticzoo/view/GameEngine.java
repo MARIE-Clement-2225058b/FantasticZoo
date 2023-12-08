@@ -260,7 +260,11 @@ public class GameEngine {
         System.out.println("Monitoring the park. Press 'Enter' to go to the main menu for 50 seconds...");
 
         Thread inputThread = new Thread(() -> {
-            if(scanner.hasNextLine())  scanner.nextLine();
+            synchronized(scanner) {
+                if(scanner.hasNextLine()) {
+                    scanner.nextLine();
+                }
+            }
             exitMonitoring.set(true);
 
         });

@@ -4,6 +4,7 @@ import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.behaviors.Flying;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.types.Dragons;
+import fr.fantasticzoo.view.GameEngine;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -114,8 +115,11 @@ public class Enclosure {
 
     public boolean transfertCreature(Enclosure another, Creature creature) {
         if(!this.animals.contains(creature)) return false;
-        this.animals.remove(creature);
-        another.addCreature(creature);
+
+        if(another.addCreature(creature))
+            this.animals.remove(creature);
+        else
+            System.out.println("The " + creature.getClass().getSimpleName() + " can't be added to the " + another.getName() + " enclosure.");
 
         return true;
     }

@@ -3,7 +3,6 @@ package fr.fantasticzoo.controller;
 import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.view.AsciiArtView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -57,7 +56,9 @@ public class UIController {
             if (!isInMenu) {
                 throw new InterruptedException("Not in choice menu.");
             }
-            return scanner.nextLine();
+            synchronized(scanner) {
+                return scanner.nextLine();
+            }
         } catch (InterruptedException e) {
             return "";
         }
@@ -67,18 +68,19 @@ public class UIController {
         int choice;
         while (true) {
             try {
-
-                if (!isInMenu) {
-                    throw new InterruptedException("Not in choice menu.");
+                synchronized(scanner) {
+                    if (!isInMenu) {
+                        throw new InterruptedException("Not in choice menu.");
+                    }
+                    choice = Integer.parseInt(scanner.nextLine());
+                    if (choice == 0) {
+                        throw new InterruptedException("Trigger stopped by user.");
+                    }
+                    if (choice >= 1 && choice <= max) {
+                        return choice;
+                    }
+                    System.out.println("Please enter a number between " + 1 + " and " + max + ".");
                 }
-                choice = Integer.parseInt(scanner.nextLine());
-                if (choice == 0) {
-                    throw new InterruptedException("Trigger stopped by user.");
-                }
-                if (choice >= 1 && choice <= max) {
-                    return choice;
-                }
-                System.out.println("Please enter a number between " + 1 + " and " + max + ".");
             } catch (NumberFormatException e) {
                 if(!isInMenu) return 0;
                 System.out.println("Please enter a valid number.");
@@ -92,7 +94,9 @@ public class UIController {
 
     public void waitForEnter() {
         System.out.println("OK ?");
-        scanner.nextLine();
+        synchronized (scanner) {
+            scanner.nextLine();
+        }
     }
 
     public void clearConsole() {

@@ -35,6 +35,9 @@ public class AsciiArtView {
         if(creature instanceof Nymphs) {
             return getAsciiNymph();
         }
+        if(creature instanceof Phoenix) {
+            return getPhoenixAscii();
+        }
         return "null";
     }
 
