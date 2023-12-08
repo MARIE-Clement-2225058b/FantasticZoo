@@ -1,6 +1,8 @@
 package fr.fantasticzoo.controller;
 
 import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.Oviparous;
+import fr.fantasticzoo.model.animals.Viviparous;
 import fr.fantasticzoo.model.animals.behaviors.Flying;
 import fr.fantasticzoo.model.animals.behaviors.Running;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
@@ -96,7 +98,7 @@ public class AnimalController {
         }
     }
 
-    public void layingHandler(){
+    public void hatchHandler(){
         for (Egg egg : zoo.getIncubator().getEggs()) {
             egg.setTimeRemainingBeforeHatch(egg.getTimeRemainingBeforeHatch() - 1);
             if (egg.getTimeRemainingBeforeHatch() <= 0) {
@@ -114,7 +116,43 @@ public class AnimalController {
                 }
             }
         }
+    }
 
+    public void pregnancyHandler() {
+        for (Enclosure enclosure : zoo.getEnclosures()) {
+            for (Creature creature : enclosure.getAnimals()) {
+                if (creature.getPregnancyState() > 0) {
+                    creature.setPregnancyState(creature.getPregnancyState() + 1);
+
+                    if (creature.getPregnancyState() == 9) {
+
+                        if(creature instanceof Oviparous) {
+                            missedMessages.add(creature.getName() + " has laid an egg.");
+
+                            Egg egg = ((Oviparous) creature).layEgg();
+                            zoo.getIncubator().addEgg(egg);
+
+                        } else if(creature instanceof Viviparous) {
+                            missedMessages.add(creature.getName() + " has given birth.");
+
+                            Creature baby = ((Viviparous) creature).giveBirth();
+                            Enclosure suitableEnclosure = null;
+                            for (Enclosure enclosure1 : zoo.getEnclosures()) {
+                                if (enclosure1.addCreature(baby)) {
+                                    missedMessages.add(baby.getName() + " has been added to " + enclosure1.getName());
+                                    suitableEnclosure = enclosure1;
+                                    break;
+                                }
+                            }
+
+                            if (suitableEnclosure == null) {
+                                missedMessages.add(baby.getName() + " has been released into the wild.");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 

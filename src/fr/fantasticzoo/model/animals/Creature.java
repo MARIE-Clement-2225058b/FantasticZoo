@@ -26,7 +26,6 @@ public abstract class Creature {
     private int health;
     private int PregnancyState = 0;
     private int strength;
-
     private int sick = 0;
 
     public int getSick() {
@@ -93,6 +92,9 @@ public abstract class Creature {
      */
     public void setPregnancyState(int state) {
         this.PregnancyState = state;
+        if(state >= 9){
+            this.PregnancyState = 0;
+        }
     }
 
     /**

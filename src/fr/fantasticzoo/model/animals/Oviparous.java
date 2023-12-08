@@ -40,8 +40,6 @@ public class Oviparous extends Creature {
      * @return Egg
      */
     public Egg layEgg() {
-        System.out.println(getName() + " is giving birth!!!");
-
         // returns new egg with random gestation period between 10 and 30 days
         Random rand = new Random();
         int daysRemaining = rand.nextInt(20) + 10;
