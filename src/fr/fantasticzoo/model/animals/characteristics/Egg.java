@@ -49,7 +49,7 @@ public class Egg {
         try {
             Creature baby = (Creature) this.mother.getType().getDeclaredConstructor().newInstance();
             System.out.println(this.name + " has hatched!");
-            baby.setName(Names.getRandomName().name());
+            baby.setName(Names.getRandomName());
             return baby;
 
         } catch (Exception e) {
@@ -57,5 +57,10 @@ public class Egg {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String getDescription() {
+        return "Egg of " + mother.getName() + " (" + mother.getType().getSimpleName() + ")+\n" +
+                "Time remaining before hatching: " + timeRemainingBeforeHatch + " units of time.";
     }
 }

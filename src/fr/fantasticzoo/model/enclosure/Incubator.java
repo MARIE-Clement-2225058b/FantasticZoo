@@ -4,14 +4,15 @@ import fr.fantasticzoo.model.animals.characteristics.Egg;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Incubator extends Enclosure {
 
-    private List<Egg> eggs;
+    private CopyOnWriteArrayList<Egg> eggs;
 
     public Incubator(String name) {
         super(name);
-        this.eggs = new ArrayList<>();
+        this.eggs = new CopyOnWriteArrayList<>();
     }
 
     public List<Egg> getEggs() {

@@ -40,7 +40,7 @@ public enum Names {
         this.name = this.name();
     }
 
-    public static Names getRandomName() {
-        return values()[(int) (Math.random() * values().length)];
+    public static String getRandomName() {
+        return values()[(int) (Math.random() * values().length)].name;
     }
 }

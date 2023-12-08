@@ -118,7 +118,6 @@ public class Werewolf extends Viviparous implements Running {
     @Override
     public String run() {
         if (!isAsleep()) {
-            System.out.println(getName() + " is running!");
             return getName() + " is running!";
         } else {
             System.out.println(getName() + " is asleep and cannot run.");

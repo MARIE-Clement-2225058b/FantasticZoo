@@ -4,6 +4,7 @@ import fr.fantasticzoo.controller.AnimalController;
 import fr.fantasticzoo.controller.EnclosureController;
 import fr.fantasticzoo.controller.UIController;
 import fr.fantasticzoo.model.animals.Creature;
+import fr.fantasticzoo.model.animals.characteristics.Egg;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
 import fr.fantasticzoo.model.animals.types.*;
 import fr.fantasticzoo.model.employee.ZooMaster;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,9 +29,9 @@ public class GameEngine {
     private final Scanner scanner;
     private final Object scannerLock = new Object();
 
-    private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
+    private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
     private final ArrayList<String> defaultChoice = new ArrayList<>();
-    public static final List<String> missedMessages = new ArrayList<>();
+    public static final CopyOnWriteArrayList<String> missedMessages = new CopyOnWriteArrayList<>();
     private final FantasticZoo zoo;
     private final UIController uiController;
     private final EnclosureController enclosureController;
@@ -48,15 +50,21 @@ public class GameEngine {
                             "Transférer une créature",
                             "Construire un enclos",
                             "Acheter une créature",
-                            "Surveiller le parc"));
+                            "Surveiller le parc",
+                            "Regarder l'incubateur"));
 
             ZooMaster player = new ZooMaster();
 
             Enclosure enclosure = new Enclosure("Default enclosure", 100, new ArrayList<>());
 
-            Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris Execution");
+            Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
+            dragons.setAge(50);
             enclosure.addCreature(dragons);
             enclosures.add(enclosure);
+
+            Dragons dragonette = new Dragons(100,100, SexType.FEMALE, "Dragonette");
+            dragonette.setAge(50);
+            enclosure.addCreature(dragonette);
 
             this.zoo = new FantasticZoo("Zootopie", player, 10, enclosures);
 
@@ -69,10 +77,13 @@ public class GameEngine {
     public void startGame() {
         executorService.scheduleAtFixedRate(animalController::decreaseHungerForAllAnimals, 0, 2, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(animalController::randomlyTriggerAnimalBehaviors, 0, 5, TimeUnit.SECONDS);
+        // TODO : CHECK IF PREGNANT
+        executorService.scheduleAtFixedRate(animalController::pregnancyHandler, 0, 2, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(animalController::hatchHandler, 0, 10, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(animalController::findPartner, 0, 10, TimeUnit.SECONDS);
 
         while (true) {
             if(!uiController.isInMenu()) monitorPark();
-            System.out.println("while");
             uiController.setInMenu(true);
             int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
             processUserInput(choice);
@@ -198,12 +209,16 @@ public class GameEngine {
                         throw new IllegalStateException("Unexpected value: " + creatureType);
                 }
 
-
+                Enclosure suitableEnclosure = null;
                 for(Enclosure enclosure : enclosures) {
                     if(enclosure.addCreature(creature)) {
+                        suitableEnclosure = enclosure;
                         break;
                     }
-
+                }
+                if(suitableEnclosure == null) {
+                    System.out.println("No suitable enclosure found for this creature.");
+                    return;
                 }
 
                 System.out.println("Enter the name of the creature : ");
@@ -213,14 +228,24 @@ public class GameEngine {
                 int sexType = uiController.selectFromList(List.of(SexType.MALE.name(), SexType.FEMALE.name()), Function.identity(), "Select the sex of the creature");
                 creature.setSex(sexType == 0 ? SexType.MALE : SexType.FEMALE) ;
 
-                System.out.println("Enter the weight of the creature : ");
                 Random random = new Random();
                 int weight = random.nextInt(1000)+50;
                 creature.setWeight(weight);
 
+                System.out.println("Enter the age of the creature : ");
+                int age = uiController.readInt(99);
+                creature.setAge(age);
+
                 break;
             case 7 :
                 monitorPark();
+                break;
+            case 8 :
+                for(Egg egg : zoo.getIncubator().getEggs()) {
+                    uiController.renderEgg();
+                    System.out.println(egg.getDescription());
+                    uiController.waitForEnter();
+                }
                 break;
             default:
                 System.out.println("Invalid option");
@@ -234,10 +259,11 @@ public class GameEngine {
         AtomicBoolean exitMonitoring = new AtomicBoolean(false);
 
         System.out.println("Monitoring the park. Press 'Enter' to go to the main menu for 50 seconds...");
-        if(scanner.hasNextLine())  scanner.nextLine();
 
         Thread inputThread = new Thread(() -> {
+            if(scanner.hasNextLine())  scanner.nextLine();
             exitMonitoring.set(true);
+
         });
 
         inputThread.start();
@@ -250,13 +276,13 @@ public class GameEngine {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        executorService.schedule(this::monitorPark, 10, TimeUnit.SECONDS);
+        executorService.schedule(this::monitorPark, 50, TimeUnit.SECONDS);
     }
     private Thread getThread(AtomicBoolean exitMonitoring) {
         Thread monitoringThread = new Thread(() -> {
             while (!exitMonitoring.get()) {
 
-                uiController.showMissedMessages((ArrayList<String>) missedMessages);
+                uiController.showMissedMessages(missedMessages);
                 try {
                     Thread.sleep(2000);
 

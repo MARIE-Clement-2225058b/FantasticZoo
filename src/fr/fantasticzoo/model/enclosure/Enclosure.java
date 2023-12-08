@@ -125,7 +125,6 @@ public class Enclosure {
                 || (creatureType != null && creatureType.getClass() != creature.getClass()) && !animals.isEmpty())
                 && !(creature instanceof Dragons))
         {
-            System.out.println("This enclosure is not suitable for this animal.");
             return false;
         }
 

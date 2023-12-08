@@ -92,9 +92,6 @@ public abstract class Creature {
      */
     public void setPregnancyState(int state) {
         this.PregnancyState = state;
-        if(state >= 9){
-            this.PregnancyState = 0;
-        }
     }
 
     /**
@@ -118,9 +115,8 @@ public abstract class Creature {
      * La fonction mate permet de faire se reproduire deux créatures.
      */
     public void mate(Creature mate){
-        // && mate.getAgeType()=="Adult" && this.getAgeType()=="Adult") {
         if (!isAsleep()) {
-            if (mate.sex != this.sex) {
+            if (mate.sex != this.sex && mate.getPregnancyState() == 0 && this.getPregnancyState() == 0) {
                 System.out.println(this.name + " is mating with " + mate.getName() + ".");
                 if (mate.sex == SexType.FEMALE) {
                     mate.setPregnancyState(1);

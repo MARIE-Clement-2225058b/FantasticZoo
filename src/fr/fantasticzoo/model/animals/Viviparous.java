@@ -36,7 +36,7 @@ public class Viviparous extends Creature {
         try {
             Class<?> mother = this.getClass();
             Creature baby = (Creature) mother.getDeclaredConstructor().newInstance();
-            baby.setName(Names.getRandomName().name());
+            baby.setName(Names.getRandomName());
             return baby;
 
         } catch (Exception e) {

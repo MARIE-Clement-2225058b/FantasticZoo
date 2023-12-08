@@ -6,6 +6,7 @@ import fr.fantasticzoo.view.AsciiArtView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 
 public class UIController {
@@ -29,6 +30,9 @@ public class UIController {
 
     public void renderAnimal(Creature creature) {
         asciiArtView.renderAnimal(creature);
+    }
+    public void renderEgg() {
+        asciiArtView.renderEgg();
     }
 
     public <T> int selectFromList(List<T> items, Function<T, String> displayFunction, String prompt) {
@@ -95,7 +99,7 @@ public class UIController {
         for(int i = 0 ; i < 50 ; i++) System.out.println(" ");
     }
 
-    public void showMissedMessages(ArrayList<String> missedMessages) {
+    public void showMissedMessages(CopyOnWriteArrayList<String> missedMessages) {
         if (!missedMessages.isEmpty()) {
             for (String message : missedMessages) {
                 System.out.println(message);

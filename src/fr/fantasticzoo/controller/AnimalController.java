@@ -9,6 +9,7 @@ import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.characteristics.ActionType;
 import fr.fantasticzoo.model.animals.characteristics.CryType;
 import fr.fantasticzoo.model.animals.characteristics.Egg;
+import fr.fantasticzoo.model.animals.characteristics.Names;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 import fr.fantasticzoo.model.zoo.FantasticZoo;
@@ -100,9 +101,11 @@ public class AnimalController {
 
     public void hatchHandler(){
         for (Egg egg : zoo.getIncubator().getEggs()) {
-            egg.setTimeRemainingBeforeHatch(egg.getTimeRemainingBeforeHatch() - 1);
+            egg.setTimeRemainingBeforeHatch(egg.getTimeRemainingBeforeHatch() - 10);
             if (egg.getTimeRemainingBeforeHatch() <= 0) {
                 Creature creature = egg.hatch();
+                creature.setName(Names.getRandomName());
+
                 Enclosure suitableEnclosure = null;
                 for (Enclosure enclosure : zoo.getEnclosures()) {
                     if (enclosure.addCreature(creature)) {
@@ -119,42 +122,81 @@ public class AnimalController {
     }
 
     public void pregnancyHandler() {
-        for (Enclosure enclosure : zoo.getEnclosures()) {
-            for (Creature creature : enclosure.getAnimals()) {
-                if (creature.getPregnancyState() > 0) {
-                    creature.setPregnancyState(creature.getPregnancyState() + 1);
+        try {
+            missedMessages.add("Pregnancy handler");
+            for (Enclosure enclosure : zoo.getEnclosures()) {
+                for (Creature creature : enclosure.getAnimals()) {
+                    missedMessages.add(creature.getName() + " is now at pregnancy state " + creature.getPregnancyState() + ".");
 
-                    if (creature.getPregnancyState() == 9) {
+                    if (creature.getPregnancyState() > 0) {
 
-                        if(creature instanceof Oviparous) {
-                            missedMessages.add(creature.getName() + " has laid an egg.");
+                        creature.setPregnancyState(creature.getPregnancyState() + 1);
+                        missedMessages.add(creature.getName() + " is now at pregnancy state " + creature.getPregnancyState() + ".");
+                        if (creature.getPregnancyState() == 9) {
+                            creature.setPregnancyState(0);
 
-                            Egg egg = ((Oviparous) creature).layEgg();
-                            zoo.getIncubator().addEgg(egg);
+                            if(creature instanceof Oviparous) {
+                                missedMessages.add(creature.getName() + " has laid an egg.");
 
-                        } else if(creature instanceof Viviparous) {
-                            missedMessages.add(creature.getName() + " has given birth.");
+                                Egg egg = ((Oviparous) creature).layEgg();
+                                zoo.getIncubator().addEgg(egg);
 
-                            Creature baby = ((Viviparous) creature).giveBirth();
-                            Enclosure suitableEnclosure = null;
-                            for (Enclosure enclosure1 : zoo.getEnclosures()) {
-                                if (enclosure1.addCreature(baby)) {
-                                    missedMessages.add(baby.getName() + " has been added to " + enclosure1.getName());
-                                    suitableEnclosure = enclosure1;
-                                    break;
+                            } else if(creature instanceof Viviparous) {
+                                missedMessages.add(creature.getName() + " has given birth.");
+
+                                Creature baby = ((Viviparous) creature).giveBirth();
+                                baby.setName(Names.getRandomName());
+                                Enclosure suitableEnclosure = null;
+                                for (Enclosure enclosure1 : zoo.getEnclosures()) {
+                                    if (enclosure1.addCreature(baby)) {
+                                        missedMessages.add(baby.getName() + " has been added to " + enclosure1.getName());
+                                        suitableEnclosure = enclosure1;
+                                        break;
+                                    }
                                 }
-                            }
 
-                            if (suitableEnclosure == null) {
-                                missedMessages.add(baby.getName() + " has been released into the wild.");
+                                if (suitableEnclosure == null) {
+                                    missedMessages.add(baby.getName() + " has been released into the wild.");
+                                }
                             }
                         }
                     }
                 }
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    public void findPartner() {
+        for (Enclosure enclosure : zoo.getEnclosures()) {
+            List<Creature> animals = enclosure.getAnimals();
+            for (Creature creature : animals) {
+                if (shouldFindPartner(creature)) {
+                    findMateForCreature(creature, animals);
+                }
+            }
+        }
+    }
+
+    private boolean shouldFindPartner(Creature creature) {
+        return !creature.isAsleep() && creature.getAgeType().equals("Adult");
+    }
+
+    private void findMateForCreature(Creature creature, List<Creature> animals) {
+        animals.stream()
+                .filter(potentialPartner -> isSuitableMate(creature, potentialPartner))
+                .findFirst()
+                .ifPresent(creature::mate);
+    }
+
+    private boolean isSuitableMate(Creature creature, Creature potentialPartner) {
+        return !potentialPartner.isAsleep() &&
+                potentialPartner.getPregnancyState() == 0 &&
+                potentialPartner.getAgeType().equals("Adult") &&
+                creature.getSex() != potentialPartner.getSex();
+    }
 
 
     public void decreaseHungerForAllAnimals() {
