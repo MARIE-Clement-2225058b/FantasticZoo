@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class FantasticZoo {
-    private static ArrayList<Enclosure> enclosures;
+    public static ArrayList<Enclosure> enclosures;
     private String name;
     private ZooMaster zooMaster;
     private int MaxEnclosure;

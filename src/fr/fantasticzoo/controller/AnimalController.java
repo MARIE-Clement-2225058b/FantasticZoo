@@ -11,15 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static fr.fantasticzoo.model.zoo.FantasticZoo.enclosures;
 import static fr.fantasticzoo.view.GameEngine.missedMessages;
 
 public class AnimalController {
     private final UIController uiController;
-    private final ArrayList<Enclosure> enclosures;
 
     public AnimalController(UIController uiController, ArrayList<Enclosure> enclosures) {
         this.uiController = uiController;
-        this.enclosures = enclosures;
     }
 
     public void randomlyTriggerAnimalBehaviors() {
