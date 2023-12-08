@@ -88,7 +88,7 @@ public class AnimalController {
                             break;
                         case 4: //Malade
                             if (creature.getHealth() > 0 && creature.getSick() !=0) {
-                                missedMessages.add(creature.getName() + " is sick");
+                                missedMessages.add(creature.getName() + " is sick of " + creature.getSicknessType().getSicknessName());
                                 creature.setSick(creature.getSick());
                             }
                             break;
@@ -148,13 +148,14 @@ public class AnimalController {
                 Enclosure suitableEnclosure = null;
                 for (Enclosure enclosure : zoo.getEnclosures()) {
                     if (enclosure.addCreature(creature)) {
-                        missedMessages.add(creature.getName() + " has hatched and has been added to " + enclosure.getName());
+                        missedMessages.add(creature.getName() + " the " + creature.getClass().getSimpleName() + "has hatched and has been added to " + enclosure.getName());
                         suitableEnclosure = enclosure;
                         break;
                     }
                 }
                 if (suitableEnclosure == null) {
-                    missedMessages.add(creature.getName() + " has hatched but there is no suitable enclosure for it. It has been released into the wild.");;
+                    missedMessages.add(creature.getName() + " the " + creature.getClass().getSimpleName() +
+                            "has hatched but there was no suitable enclosure for it. It has been released into the wild.");
                 }
             }
         }
