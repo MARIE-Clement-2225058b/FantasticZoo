@@ -14,6 +14,11 @@ public class Aquarium extends Enclosure{
         super(name, area, animals);
     }
 
+    /**
+     *
+     * @param creature
+     * @return
+     */
     @Override
     public boolean addCreature(Creature creature) {
         if(creature instanceof Swimming) {

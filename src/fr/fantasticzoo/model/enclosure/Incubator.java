@@ -15,24 +15,25 @@ public class Incubator extends Enclosure {
         this.eggs = new CopyOnWriteArrayList<>();
     }
 
+    /**
+     * @return eggs
+     */
     public List<Egg> getEggs() {
         return eggs;
     }
 
+    /**
+     * @param egg
+     */
     public void addEgg(Egg egg) {
         this.eggs.add(egg);
     }
 
+    /**
+     * @param egg
+     */
     public void removeEgg(Egg egg) {
         this.eggs.remove(egg);
     }
 
-/*    public void isHatch() {
-        for (Egg egg : eggs) {
-            if (egg.getDaysRemainingBeforeHatch() == 0) {
-                egg.hatch();
-                removeEgg(egg);
-            }
-        }
-    }*/
 }
