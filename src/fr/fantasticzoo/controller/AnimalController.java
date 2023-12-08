@@ -5,6 +5,8 @@ import fr.fantasticzoo.model.animals.behaviors.Flying;
 import fr.fantasticzoo.model.animals.behaviors.Running;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.characteristics.ActionType;
+import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 
 import java.util.ArrayList;
@@ -23,10 +25,14 @@ public class AnimalController {
 
     public void randomlyTriggerAnimalBehaviors() {
         Random rand = new Random();
+        Random rand2 = new Random();
+        Random rand3 = new Random();
         try {
             for (Enclosure enclosure : enclosures) {
                 for (Creature creature : enclosure.getAnimals()) {
-                    int behaviorChoice = rand.nextInt(3); // 0 = run, 1 = fly, 2 = swim
+                    int behaviorChoice = rand.nextInt(4); // 0 = Courir, 1 = Voler, 2 = Nager, 3 = Crier
+                    int cryChoice = rand2.nextInt(2); // 0 = Crier, 1 = Ne pas crier
+                    int cryTypeChoice = rand3.nextInt(5); // 0 = Appartenance, 1 = Domination, 2 = Soumission, 3 = Aggressivité, 4 = Générique
 
                     switch (behaviorChoice) {
                         case 0: // Courir
@@ -47,6 +53,23 @@ public class AnimalController {
                                     missedMessages.add(((Swimming) creature).swim());
                             }
                             break;
+                        case 3: // Crier
+                                if (creature instanceof Werewolf werewolf) {
+                                    if (cryChoice == 0) {
+                                        if (cryTypeChoice == 0){
+                                            missedMessages.add(werewolf.cry(CryType.APPARTENANCE));
+                                        } else if (cryTypeChoice == 1) {
+                                            missedMessages.add(werewolf.cry(CryType.DOMINATION));
+                                        } else if (cryTypeChoice == 2) {
+                                            missedMessages.add(werewolf.cry(CryType.SOUMISSION));
+                                        } else if (cryTypeChoice == 3) {
+                                            missedMessages.add(werewolf.cry(CryType.AGGRESSIVITE));
+                                        } else {
+                                            missedMessages.add(werewolf.cry(CryType.GENERICCRY));
+                                        }
+                                    }
+                                }
+                                break;
                     }
                 }
             }

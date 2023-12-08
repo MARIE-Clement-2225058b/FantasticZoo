@@ -22,7 +22,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
-public class GameEngine {
+public class
+GameEngine {
 
     private final Scanner scanner;
     private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
@@ -90,7 +91,8 @@ public class GameEngine {
         }
     }
 
-    private void processUserInput(int choice) {
+    private void
+    processUserInput(int choice) {
         Enclosure selectedEnclosure;
         ArrayList<Enclosure> enclosures = zoo.getEnclosures();
         ZooMaster player = zoo.getZooMaster();
