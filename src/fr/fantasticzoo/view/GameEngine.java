@@ -25,6 +25,8 @@ import java.util.function.Function;
 public class GameEngine {
 
     private final Scanner scanner;
+    private final Object scannerLock = new Object();
+
     private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
     private final ArrayList<String> defaultChoice = new ArrayList<>();
     public static final List<String> missedMessages = new ArrayList<>();
@@ -70,7 +72,7 @@ public class GameEngine {
 
         while (true) {
             if(!uiController.isInMenu()) monitorPark();
-
+            System.out.println("while");
             uiController.setInMenu(true);
             int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
             processUserInput(choice);
@@ -164,6 +166,8 @@ public class GameEngine {
                         List.of("Dragon", "Kraken", "Megalodons", "Mermaids", "Nymphs", "Phoenix", "Unicorn", "Werewolf \uFE0F"),
                         Function.identity(),
                         "Choose a creature type : \n");
+                if(creatureType == 0) return;
+
                 Creature creature;
                 switch (creatureType) {
                     case 1 :
@@ -194,18 +198,12 @@ public class GameEngine {
                         throw new IllegalStateException("Unexpected value: " + creatureType);
                 }
 
-                Enclosure suitableEnclosure = null;
 
                 for(Enclosure enclosure : enclosures) {
                     if(enclosure.addCreature(creature)) {
-                        suitableEnclosure = enclosure;
                         break;
                     }
 
-                }
-
-                if(suitableEnclosure == null) {
-                    System.out.println("No suitable enclosure found for this creature (" + creature.getClass().getSimpleName() + "), please create a new one that is suitable.");
                 }
 
                 System.out.println("Enter the name of the creature : ");
@@ -236,9 +234,9 @@ public class GameEngine {
         AtomicBoolean exitMonitoring = new AtomicBoolean(false);
 
         System.out.println("Monitoring the park. Press 'Enter' to go to the main menu for 50 seconds...");
+        if(scanner.hasNextLine())  scanner.nextLine();
 
         Thread inputThread = new Thread(() -> {
-            if(scanner.hasNextLine())  scanner.nextLine();
             exitMonitoring.set(true);
         });
 
@@ -252,7 +250,7 @@ public class GameEngine {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        executorService.schedule(this::monitorPark, 50, TimeUnit.SECONDS);
+        executorService.schedule(this::monitorPark, 10, TimeUnit.SECONDS);
     }
     private Thread getThread(AtomicBoolean exitMonitoring) {
         Thread monitoringThread = new Thread(() -> {
