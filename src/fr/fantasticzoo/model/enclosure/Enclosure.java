@@ -119,21 +119,25 @@ public class Enclosure {
         return true;
     }
 
-    public void addCreature(Creature creature) {
+    public boolean addCreature(Creature creature) {
         if((creature instanceof Swimming
                 || creature instanceof Flying
                 || (creatureType != null && creatureType.getClass() != creature.getClass()) && !animals.isEmpty())
                 && !(creature instanceof Dragons))
         {
             System.out.println("This enclosure is not suitable for this animal.");
-            return;
+            return false;
         }
-        if (animals.isEmpty()){
-            creatureType = creature;
-        }
+
         if (animals.size() < maxAnimal) {
+            if (animals.isEmpty()){
+                creatureType = creature;
+            }
+
             animals.add(creature);
             System.out.println("The " + creature.getClass().getSimpleName() + " has been added to the " + this.getName() + " enclosure.");
+            return true;
         }
+        return false;
     }
 }

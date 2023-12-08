@@ -60,6 +60,8 @@ public abstract class Creature {
     }
     public Creature(int maxHealth, int maxHunger, SexType sex, String name) {
         this.MAX_AGE = 100;
+        this.weight = 100;
+        this.height = 160;
         this.MAX_HEALTH = maxHealth;
         this.MAX_HUNGER = maxHunger;
         this.name = name;
@@ -327,7 +329,9 @@ public abstract class Creature {
     }
 
     public String getDescription() {
-        return getName() + " is a " + getAgeType() + " " + getClass().getSimpleName() + " (" + getSex() + ").";
+        return getName() + " is a " + getAgeType() + " " + getClass().getSimpleName() + " (" + getSex() + "). \n" +
+                "It is " + getAge() + " years old, " + getHeight() + "cm tall and weighs " + getWeight() + "kg. \n" +
+                "It is currently " + getCurrentAction() + " and has " + getHunger() + "% hunger and " + getHealth() + "% health.";
     }
 }
 

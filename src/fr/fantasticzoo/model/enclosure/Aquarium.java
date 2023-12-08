@@ -14,16 +14,18 @@ public class Aquarium extends Enclosure{
     }
 
     @Override
-    public void addCreature(Creature creature) {
+    public boolean addCreature(Creature creature) {
         if(creature instanceof Swimming) {
             if (getAnimals().size() < getMaxAnimal()) {
+                if (getAnimals().isEmpty()){
+                    setCreatureType(creature);
+                }
                 getAnimals().add(creature);
-            }
-            if (getAnimals().isEmpty()){
-                setCreatureType(creature);
+                return true;
             }
         } else {
             System.out.println("This creature can't swim, it can't be in this enclosure.");
         }
+        return false;
     }
 }

@@ -17,16 +17,20 @@ public class Aviary extends Enclosure{
     }
 
     @Override
-    public void addCreature(Creature creature) {
+    public boolean addCreature(Creature creature) {
         if(creature instanceof Flying) {
             if (getAnimals().size() < getMaxAnimal()) {
+                if (getAnimals().isEmpty()){
+                    setCreatureType(creature);
+                }
+
                 getAnimals().add(creature);
-            }
-            if (getAnimals().isEmpty()){
-                setCreatureType(creature);
+                return true;
             }
         } else {
             System.out.println("This creature can't fly, it can't be in this enclosure.");
         }
+
+        return false;
     }
 }

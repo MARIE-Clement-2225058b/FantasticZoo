@@ -197,17 +197,15 @@ public class GameEngine {
                 Enclosure suitableEnclosure = null;
 
                 for(Enclosure enclosure : enclosures) {
-                    if(enclosure.getCreatureType() == null || enclosure.getCreatureType().getClass().equals(creature.getClass())) {
-                        if(enclosure.getAnimalCount() <= enclosure.getMaxAnimal()) {
-                            suitableEnclosure = enclosure;
-                        }
+                    if(enclosure.addCreature(creature)) {
+                        suitableEnclosure = enclosure;
+                        break;
                     }
+
                 }
 
-                if(suitableEnclosure != null) {
-                    suitableEnclosure.addCreature(creature);
-                } else {
-                    System.out.println("No suitable enclosure found.");
+                if(suitableEnclosure == null) {
+                    System.out.println("No suitable enclosure found for this creature (" + creature.getClass().getSimpleName() + "), please create a new one that is suitable.");
                 }
 
                 System.out.println("Enter the name of the creature : ");

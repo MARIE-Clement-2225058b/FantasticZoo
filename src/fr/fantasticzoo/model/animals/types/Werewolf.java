@@ -19,7 +19,7 @@ public class Werewolf extends Viviparous implements Running {
 
     private int lvl = 0;
 
-    private static List<Werewolf> allWerewolves = new ArrayList<>();
+    private static final List<Werewolf> allWerewolves = new ArrayList<>();
 
     public Werewolf() {
         super(100, 100, SexType.MALE, "Werewolf");
