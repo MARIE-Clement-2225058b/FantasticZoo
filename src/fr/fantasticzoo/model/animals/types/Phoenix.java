@@ -13,6 +13,9 @@ public class Phoenix extends Oviparous implements Flying {
         super(maxHealth, maxHunger, sex, name);
     }
 
+    /**
+     * @return name +  is flying!
+     */
     @Override
     public String fly() {
         return getName() + " is flying!";

@@ -17,6 +17,9 @@ public class Mermaids extends Viviparous implements Swimming {
         super(100, 100, SexType.FEMALE, "Mermaid");
     }
 
+    /**
+     * @return name +  swim in the water.
+     */
     @Override
     public String swim() {
         return this.getName() + " is swimming.";
