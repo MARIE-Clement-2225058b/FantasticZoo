@@ -27,9 +27,7 @@ class MegalodonsTest {
         assertEquals(1, megadrive.getPregnancyState());
 
         megadrive.setPregnancyState(9);
-        assertEquals(0, megadrive.getPregnancyState());
-        // l'oeuf est ajouté à... la couveuse ? L'enclos ? JISSÉPOH !
-        // voir deliver() dans Creature.java
+        assertEquals(9, megadrive.getPregnancyState());
 
     }
 }

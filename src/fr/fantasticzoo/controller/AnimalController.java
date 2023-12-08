@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static fr.fantasticzoo.model.zoo.FantasticZoo.enclosures;
 import static fr.fantasticzoo.view.GameEngine.missedMessages;
 
 public class AnimalController {
@@ -34,7 +33,7 @@ public class AnimalController {
 
 
         try {
-            for (Enclosure enclosure : enclosures) {
+            for (Enclosure enclosure : zoo.getEnclosures()) {
                 for (Creature creature : enclosure.getAnimals()) {
                     int behaviorChoice = rand.nextInt(5); // 0 = Courir, 1 = Voler, 2 = Nager, 3 = Crier
                     int yesOrNo = rand2.nextInt(2); // 0 = Non, 1 = Oui
@@ -96,13 +95,14 @@ public class AnimalController {
             e.printStackTrace();
         }
     }
+
     public void layingHandler(){
         for (Egg egg : zoo.getIncubator().getEggs()) {
             egg.setTimeRemainingBeforeHatch(egg.getTimeRemainingBeforeHatch() - 1);
             if (egg.getTimeRemainingBeforeHatch() <= 0) {
                 Creature creature = egg.hatch();
                 Enclosure suitableEnclosure = null;
-                for (Enclosure enclosure : enclosures) {
+                for (Enclosure enclosure : zoo.getEnclosures()) {
                     if (enclosure.addCreature(creature)) {
                         missedMessages.add(creature.getName() + " has hatched and has been added to " + enclosure.getName());
                         suitableEnclosure = enclosure;
@@ -118,11 +118,12 @@ public class AnimalController {
     }
 
 
+
     public void decreaseHungerForAllAnimals() {
         Random rand = new Random();
         List<Creature> deadAnimals = new ArrayList<>();
 
-        for (Enclosure enclosure : enclosures) {
+        for (Enclosure enclosure : zoo.getEnclosures()) {
             for (Creature creature : enclosure.getAnimals()) {
                 int hungerLoss = rand.nextInt(3) + 1;
                 creature.setHunger(creature.getHunger() - hungerLoss);

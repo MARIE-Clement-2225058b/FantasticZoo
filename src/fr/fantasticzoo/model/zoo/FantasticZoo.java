@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class FantasticZoo {
-    public static ArrayList<Enclosure> enclosures;
+    private ArrayList<Enclosure> enclosures;
     private Incubator incubator;
     private String name;
     private ZooMaster zooMaster;
@@ -28,9 +28,10 @@ public class FantasticZoo {
     //zoo fantastique (son nombre d’action par intervalle de temps devant être limité).
 
     public FantasticZoo(String name, ZooMaster zooMaster, int MaxEnclosure, ArrayList<Enclosure> enclosures) {
-        this.enclosures = enclosures;
+        this.incubator = new Incubator("Super Incubator");
         this.zooMaster = zooMaster;
         this.MaxEnclosure = MaxEnclosure;
+        this.enclosures = enclosures;
         this.name = name;
     }
 
@@ -60,25 +61,6 @@ public class FantasticZoo {
             animalsNumber += enclosure.getAnimalCount();
         }
         return animalsNumber;
-    }
-
-    public void displayAnimals() {
-        for (Enclosure enclosure : enclosures) {
-            System.out.println(enclosure.getName() + " :");
-            for (int i = 0; i < enclosure.getAnimalCount(); i++) {
-                System.out.println(enclosure.getAnimals().get(i).getName()
-                        + " the " + enclosure.getAnimals().get(i).getClass().getSimpleName());
-            }
-        }
-    }
-
-    public static Enclosure getCreaturesEnclosure(Creature creature) {
-        for (Enclosure enclosure : enclosures) {
-            if (enclosure.getAnimals().contains(creature)) {
-                return enclosure;
-            }
-        }
-        return null;
     }
 
     public ArrayList<Enclosure> getEnclosures() {

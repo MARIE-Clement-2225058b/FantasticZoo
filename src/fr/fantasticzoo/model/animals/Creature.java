@@ -89,22 +89,10 @@ public abstract class Creature {
 
     /**
      * Mets à jour l'avancée de la grossesse
-     * TODO : METTRE LES OEUF DANS UNE SOUS-CLASSE COUVEUSE
      * @param state
      */
     public void setPregnancyState(int state) {
-        PregnancyState = state;
-        if (state==9){
-            Object baby = giveBirth();
-            if (baby instanceof Creature){
-                FantasticZoo.getCreaturesEnclosure(this).addCreature((Creature) baby);
-            }
-            else if (baby instanceof Egg){
-                //FantasticZoo.getCreaturesEnclosure(this).addEgg((Egg) baby);
-            }
-            // On ajoute le bébé ou l'oeuf à l'enclos
-            setPregnancyState(0);
-        }
+        this.PregnancyState = state;
     }
 
     /**
