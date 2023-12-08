@@ -26,6 +26,9 @@ public class Werewolf extends Viviparous implements Running {
         allWerewolves.add(this);
     }
 
+    /**
+     * make a werewolf couple with another werewolf, and they are all the strongest
+     */
     public String formStrongestCouple() {
         Werewolf strongestMale = null;
         Werewolf strongestFemale = null;
@@ -51,13 +54,23 @@ public class Werewolf extends Viviparous implements Running {
     }
 
 
+    /**
+     * @return all werewolves
+     */
     public static List<Werewolf> getAllWerewolves() {
         return allWerewolves;
     }
+
+    /**
+     * @param lvl
+     */
     public void setLvL(int lvl) {
         this.lvl = lvl;
     }
 
+    /**
+     * @return lvl
+     */
     public int getLvl() {
         if (Objects.equals(this.getAgeType(), "Baby")){
             this.lvl = 0;
@@ -73,10 +86,16 @@ public class Werewolf extends Viviparous implements Running {
         return this.lvl + this.rank + this.dominationFactor;
     }
 
+    /**
+     * @param rank
+     */
     public void setRank(int rank) {
         this.rank = rank;
     }
 
+    /**
+     * @return name + rank
+     */
     public String getRank() {
         List<String> greekAlphabet = Arrays.asList(
                 "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda",
@@ -88,15 +107,23 @@ public class Werewolf extends Viviparous implements Running {
         return getName() + " is ranked " + rank + ".";
     }
 
-
+    /**
+     * @param dominationFactor
+     */
     public void setdFactor(int dominationFactor) {
         this.dominationFactor = dominationFactor;
     }
 
+    /**
+     * @return dominationFactor
+     */
     public int getdFactor() {
         return dominationFactor;
     }
 
+    /**
+     * @param transformed
+     */
     public void setTransformed(boolean transformed) {
         Random random = new Random();
         int randomInt = random.nextInt(100);
@@ -106,15 +133,24 @@ public class Werewolf extends Viviparous implements Running {
         this.transformed = transformed;
     }
 
+    /**
+     * @return transformed
+     */
     public boolean getTransformed() {
         return this.transformed;
     }
 
+    /**
+     * @param mate
+     */
     @Override
     public void mate(Creature mate) {
         super.mate(mate);
     }
 
+    /**
+     * @return name +  is running!
+     */
     @Override
     public String run() {
         if (!isAsleep()) {
@@ -126,7 +162,10 @@ public class Werewolf extends Viviparous implements Running {
         }
     }
 
-
+    /**
+     * @param cry
+     * @return name +  is howling for  cry +  !
+     */
     public String cry(CryType cry) {
         for (Werewolf wolf : allWerewolves) {
             if (!isAsleep() && wolf.getSick() < 50) {

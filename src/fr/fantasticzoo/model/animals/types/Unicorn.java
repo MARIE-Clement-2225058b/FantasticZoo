@@ -14,6 +14,9 @@ public class Unicorn extends Viviparous implements Running {
         super(maxHealth, maxHunger, sex, name);
     }
 
+    /**
+     * @return name +  is running!
+     */
     @Override
     public String run() {
         return getName() + " is running!";

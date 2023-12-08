@@ -14,6 +14,9 @@ public class Megalodons extends Oviparous implements Swimming {
         super(maxHealth, maxHunger, sex, name);
     }
 
+    /**
+     * @return name +  swim in the water.
+     */
     @Override
     public String swim() {
         return getName() + " swim in the water.";
