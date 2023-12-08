@@ -23,11 +23,8 @@ public class ZooMaster extends Human {
     }
 
     public void moveAnimalFromEnclosure(Creature creature, Enclosure enclosure1, Enclosure enclosure2) {
-        if( enclosure1.transfertCreature(enclosure2, creature))
-            System.out.println(super.getName()
-                    + " a déplacé " + creature.getName()
-                    + " de l'enclos " + enclosure1.getName()
-                    + " à l'enclos " + enclosure2.getName());
+        enclosure1.transfertCreature(enclosure2, creature);
+
     }
 
     /**

@@ -42,20 +42,21 @@ public class GameEngine {
             scanner = new Scanner(System.in);
 
             defaultChoice.addAll(
-                    List.of("Examiner un enclos",
-                            "Nettoyer un enclos",
-                            "Nourrir les créatures",
-                            "Transférer une créature",
-                            "Construire un enclos",
-                            "Acheter une créature",
-                            "Surveiller le parc",
-                            "Regarder l'incubateur"));
+                    List.of("Examine an enclosure",
+                            "Clean an enclosure",
+                            "Feed the creatures",
+                            "Transfer a creature",
+                            "Build an enclosure",
+                            "Buy a creature",
+                            "Monitor the park",
+                            "Watch the incubator"));
+
 
             ZooMaster player = new ZooMaster();
 
             Enclosure enclosure = new Enclosure("Default enclosure", 100, new CopyOnWriteArrayList<>());
 
-            Dragons dragons = new Dragons(100,100, SexType.MALE, "Boris");
+            Dragons dragons = new Dragons(100,100, SexType.MALE, "Dragon");
             dragons.setAge(50);
             enclosure.addCreature(dragons);
             enclosures.add(enclosure);
@@ -85,20 +86,8 @@ public class GameEngine {
         while (true) {
             if(!uiController.isInMenu()) monitorPark();
             uiController.setInMenu(true);
-            int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
+            int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Select an option : \n");
             processUserInput(choice);
-        }
-    }
-
-    public void stopGame() {
-        executorService.shutdown();
-        try {
-            if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            executorService.shutdownNow();
-            Thread.currentThread().interrupt();
         }
     }
 
@@ -173,7 +162,7 @@ public class GameEngine {
             case 6:
                 System.out.println("Select the type of the creature : ");
                 int creatureType = uiController.selectFromList(
-                        List.of("Dragon", "Kraken", "Megalodons", "Mermaids", "Nymphs", "Phoenix", "Unicorn", "Werewolf \uFE0F"),
+                        List.of("Dragon", "Kraken", "Megalodons", "Mermaids", "Nymphs", "Phoenix", "Unicorn", "Werewolf"),
                         Function.identity(),
                         "Choose a creature type : \n");
                 if(creatureType == 0) return;

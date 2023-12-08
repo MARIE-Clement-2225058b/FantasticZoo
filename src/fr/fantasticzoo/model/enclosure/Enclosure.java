@@ -4,9 +4,7 @@ import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.behaviors.Flying;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.types.Dragons;
-import fr.fantasticzoo.view.GameEngine;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Enclosure {
@@ -30,7 +28,7 @@ public class Enclosure {
         this.cleanness = 100;
         this.area = 100;
         this.maxAnimal = area / 10;
-    };
+    }
 
     public String getName() {
         return name;
