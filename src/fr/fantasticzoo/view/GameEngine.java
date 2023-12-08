@@ -87,7 +87,6 @@ public class GameEngine {
             uiController.setInMenu(true);
             int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
             processUserInput(choice);
-
         }
     }
 

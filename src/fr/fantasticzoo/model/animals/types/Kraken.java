@@ -15,10 +15,19 @@ public class Kraken extends Oviparous implements Swimming {
         super(100, 100, SexType.MALE, "Kraken");
     }
 
+    /**
+     * @param maxHealth
+     * @param maxHunger
+     * @param sex
+     * @param name
+     */
     public Kraken(int maxHealth, int maxHunger, SexType sex, String name) {
         super(maxHealth, maxHunger, sex, name);
     }
 
+    /**
+     * @return name + is swimming.
+     */
     @Override
     public String swim() {
         return getName() + " is swimming.";

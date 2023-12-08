@@ -13,6 +13,7 @@ import fr.fantasticzoo.model.animals.characteristics.Names;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
 import fr.fantasticzoo.model.zoo.FantasticZoo;
+import fr.fantasticzoo.view.GameEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,6 @@ public class AnimalController {
         Random rand = new Random();
         Random rand2 = new Random();
         Random rand3 = new Random();
-
 
         try {
             for (Enclosure enclosure : zoo.getEnclosures()) {
@@ -62,22 +62,34 @@ public class AnimalController {
                             }
                             break;
                         case 3: // Crier
-                                if (creature instanceof Werewolf werewolf) {
-                                    if (yesOrNo == 0) {
-                                        if (cryTypeChoice == 0){
-                                            missedMessages.add(werewolf.cry(CryType.APPARTENANCE));
-                                        } else if (cryTypeChoice == 1) {
-                                            missedMessages.add(werewolf.cry(CryType.DOMINATION));
-                                        } else if (cryTypeChoice == 2) {
-                                            missedMessages.add(werewolf.cry(CryType.SOUMISSION));
-                                        } else if (cryTypeChoice == 3) {
-                                            missedMessages.add(werewolf.cry(CryType.AGGRESSIVITE));
-                                        } else {
-                                            missedMessages.add(werewolf.cry(CryType.GENERICCRY));
-                                        }
+                            if (creature instanceof Werewolf werewolf) {
+                                werewolf.setTransformed(werewolf.getTransformed());
+                                if (werewolf.getTransformed() == true){
+                                    missedMessages.add(werewolf.getName() + " is transformed and fight the ZOO Master");
+                                    if (yesOrNo == 1){
+                                        werewolf.die(" Kill by the ZOO master");
+                                    }
+                                    else {
+                                        missedMessages.add("The ZOO master is dead, " + werewolf.getName() + " is the new ZOO master");
+                                        missedMessages.add("GAME OVER");
+                                        System.exit(0);
                                     }
                                 }
-                                break;
+                                if (yesOrNo == 0) {
+                                    if (cryTypeChoice == 0){
+                                        missedMessages.add(werewolf.cry(CryType.APPARTENANCE));
+                                    } else if (cryTypeChoice == 1) {
+                                        missedMessages.add(werewolf.cry(CryType.DOMINATION));
+                                    } else if (cryTypeChoice == 2) {
+                                        missedMessages.add(werewolf.cry(CryType.SOUMISSION));
+                                    } else if (cryTypeChoice == 3) {
+                                        missedMessages.add(werewolf.cry(CryType.AGGRESSIVITE));
+                                    } else {
+                                        missedMessages.add(werewolf.cry(CryType.GENERICCRY));
+                                    }
+                                }
+                            }
+                            break;
                         case 4: //Malade
                             if (creature.getHealth() > 0 && creature.getSick() !=0) {
                                 missedMessages.add(creature.getName() + " is sick");
