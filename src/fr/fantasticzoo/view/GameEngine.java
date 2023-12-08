@@ -76,7 +76,6 @@ public class GameEngine {
             uiController.setInMenu(true);
             int choice = uiController.selectFromList(defaultChoice, Function.identity(), "Choisissez une option : \n");
             processUserInput(choice);
-
         }
     }
 
@@ -250,7 +249,7 @@ public class GameEngine {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        executorService.schedule(this::monitorPark, 10, TimeUnit.SECONDS);
+        executorService.schedule(this::monitorPark, 50, TimeUnit.SECONDS);
     }
     private Thread getThread(AtomicBoolean exitMonitoring) {
         Thread monitoringThread = new Thread(() -> {
