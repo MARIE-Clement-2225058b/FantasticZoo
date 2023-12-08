@@ -27,17 +27,7 @@ public abstract class Creature {
     private int PregnancyState = 0;
     private int strength;
     private int sick = 0;
-
-    public int getSick() {
-        return sick;
-    }
-
-    public void setSick(int sick) {
-        this.sick = sick +1;
-        if (sick >= 100) {
-            this.die("sickness");
-        }
-    }
+    private SicknessType sicknessType;
 
     public Creature() {
         this.MAX_AGE = 100;
@@ -67,6 +57,42 @@ public abstract class Creature {
         this.sex = sex;
         this.health = MAX_HEALTH;
         this.hunger = MAX_HUNGER;
+    }
+
+/**
+     * Returns the advancement of the sickness level
+     * @return int
+     */
+    public int getSick() {
+        return sick;
+    }
+
+    /**
+     * Returns the sickness type
+     * @return SicknessType
+     */
+    public SicknessType getSicknessType() {
+        return sicknessType;
+    }
+
+    /**
+     * Sets the sickness type
+     * @param sicknessType
+     */
+    public void setSicknessType(SicknessType sicknessType) {
+        this.sicknessType = sicknessType;
+    }
+
+    /**
+     * Sets the advancement of the sickness level
+     * If the sickness level is greater than 100, the animal dies of the sickness
+     * @param sick
+     */
+    public void setSick(int sick) {
+        this.sick = sick + 1;
+        if (sick >= 100) {
+            this.die(getSicknessType().sicknessName);
+        }
     }
 
     /**
@@ -170,6 +196,7 @@ public abstract class Creature {
     public void heal() {
         this.setHealth(MAX_HEALTH);
         this.sick = 0;
+        this.sicknessType = null;
         System.out.println(this.name + " has been healed.");
     }
 
