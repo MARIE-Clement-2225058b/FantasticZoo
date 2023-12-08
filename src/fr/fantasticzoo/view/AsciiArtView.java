@@ -4,18 +4,31 @@ import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.characteristics.Egg;
 import fr.fantasticzoo.model.animals.types.*;
 
+/**
+ * This class is used to display the asciiArt of the creatures
+ */
 public class AsciiArtView {
 
+    /**
+     * Renders the asciiArt for the creatures
+     */
     public void renderAnimal(Creature creature) {
         String asciiArt = getAsciiArtForAnimal(creature);
         System.out.println(asciiArt);
     }
 
+    /**
+     * Renders the asciiArt for the Egg
+     */
     public void renderEgg() {
         String asciiArt = getAsciiArtForEgg();
         System.out.println(asciiArt);
     }
 
+    /**
+     * @return asciiArt
+     * @see #getAsciiZooMaster()
+     */
     private String getAsciiArtForAnimal(Creature creature) {
         if (creature instanceof Werewolf) {
             return getAsciiWerewolf();

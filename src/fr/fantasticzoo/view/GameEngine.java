@@ -24,6 +24,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
+/**
+ * This class is the main class of the game.
+ * It contains the main method and the game loop.
+ * It also contains the main menu and the monitoring of the park.
+ */
 public class GameEngine {
 
     private final Scanner scanner;
@@ -35,6 +40,11 @@ public class GameEngine {
     private final EnclosureController enclosureController;
     private final AnimalController animalController;
 
+    /**
+     * This is the main method of the game.
+     * It creates a new instance of GameEngine and calls the startGame method.
+     * It initializes the zoo and the player, creates a default enclosure and adds two dragons to it.
+     */
     public GameEngine() {
 
             ArrayList<Enclosure> enclosures = new ArrayList<>();
@@ -73,6 +83,11 @@ public class GameEngine {
 
     }
 
+    /**
+     * This method starts the game loop.
+     * It schedules the different tasks of the game (thread pool).
+     * It also calls the main menu.
+     */
     public void startGame() {
         executorService.scheduleAtFixedRate(animalController::decreaseHungerForAllAnimals, 0, 15, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(animalController::randomlyTriggerAnimalBehaviors, 0, 25, TimeUnit.SECONDS);
@@ -91,6 +106,10 @@ public class GameEngine {
         }
     }
 
+    /**
+     * This method displays the main menu and calls the corresponding method according to the user's choice.
+     * @param choice is the user's choice.
+     */
     private void processUserInput(int choice) {
         Enclosure selectedEnclosure;
         ArrayList<Enclosure> enclosures = zoo.getEnclosures();
@@ -242,6 +261,11 @@ public class GameEngine {
 
     }
 
+    /**
+     * This method monitors the park.
+     * It displays the missed messages every 2 seconds.
+     * It also displays the main menu for 50 seconds.
+     */
     private void monitorPark() {
         uiController.setInMenu(false);
         AtomicBoolean exitMonitoring = new AtomicBoolean(false);
@@ -270,6 +294,12 @@ public class GameEngine {
         }
         executorService.schedule(this::monitorPark, 50, TimeUnit.SECONDS);
     }
+
+    /**
+     * This method creates a thread that displays the missed messages every 2 seconds.
+     * @param exitMonitoring is an AtomicBoolean that is set to true when the user presses 'Enter'.
+     * @return the thread that displays the missed messages.
+     */
     private Thread getThread(AtomicBoolean exitMonitoring) {
         Thread monitoringThread = new Thread(() -> {
             while (!exitMonitoring.get()) {
