@@ -14,6 +14,7 @@ import fr.fantasticzoo.model.zoo.FantasticZoo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -40,11 +41,12 @@ public class GameEngine {
 
             defaultChoice.addAll(
                     List.of("Examiner un enclos",
-                    "Nettoyer un enclos",
-                    "Nourrir les créatures",
-                    "Transférer une créature",
-                    "Construire un enclos",
-                    "Surveiller le parc"));
+                            "Nettoyer un enclos",
+                            "Nourrir les créatures",
+                            "Transférer une créature",
+                            "Construire un enclos",
+                            "Acheter une créature",
+                            "Surveiller le parc"));
 
             ZooMaster player = new ZooMaster();
 
@@ -157,6 +159,71 @@ public class GameEngine {
                 }
                 break;
             case 6:
+                System.out.println("Select the type of the creature : ");
+                int creatureType = uiController.selectFromList(
+                        List.of("Dragon", "Kraken", "Megalodons", "Mermaids", "Nymphs", "Phoenix", "Unicorn", "Werewolf \uFE0F"),
+                        Function.identity(),
+                        "Choose a creature type : \n");
+                Creature creature;
+                switch (creatureType) {
+                    case 1 :
+                        creature = new Dragons();
+                        break;
+                    case 2 :
+                        creature = new Kraken();
+                        break;
+                    case 3 :
+                        creature = new Megalodons();
+                        break;
+                    case 4 :
+                        creature = new Mermaids();
+                        break;
+                    case 5 :
+                        creature = new Nymphs();
+                        break;
+                    case 6 :
+                        creature = new Phoenix();
+                        break;
+                    case 7 :
+                        creature = new Unicorn();
+                        break;
+                    case 8 :
+                        creature = new Werewolf();
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + creatureType);
+                }
+
+                Enclosure suitableEnclosure = null;
+
+                for(Enclosure enclosure : enclosures) {
+                    if(enclosure.getCreatureType() == null || enclosure.getCreatureType().getClass().equals(creature.getClass())) {
+                        if(enclosure.getAnimalCount() <= enclosure.getMaxAnimal()) {
+                            suitableEnclosure = enclosure;
+                        }
+                    }
+                }
+
+                if(suitableEnclosure != null) {
+                    suitableEnclosure.addCreature(creature);
+                } else {
+                    System.out.println("No suitable enclosure found.");
+                }
+
+                System.out.println("Enter the name of the creature : ");
+                String creatureName = uiController.readString();
+                creature.setName(creatureName);
+
+                int sexType = uiController.selectFromList(List.of(SexType.MALE.name(), SexType.FEMALE.name()), Function.identity(), "Select the sex of the creature");
+                creature.setSex(sexType == 0 ? SexType.MALE : SexType.FEMALE) ;
+
+                System.out.println("Enter the weight of the creature : ");
+                Random random = new Random();
+                int weight = random.nextInt(1000)+50;
+                creature.setWeight(weight);
+
+                break;
+            case 7 :
                 monitorPark();
                 break;
             default:
@@ -173,7 +240,7 @@ public class GameEngine {
         System.out.println("Monitoring the park. Press 'Enter' to go to the main menu for 50 seconds...");
 
         Thread inputThread = new Thread(() -> {
-            scanner.nextLine();
+            if(scanner.hasNextLine())  scanner.nextLine();
             exitMonitoring.set(true);
         });
 

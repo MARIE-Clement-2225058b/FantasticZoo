@@ -63,7 +63,6 @@ public class UIController {
         int choice;
         while (true) {
             try {
-                System.out.println("Is in menu " + isInMenu);
 
                 if (!isInMenu) {
                     throw new InterruptedException("Not in choice menu.");

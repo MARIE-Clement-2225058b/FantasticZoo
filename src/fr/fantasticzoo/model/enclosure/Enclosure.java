@@ -133,6 +133,7 @@ public class Enclosure {
         }
         if (animals.size() < maxAnimal) {
             animals.add(creature);
+            System.out.println("The " + creature.getClass().getSimpleName() + " has been added to the " + this.getName() + " enclosure.");
         }
     }
 }
