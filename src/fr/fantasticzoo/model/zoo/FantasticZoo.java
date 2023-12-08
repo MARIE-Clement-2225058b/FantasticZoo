@@ -35,6 +35,9 @@ public class FantasticZoo {
         this.name = name;
     }
 
+    /**
+     * @param enclosure
+     */
     public void addEnclosure(Enclosure enclosure) {
         if (enclosures.size() < MaxEnclosure) {
             enclosures.add(enclosure);
@@ -43,18 +46,30 @@ public class FantasticZoo {
         }
     }
 
+    /**
+     * @param enclosure
+     */
     public void removeEnclosure(Enclosure enclosure) {
         enclosures.remove(enclosure);
     }
 
+    /**
+     * @return maxEnclosure
+     */
     public int getMaxEnclosure() {
         return MaxEnclosure;
     }
 
+    /**
+     * @return enclosures size
+     */
     public int getCreatedEnclosuresNumber() {
         return enclosures.size();
     }
 
+    /**
+     * @return animals number
+     */
     public int getCreatedAnimalsNumber() {
         int animalsNumber = 0;
         for (Enclosure enclosure : enclosures) {
@@ -63,22 +78,37 @@ public class FantasticZoo {
         return animalsNumber;
     }
 
+    /**
+     * @return list of all enclosures
+     */
     public ArrayList<Enclosure> getEnclosures() {
         return enclosures;
     }
 
+    /**
+     * @return zoo master
+     */
     public ZooMaster getZooMaster() {
         return zooMaster;
     }
 
+    /**
+     * @param zooMaster
+     */
     public void setZooMaster(ZooMaster zooMaster) {
         this.zooMaster = zooMaster;
     }
 
+    /**
+     * @return incubator
+     */
     public Incubator getIncubator() {
         return incubator;
     }
 
+    /**
+     * @param incubator
+     */
     public void setIncubator(Incubator incubator) {
         this.incubator = incubator;
     }

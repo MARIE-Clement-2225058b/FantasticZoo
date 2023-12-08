@@ -17,6 +17,11 @@ public class Aviary extends Enclosure{
         super(name);
     }
 
+    /**
+     *
+     * @param creature
+     * @return
+     */
     @Override
     public boolean addCreature(Creature creature) {
         if(creature instanceof Flying) {
