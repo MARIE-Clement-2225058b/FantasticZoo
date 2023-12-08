@@ -6,8 +6,10 @@ import fr.fantasticzoo.model.animals.behaviors.Running;
 import fr.fantasticzoo.model.animals.behaviors.Swimming;
 import fr.fantasticzoo.model.animals.characteristics.ActionType;
 import fr.fantasticzoo.model.animals.characteristics.CryType;
+import fr.fantasticzoo.model.animals.characteristics.Egg;
 import fr.fantasticzoo.model.animals.types.Werewolf;
 import fr.fantasticzoo.model.enclosure.Enclosure;
+import fr.fantasticzoo.model.zoo.FantasticZoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,11 @@ import static fr.fantasticzoo.view.GameEngine.missedMessages;
 
 public class AnimalController {
     private final UIController uiController;
+    private final FantasticZoo zoo;
 
-    public AnimalController(UIController uiController, ArrayList<Enclosure> enclosures) {
+    public AnimalController(UIController uiController, FantasticZoo zoo) {
         this.uiController = uiController;
+        this.zoo = zoo;
     }
 
     public void randomlyTriggerAnimalBehaviors() {
@@ -92,6 +96,27 @@ public class AnimalController {
             e.printStackTrace();
         }
     }
+    public void layingHandler(){
+        for (Egg egg : zoo.getIncubator().getEggs()) {
+            egg.setTimeRemainingBeforeHatch(egg.getTimeRemainingBeforeHatch() - 1);
+            if (egg.getTimeRemainingBeforeHatch() <= 0) {
+                Creature creature = egg.hatch();
+                Enclosure suitableEnclosure = null;
+                for (Enclosure enclosure : enclosures) {
+                    if (enclosure.addCreature(creature)) {
+                        missedMessages.add(creature.getName() + " has hatched and has been added to " + enclosure.getName());
+                        suitableEnclosure = enclosure;
+                        break;
+                    }
+                }
+                if (suitableEnclosure == null) {
+                    missedMessages.add(creature.getName() + " has hatched but there is no suitable enclosure for it. It has been released into the wild.");;
+                }
+            }
+        }
+
+    }
+
 
     public void decreaseHungerForAllAnimals() {
         Random rand = new Random();
