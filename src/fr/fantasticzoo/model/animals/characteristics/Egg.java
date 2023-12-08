@@ -35,7 +35,7 @@ public class Egg {
         this.name = mother.getName() + "'s Egg";
         Random rand = new Random();
         // entre 400 et 800 unités de temps
-        this.timeRemainingBeforeHatch = rand.nextInt(10) + 20;
+        this.timeRemainingBeforeHatch = rand.nextInt(401) + 400;
         this.mother = mother;
     }
 

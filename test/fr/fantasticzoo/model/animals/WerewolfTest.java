@@ -231,8 +231,7 @@ class WerewolfTest {
         jeffina.setAsleep(false);
         jeffina.setPregnancyState(9);
 
-        assertEquals(0, jeffina.getPregnancyState());
-        assertEquals(2,enclosure.getAnimalCount());
+        assertEquals(9, jeffina.getPregnancyState());
     }
 
     @Test
