@@ -35,7 +35,7 @@ public abstract class Creature {
         this.MAX_HEALTH = 100;
         this.MAX_HUNGER = 100;
         this.name = "Creature";
-        this.sex = SexType.MALE;
+        this.sex = SexType.getRandomSex();
         this.health = MAX_HEALTH;
         this.hunger = MAX_HUNGER;
     }

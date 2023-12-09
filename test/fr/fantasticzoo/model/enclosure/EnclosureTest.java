@@ -2,16 +2,13 @@ package fr.fantasticzoo.model.enclosure;
 
 import fr.fantasticzoo.model.animals.Creature;
 import fr.fantasticzoo.model.animals.characteristics.SexType;
-import fr.fantasticzoo.model.animals.types.Dragons;
 import fr.fantasticzoo.model.animals.types.Mermaids;
 import fr.fantasticzoo.model.animals.types.Nymphs;
 import fr.fantasticzoo.model.animals.types.Werewolf;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EnclosureTest {
     static Mermaids ariel = new Mermaids();
