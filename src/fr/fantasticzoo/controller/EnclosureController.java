@@ -44,7 +44,7 @@ public class EnclosureController {
      * @param firstEnclosureIndex, otherEnclosures
      */
     public Enclosure chooseEnclosure(int firstEnclosureIndex, ArrayList<Enclosure> otherEnclosures) {
-        otherEnclosures.remove(firstEnclosureIndex);
+        //otherEnclosures.remove(firstEnclosureIndex);
         return otherEnclosures.get(uiController.selectFromList(otherEnclosures, Enclosure::getDescription, "Choose a second enclosure:") - 1);
     }
 }

@@ -173,14 +173,15 @@ public class Enclosure {
      * @return true if the creature has been moved
      */
     public boolean transfertCreature(Enclosure another, Creature creature) {
-        if(!this.animals.contains(creature)) return false;
+        if (this.animals.contains(creature)) return false;
 
-        if(another.addCreature(creature))
+        if (another.addCreature(creature)) {
             this.animals.remove(creature);
-        else
+            return true;
+        } else {
             System.out.println("The " + creature.getClass().getSimpleName() + " can't be added to the " + another.getName() + " enclosure.");
-
-        return true;
+            return false;
+        }
     }
 
     /**
