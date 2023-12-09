@@ -233,7 +233,7 @@ public class GameEngine {
                 creature.setName(creatureName);
 
                 int sexType = uiController.selectFromList(List.of(SexType.MALE.name(), SexType.FEMALE.name()), Function.identity(), "Select the sex of the creature");
-                creature.setSex(sexType == 0 ? SexType.MALE : SexType.FEMALE) ;
+                creature.setSex(sexType == 1 ? SexType.MALE : SexType.FEMALE) ;
 
                 Random random = new Random();
                 int weight = random.nextInt(1000)+50;
